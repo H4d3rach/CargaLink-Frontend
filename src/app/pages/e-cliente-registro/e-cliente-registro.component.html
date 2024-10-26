@@ -1,0 +1,169 @@
+<div class="container"> <!--Diseño del contenedor dónde estará el Header--> 
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+        <div class="col-md-3 mb-2 mb-md-0">
+            <a href="/"
+                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <img src="assets/iconoprincipal.png" alt="Logo" width="auto" height="35" class="me-2">
+                <span class="fs-4">CargaLink</span>
+            </a>
+        </div>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a routerLink="/" class="nav-link-custom px-2">Principal</a></li>
+            <li><a routerLink="/etransporte_registro" class="nav-link-custom px-2">Empresa Transportista</a></li>
+            <li><a routerLink="/ecliente_registro" class="nav-link-custom px-2 active">Empresa cliente</a></li>
+            <li><a routerLink="/nosotros" class="nav-link-custom px-2">Nosotros</a></li>
+        </ul>
+
+        <div class="col-md-3 text-end">
+            <button routerLink="/login" type="button" class="btn btn-outline-dark me-2">Iniciar Sesión</button>
+        </div>
+    </header>
+</div>
+
+<div class="position-relative"> <!--Imagen de header-->
+    <img src="assets/registro_ec.png" alt="Header registro de clientes" class="img-fluid">
+</div>
+
+<div class="container registro-container"> <!--Contenedor que te redirije a la sección de registro si no tienes cuenta-->
+    <p class="registro-text">Registro de empresa Cliente</p>
+    <p class="text-question">¿Ya tienes cuenta?</p>
+    <button routerLink="/login" class="btn btn-registro">Iniciar sesión</button>
+</div>
+<div class="container"> <!--Contenedor del formulario de registro-->
+    <div class="registro-form">
+        <div class="registro-form2">
+            <form [formGroup]="ecliForm"> <!--Inicialización del formulario-->
+                <div class="mb-5"> <!--Todos los if en el formulario son por las validaciones, si no se cumplen se muestran-->
+                    <label for="RazonSocial" class="form-label form-texto text-registro-form">Razón social</label>
+                    <input formControlName="razonSocial" type="text" class="form-control" id="RazonSocial" aria-describedby="razonSocial"
+                        placeholder="Ejemplo S.A. de C.V.">
+                        @if(razonSocial.invalid && (razonSocial.dirty || razonSocial.touched)){
+                            <div class="text-danger">
+                                @if (razonSocial.errors?.['required']) {
+                                    <div>Debe ingresar la razón social</div>
+                                }
+                            </div>
+                        }
+                </div>
+                <div class="mb-5">
+                    <label for="NombreComercial" class="form-label form-texto text-registro-form">Nombre
+                        comercial</label>
+                    <input formControlName="nombreComercial" type="text" class="form-control" id="NombreComercial" aria-describedby="nombreComercial"
+                        placeholder="Nombre">
+                        @if(nombreComercial.invalid && (nombreComercial.dirty || nombreComercial.touched)){
+                            <div class="text-danger">
+                                @if (nombreComercial.errors?.['required']) {
+                                    <div>Debe ingresar el nombre comercial</div>
+                                }
+                            </div>
+                        }
+                </div>
+                <div class="mb-5">
+                    <label for="RFC" class="form-label form-texto text-registro-form">RFC</label>
+                    <input formControlName="rfc" type="text" class="form-control" id="RFC" aria-describedby="rfc" placeholder="XXX123456XXX">
+                    @if(rfc.invalid && (rfc.dirty || rfc.touched)){
+                        <div class="text-danger">
+                            @if (rfc.errors?.['required']) {
+                                <div>Debe ingresar el rfc</div>
+                            }
+                            @if(rfc.errors?.['pattern']){
+                                <div>El formato de RFC es inválido</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="mb-5">
+                    <label for="logo" class="form-label text-registro-form">Logo de la empresa (adjunta un archivo .jpg
+                        o .png)</label>
+                    <input formControlName="logo" class="form-control form-control-lg" id="logo" type="file" accept=".jpg, .jpeg, .png" (change)="onLogoSelect($event)">
+                    @if(logo.invalid && (logo.dirty || logo.touched)){
+                        <div class="text-danger">
+                            @if (logo.errors?.['required']) {
+                                <div>Debe adjuntar el logo</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="mb-5">
+                    <label for="direccion" class="form-label text-registro-form">Dirección de las oficinas
+                        principales</label>
+                    <textarea formControlName="direccion" class="form-control" id="direccion" rows="3" placeholder="E.g. Av Instituto Politécnico Nacional 2580, La Laguna Ticoman, Gustavo A. Madero, 07340 Ciudad de México, CDMX"></textarea>
+                    @if(direccion.invalid && (direccion.dirty || direccion.touched)){
+                        <div class="text-danger">
+                            @if (direccion.errors?.['required']) {
+                                <div>Debe ingresar la dirección</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="mb-5">
+                    <label for="descripcion" class="form-label text-registro-form">Descripción de la empresa</label>
+                    <textarea formControlName="descripcion" class="form-control" id="descripcion" rows="3" placeholder="E.g. Somos una empresa lider en el sector del transporte, destacando por el honor, calidad y atención"></textarea>
+                    @if(descripcion.invalid && (descripcion.dirty || descripcion.touched)){
+                        <div class="text-danger">
+                            @if (descripcion.errors?.['required']) {
+                                <div>Debe ingresar una descripción</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="mb-5">
+                <p class="text-question">*Todos los campos son obligatorios</p>
+            </div>
+                <div class="div-btn-login"> <!--Botón para registrar empresa que llama la función registroParcial en el ts-->
+                    <button (click)="registroParcial()" class="btn btn-custumed">Siguiente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer class="py-5 my-5 border-top"> <!--Contenedor del footer-->
+    <div class="container">
+        <div class="row row row-cols-1 row-cols-sm-2 row-cols-md-5">
+            <div class="col mb-3">
+                <a href="/"
+                    class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none text-cargalink_1-67">CargaLink
+                    CDMX</a>
+                <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                    <img src="assets/iconoprincipal.png" alt="Logo" width="auto" height="35" class="me-2">
+                </a>
+                <p class="text-body-secondary text_footer_items">cargalinkcdmx&#64;gmail.com</p>
+            </div>
+
+            <div class="col col-md-4 mb-3">
+
+            </div>
+
+            <div class="col mb-3">
+                <h5 class="text_footer_titulos">Enlaces</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a routerLink="/" class="nav-link p-0 text_footer_items">Principal</a></li>
+                    <li class="nav-item mb-2"><a routerLink="/etransporte_registro" class="nav-link p-0 text_footer_items">Empresas
+                            transportistas</a></li>
+                    <li class="nav-item mb-2"><a routerLink="/ecliente_registro" class="nav-link p-0 text_footer_items">Empresas
+                            cliente</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col mb-3">
+                <h5 class="text_footer_titulos">Ayuda</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a routerLink="/login" class="nav-link p-0 text_footer_items">Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item mb-2"><a routerLink="/terms" class="nav-link p-0 text_footer_items">Terminos y
+                            condiciones</a></li>
+                    <li class="nav-item mb-2"><a routerLink="/police" class="nav-link p-0 text_footer_items">Politica de
+                            privacidad</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            </ul>
+            <p class="text-center text-body-secondary">© 2024 CargaLink CDMX. Todos los derechos reservados</p>
+        </div>
+    </div>
+</footer>

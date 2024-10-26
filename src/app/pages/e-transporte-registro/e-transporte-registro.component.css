@@ -1,0 +1,108 @@
+.text-cargalink_1-67 {
+    color: #000000;
+    font-size: 24px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0%;
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .nav-link-custom{
+    color: black;
+    text-decoration: none;
+  }
+  .nav-link-custom:hover {
+    color: #333; 
+  }
+  .nav-link-custom.active {
+    color: #333;
+    font-weight: bold; 
+  }
+  .text_footer_titulos{
+    color:#000000;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0%;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .text_footer_items{
+    color: #9f9f9f;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .registro-container{
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  .btn-custumed{
+    color: #ffffff;
+    background-color: #B88E2F;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0%;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 15px 15px 15px 15px;
+    width: 60%;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custumed:hover {
+  background-color: #a77c29;
+  color: #fff; 
+}
+.btn-registro{
+  background-color: #005E72;
+  max-width: 50%;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0%;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 15px 15px 15px 15px;
+}
+.registro-form{
+    margin-top: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 40px;
+    padding-right: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.registro-form2{
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.text-question{
+  color:#9F9F9F;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0%;
+  text-decoration: none;
+  font-weight: 200;
+}
+.registro-text{
+    font-size: 48px;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    font-weight: 500;
+}
+.text-registro-form{
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+  font-weight: 500;
+}

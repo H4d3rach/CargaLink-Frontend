@@ -1,0 +1,345 @@
+<div class="d-flex">
+    <div [class.collapsed]="isSidebarCollapsed" class="sidebar">
+        <div class="clasedeprueba">
+            <span class="logospan">
+                <img src="assets/iconoprincipal.png" alt="Logo" width="50" height="50">
+            </span>
+            @if (!isSidebarCollapsed) {
+            <span class="sideTitle">CargaLink</span>
+            }
+        </div>
+        @if (!isSidebarCollapsed) {
+        <div class="bienvenida">
+            <span class="bienvenida-text">Menú principal</span>
+        </div>
+        <hr class="bienvenida-hr">
+        }
+        <ul class="nav flex-column">
+            <li class="nav-item sidebar-custom">
+                <a class="nav-link d-flex align-items-center sidebar-custom-2" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                        class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                        <path
+                            d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"
+                            stroke="white" />
+                    </svg>
+                    @if (!isSidebarCollapsed) {
+                    <span class="ms-2 text-sidebar">Cargas disponibles</span>
+                    }
+                </a>
+            </li>
+            <li class="nav-item sidebar-custom">
+                <a class="nav-link d-flex align-items-center sidebar-custom-2" href="#">
+                    <svg width="25" height="25" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M9.66531 12.0145C11.0295 12.0145 12.1353 10.8504 12.1353 9.41445C12.1353 7.97851 11.0295 6.81445 9.66531 6.81445C8.30117 6.81445 7.19531 7.97851 7.19531 9.41445C7.19531 10.8504 8.30117 12.0145 9.66531 12.0145Z"
+                            stroke="white" stroke-width="1.5" />
+                        <path
+                            d="M3.03105 7.89784C4.59063 0.681171 14.7477 0.689504 16.2994 7.90617C17.2098 12.1395 14.7081 15.7228 12.5152 17.9395C10.924 19.5562 8.40647 19.5562 6.8073 17.9395C4.6223 15.7228 2.12063 12.1312 3.03105 7.89784Z"
+                            stroke="white" stroke-width="1.5" />
+                    </svg>
+                    @if (!isSidebarCollapsed) {
+                    <span class="ms-2 text-sidebar">Sedes</span>
+                    }
+                </a>
+            </li>
+            <li class="nav-item sidebar-custom">
+                <a class="nav-link d-flex align-items-center sidebar-custom-2" href="#">
+                    <svg width="25" height="25" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8.47731 8.40435C8.40896 8.39751 8.32693 8.39751 8.25174 8.40435C6.62491 8.34966 5.33301 7.01675 5.33301 5.37625C5.33301 3.70156 6.68643 2.34131 8.36794 2.34131C10.0426 2.34131 11.4029 3.70156 11.4029 5.37625C11.396 7.01675 10.1041 8.34966 8.47731 8.40435Z"
+                            stroke="white" stroke-width="1.36709" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M5.05899 10.9267C3.40482 12.034 3.40482 13.8386 5.05899 14.9391C6.93874 16.1968 10.0215 16.1968 11.9013 14.9391C13.5554 13.8318 13.5554 12.0272 11.9013 10.9267C10.0284 9.6758 6.94557 9.6758 5.05899 10.9267Z"
+                            stroke="white" stroke-width="1.36709" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    @if (!isSidebarCollapsed) {
+                    <span class="ms-2 text-sidebar">Transportistas</span>
+                    }
+                </a>
+            </li>
+            <li class="nav-item sidebar-custom">
+                <a class="nav-link d-flex align-items-center sidebar-custom-2" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                        class="bi bi-truck" viewBox="0 0 16 16">
+                        <path
+                            d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5zm1.294 7.456A2 2 0 0 1 4.732 11h5.536a2 2 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456M12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2"
+                            stroke="white" />
+                    </svg>
+                    @if (!isSidebarCollapsed) {
+                    <span class="ms-2 text-sidebar">Vehículos</span>
+                    }
+                </a>
+            </li>
+            <li class="nav-item sidebar-custom">
+                <a class="nav-link d-flex align-items-center sidebar-custom-2" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="bi bi-truck-front"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M5 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0m8 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-6-1a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2zM4 2a1 1 0 0 0-1 1v3.9c0 .625.562 1.092 1.17.994C5.075 7.747 6.792 7.5 8 7.5s2.925.247 3.83.394A1.008 1.008 0 0 0 13 6.9V3a1 1 0 0 0-1-1zm0 1h8v3.9q0 .002 0 0l-.002.004-.005.002h-.004C11.088 6.761 9.299 6.5 8 6.5s-3.088.26-3.99.406h-.003l-.005-.002L4 6.9q0 .002 0 0z"
+                            stroke="white" />
+                        <path
+                            d="M1 2.5A2.5 2.5 0 0 1 3.5 0h9A2.5 2.5 0 0 1 15 2.5v9c0 .818-.393 1.544-1 2v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5V14H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2a2.5 2.5 0 0 1-1-2zM3.5 1A1.5 1.5 0 0 0 2 2.5v9A1.5 1.5 0 0 0 3.5 13h9a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 12.5 1z"
+                            stroke="white" />
+                    </svg>
+                    @if (!isSidebarCollapsed) {
+                    <span class="ms-2 text-sidebar">Semirremolques</span>
+                    }
+                </a>
+            </li>
+            <li class="nav-item sidebar-custom">
+                <a class="nav-link d-flex align-items-center sidebar-custom-2" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                        class="bi bi-clipboard-data" viewBox="0 0 16 16">
+                        <path
+                            d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0z"
+                            stroke="white" />
+                        <path
+                            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"
+                            stroke="white" />
+                        <path
+                            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"
+                            stroke="white" />
+                    </svg>
+                    @if (!isSidebarCollapsed) {
+                    <span class="ms-2 text-sidebar">Trabajos actuales</span>
+                    }
+                </a>
+            </li>
+            <li class="nav-item sidebar-custom">
+                <a class="nav-link d-flex align-items-center sidebar-custom-2 active" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                        class="bi bi-chat" viewBox="0 0 16 16">
+                        <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" stroke="white"/>
+                    </svg>
+                    @if (!isSidebarCollapsed) {
+                    <span class="ms-2 text-sidebar">Chat</span>
+                    }
+                </a>
+            </li>
+        </ul>
+        <div class="close-sesion-side">
+            <hr class="bienvenida-hr">
+            <div class="sidebar-custom">
+                <a class="nav-link d-flex align-items-center sidebar-custom-2" href="#">
+                    <svg width="25" height="25" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.24805 5.96484C6.45995 3.50408 7.7245 2.49927 10.4929 2.49927H10.5817C13.6372 2.49927 14.8607 3.72281 14.8607 6.77825V11.235C14.8607 14.2904 13.6372 15.514 10.5817 15.514H10.4929C7.74501 15.514 6.48045 14.5228 6.25488 12.1031"
+                            stroke="white" stroke-width="1.36709" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M10.4174 8.99976H2.63867" stroke="white" stroke-width="1.36709" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M4.1639 6.71021L1.87402 9.00008L4.1639 11.29" stroke="white" stroke-width="1.36709"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    @if (!isSidebarCollapsed) {
+                    <span class="ms-2 text-sidebar">Cerrar sesión</span>
+                    }
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content w-100">
+        <div class="container-headerbar">
+            <nav class="navbar">
+                <button class="btn btn-outline-custom" (click)="toggleSidebar()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                    </svg>
+                </button>
+
+                <div class="navbar-right">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-custom-2 position-relative" id="dropdownMessages"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-envelope" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm13.32.574l-4.717 3.3a1.75 1.75 0 0 1-1.206 0L2.68 4.574a.5.5 0 1 0-.68.737L6.5 8.91c.747.522 1.753.522 2.5 0l4.5-3.6a.5.5 0 1 0-.68-.737z" />
+                            </svg>
+                            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">3</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end custom-dropdown-menu"
+                            aria-labelledby="dropdownMessages">
+                            <li><a class="dropdown-item" href="#">
+                                    <div class="message-div"><img src="assets/user_chatbot.png" class="img-dropdown">
+                                        <p>Tienes un mensaje de Transoportes Badillo</p>
+                                    </div>
+                                </a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="#">
+                                    <div class="message-div"><img src="assets/user_chatbot.png" class="img-dropdown">
+                                        <p>Tienes un mensaje de Transportes Carrillo</p>
+                                    </div>
+                                </a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="#">
+                                    <div class="message-div"><img src="assets/user_chatbot.png" class="img-dropdown">
+                                        <p>Tienes un mensaje de alguna empresa </p>
+                                    </div>
+                                </a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item text-center text-end-dropdown" href="#">Ver todos los
+                                    mensajes</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-custom-2 position-relative" id="dropdownNotifications"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                viewBox="0 0 50 50">
+                                <path
+                                    d="M 25 0 C 22.800781 0 21 1.800781 21 4 C 21 4.515625 21.101563 5.015625 21.28125 5.46875 C 15.65625 6.929688 12 11.816406 12 18 C 12 25.832031 10.078125 29.398438 8.25 31.40625 C 7.335938 32.410156 6.433594 33.019531 5.65625 33.59375 C 5.265625 33.878906 4.910156 34.164063 4.59375 34.53125 C 4.277344 34.898438 4 35.421875 4 36 C 4 37.375 4.84375 38.542969 6.03125 39.3125 C 7.21875 40.082031 8.777344 40.578125 10.65625 40.96875 C 13.09375 41.472656 16.101563 41.738281 19.40625 41.875 C 19.15625 42.539063 19 43.253906 19 44 C 19 47.300781 21.699219 50 25 50 C 28.300781 50 31 47.300781 31 44 C 31 43.25 30.847656 42.535156 30.59375 41.875 C 33.898438 41.738281 36.90625 41.472656 39.34375 40.96875 C 41.222656 40.578125 42.78125 40.082031 43.96875 39.3125 C 45.15625 38.542969 46 37.375 46 36 C 46 35.421875 45.722656 34.898438 45.40625 34.53125 C 45.089844 34.164063 44.734375 33.878906 44.34375 33.59375 C 43.566406 33.019531 42.664063 32.410156 41.75 31.40625 C 39.921875 29.398438 38 25.832031 38 18 C 38 11.820313 34.335938 6.9375 28.71875 5.46875 C 28.898438 5.015625 29 4.515625 29 4 C 29 1.800781 27.199219 0 25 0 Z M 25 2 C 26.117188 2 27 2.882813 27 4 C 27 5.117188 26.117188 6 25 6 C 23.882813 6 23 5.117188 23 4 C 23 2.882813 23.882813 2 25 2 Z M 27.34375 7.1875 C 32.675781 8.136719 36 12.257813 36 18 C 36 26.167969 38.078125 30.363281 40.25 32.75 C 41.335938 33.941406 42.433594 34.6875 43.15625 35.21875 C 43.515625 35.484375 43.785156 35.707031 43.90625 35.84375 C 44.027344 35.980469 44 35.96875 44 36 C 44 36.625 43.710938 37.082031 42.875 37.625 C 42.039063 38.167969 40.679688 38.671875 38.9375 39.03125 C 35.453125 39.753906 30.492188 40 25 40 C 19.507813 40 14.546875 39.753906 11.0625 39.03125 C 9.320313 38.671875 7.960938 38.167969 7.125 37.625 C 6.289063 37.082031 6 36.625 6 36 C 6 35.96875 5.972656 35.980469 6.09375 35.84375 C 6.214844 35.707031 6.484375 35.484375 6.84375 35.21875 C 7.566406 34.6875 8.664063 33.941406 9.75 32.75 C 11.921875 30.363281 14 26.167969 14 18 C 14 12.261719 17.328125 8.171875 22.65625 7.21875 C 23.320313 7.707031 24.121094 8 25 8 C 25.886719 8 26.679688 7.683594 27.34375 7.1875 Z M 21.5625 41.9375 C 22.683594 41.960938 23.824219 42 25 42 C 26.175781 42 27.316406 41.960938 28.4375 41.9375 C 28.792969 42.539063 29 43.25 29 44 C 29 46.222656 27.222656 48 25 48 C 22.777344 48 21 46.222656 21 44 C 21 43.242188 21.199219 42.539063 21.5625 41.9375 Z">
+                                </path>
+                            </svg>
+
+                            <span
+                                class="badge bg-warning text-dark position-absolute top-0 start-100 translate-middle">5</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end custom-dropdown-menu"
+                            aria-labelledby="dropdownNotifications">
+                            <li><a class="dropdown-item" href="#">
+                                    <div class="message-div"><img src="assets/user_chatbot.png" class="img-dropdown">
+                                        <p>Luis Armando ha empezado el viaje</p>
+                                    </div>
+                                </a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="#">
+                                    <div class="message-div"><img src="assets/user_chatbot.png" class="img-dropdown">
+                                        <p>Carlos Alberto ha entregado la carga</p>
+                                    </div>
+                                </a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="#">
+                                    <div class="message-div"><img src="assets/user_chatbot.png" class="img-dropdown">
+                                        <p>Jim Root ha tenido un problema</p>
+                                    </div>
+                                </a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item text-center text-end-dropdown" href="#">Ver todas las
+                                    notificaciones</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-custom-2" id="dropdownUser" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                <path fill-rule="evenodd"
+                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                            </svg>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
+                            <li><a class="dropdown-item" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                        height="16" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
+                                        <path
+                                            d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3q0-.405-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708M3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z" />
+                                    </svg><span style="margin-left: 10px;">Configuración</span></a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#"><svg width="25" height="25" viewBox="0 0 17 18"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M6.24805 5.96484C6.45995 3.50408 7.7245 2.49927 10.4929 2.49927H10.5817C13.6372 2.49927 14.8607 3.72281 14.8607 6.77825V11.235C14.8607 14.2904 13.6372 15.514 10.5817 15.514H10.4929C7.74501 15.514 6.48045 14.5228 6.25488 12.1031"
+                                            stroke="black" stroke-width="1.36709" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M10.4174 8.99976H2.63867" stroke="black" stroke-width="1.36709"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M4.1639 6.71021L1.87402 9.00008L4.1639 11.29" stroke="black"
+                                            stroke-width="1.36709" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg><span style="margin-left: 10px;">Cerrar sesión</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!--Aqui inicia el contenido principal de la página-->
+        <div class="mt-4">
+            <p class="title-principal">Chat</p>
+            <hr>
+            <div class="container">
+            <div class="my-3 p-3 bg-light rounded shadow-sm barra">
+                <h6 class="lh-sm border-bottom pb-2 mb-0 text-header">Usuarios disponibles para chatear</h6>
+                <div class="d-flex text-body-secondary pt-3 chat-item">
+                  <img src="assets/cargas_prueba.png" class="chat-img">
+                  <p class="pb-3 mb-0 small lh-sm border-bottom text-message">
+                    <strong class="d-block text-gray-dark text-name">Alan Alejandre</strong>
+                    Some representative placeholder content, with some information about this user. Imagine this being some sort of status update, perhaps?
+                  </p>
+                </div>
+                <div class="d-flex text-body-secondary pt-3 chat-item">
+                    <img src="assets/prueba_logo.jpg" class="chat-img">
+                  <p class="pb-3 mb-0 small lh-sm border-bottom text-message">
+                    <strong class="d-block text-gray-dark text-name">Ismael Estanislao</strong>
+                    Some more representative placeholder content, related to this other user. Another status update, perhaps.
+                  </p>
+                </div>
+                <div class="d-flex text-body-secondary pt-3 chat-item">
+                    <img src="assets/prueba_logo.jpg" class="chat-img">
+                  <p class="pb-3 mb-0 small lh-sm border-bottom text-message">
+                    <strong class="d-block text-gray-dark text-name">Karla Gil</strong>
+                    This user also gets some representative placeholder content. Maybe they did something interesting, and you really want to highlight this in the recent updates.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="chatbot-container">
+                <button class="chatbot-button" (click)="funcionChat()">
+                    <img src="assets/icono_chatbot.png" alt="Imagen del chatbot" class="chatbot-img">
+                </button>
+            </div>
+            @if (chatOpen) {
+            <div class="chat-window">
+                <div class="chat-header">
+                    <h5>Chatbot</h5>
+                    <a (click)="funcionChat()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                            class="bi bi-x-lg" viewBox="0 0 16 16">
+                            <path
+                                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="chat-body">
+                    <div class="message chabot-message">
+                        <img src="assets/icono_chatbot.png" class="chatbot-avatar">
+                        <div class="message-content">
+                            <p>Hola, ¿Cómo puedo ayudarte hoy?</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="message user-message">
+                        <img src="assets/user_chatbot.png" class="user-avatar">
+                        <div class="message-content">
+                            <p>Ayudame con esto por favor</p>
+                        </div>
+                    </div>
+                    <div class="message chabot-message">
+                        <img src="assets/icono_chatbot.png" class="chatbot-avatar">
+                        <div class="message-content">
+                            <p>Hola, ¿Cómo puedo ayudarte hoy?</p>
+                        </div>
+                    </div>
+                    <div class="message user-message">
+                        <img src="assets/user_chatbot.png" class="user-avatar">
+                        <div class="message-content">
+                            <p>Ayudame con esto por favor</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-footer">
+                    <input type="text" placeholder="Escribe tu mensaje..." class="form-control">
+                    <button class="btn btn-dark">Enviar</button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

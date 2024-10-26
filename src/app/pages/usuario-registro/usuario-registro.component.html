@@ -1,0 +1,204 @@
+<div class="container"> <!--Contenedor que tiene el headbar-->
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+        <div class="col-md-3 mb-2 mb-md-0">
+            <a href="/"
+                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <img src="assets/iconoprincipal.png" alt="Logo" width="auto" height="35" class="me-2">
+                <span class="fs-4">CargaLink</span>
+            </a>
+        </div>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a routerLink="/" class="nav-link-custom px-2">Principal</a></li>
+            <li><a routerLink="/etransporte_registro" class="nav-link-custom px-2">Empresa Transportista</a></li>
+            <li><a routerLink="/ecliente_registro" class="nav-link-custom px-2">Empresa cliente</a></li>
+            <li><a routerLink="/nosotros" class="nav-link-custom px-2">Nosotros</a></li>
+        </ul>
+
+        <div class="col-md-3 text-end">
+            <button routerLink="/login" type="button" class="btn btn-outline-dark me-2">Iniciar Sesión</button>
+        </div>
+    </header>
+</div>
+
+<div class="position-relative"> <!--Contenedor de la imagen de bienvenida-->
+    <img src="assets/registro_user.png" alt="Header registro de usuarios" class="img-fluid">
+</div>
+
+<div class="container registro-container">
+    <p class="registro-text">Registro del representante</p>
+</div>
+
+<div class="container"> <!--Contenedor del formulario-->
+    <div class="registro-form">
+        <div class="registro-form2">
+            <form [formGroup]="userForm"> <!--Inicializacion del formulario-->
+                <div class="mb-5 row">
+                    <div class="col"> <!--Todos los if funcionan para determinar si los valores ingresados son válidos-->
+                        <label for="nombreUser" class="form-label form-texto text-registro-form">Nombre(s)</label>
+                        <input formControlName="nombre" type="text" class="form-control" id="nombreUser" placeholder="Nombre(s)"
+                            aria-label="NombreUser">
+                            @if(nombre.invalid && (nombre.dirty || nombre.touched)){
+                                <div class="text-danger">
+                                    @if (nombre.errors?.['required']) {
+                                        <div>Debe ingresar el nombre</div>
+                                    }
+                                </div>
+                            }
+                    </div>
+                    <div class="col">
+                        <label for="primerApellido" class="form-label form-texto text-registro-form">Primer
+                            apellido</label>
+                        <input formControlName="primerApellido" type="text" class="form-control" id="primerApellido" placeholder="Primer apellido"
+                            aria-label="Primer apellido">
+                            @if(primerApellido.invalid && (primerApellido.dirty || primerApellido.touched)){
+                                <div class="text-danger">
+                                    @if (primerApellido.errors?.['required']) {
+                                        <div>Debe ingresar el primer apellido</div>
+                                    }
+                                </div>
+                            }
+                    </div>
+                    <div class="col">
+                        <label for="segundoApellido" class="form-label form-texto text-registro-form">Segundo
+                            apellido</label>
+                        <input formControlName="segundoApellido" type="text" class="form-control" id="segundoApellido" placeholder="Segundo apellido"
+                            aria-label="Segundo apellido">
+                            @if(segundoApellido.invalid && (segundoApellido.dirty || segundoApellido.touched)){
+                                <div class="text-danger">
+                                    @if (segundoApellido.errors?.['required']) {
+                                        <div>Debe ingresar el segundo apellido</div>
+                                    }
+                                </div>
+                            }
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <label for="RFC" class="form-label form-texto text-registro-form">RFC</label>
+                    <input formControlName="idUsuario" type="text" class="form-control" id="RFC" aria-describedby="rfc" placeholder="XXXX123456XXX">
+                    @if(idUsuario.invalid && (idUsuario.dirty || idUsuario.touched)){
+                        <div class="text-danger">
+                            @if (idUsuario.errors?.['required']) {
+                                <div>Debe ingresar el RFC</div>
+                            }
+                            @if(idUsuario.errors?.['pattern']){
+                                <div>El RFC no tiene formato válido</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="mb-5">
+                    <label for="telefono" class="form-label form-texto text-registro-form">Teléfono</label>
+                    <input formControlName="telefono" type="text" class="form-control" id="telefono" aria-describedby="rfc" placeholder="XXXXXXXXXX">
+                    @if(telefono.invalid && (telefono.dirty || telefono.touched)){
+                        <div class="text-danger">
+                            @if (telefono.errors?.['required']) {
+                                <div>Debe ingresar el telefono</div>
+                            }
+                            @if (telefono.errors?.['pattern']) {
+                                <div>Formato inválido para teléfono</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="mb-5">
+                    <label for="correo" class="form-label form-texto text-registro-form">Correo electrónico (empresarial/profesional)</label>
+                    <input formControlName="correo" type="email" class="form-control" id="correo" placeholder="correo@electrónico.com">
+                    @if (correo.invalid && (correo.dirty || correo.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                        <div class="text-danger">
+                            @if (correo.errors?.['required']) {
+                                <div>Debe ingresar email</div>
+                            }
+                            @if (correo.errors?.['email']) {
+                                <div>Formato de email no válido</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="mb-5">
+                    <label for="contra" class="form-label form-texto text-registro-form">Contraseña</label>
+                    <input formControlName="password" type="password" class="form-control" id="contra" placeholder="************">
+                    @if (password.invalid && (password.dirty || password.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                        <div class="text-danger">
+                            @if (password.errors?.['required']) {
+                                <div>Debe ingresar contraseña</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="mb-5">
+                    <label for="contraconfirmar" class="form-label form-texto text-registro-form">Confirmar contraseña</label>
+                    <input formControlName="confirmPassword" type="password" class="form-control" id="contraconfirmar" placeholder="************">
+                    @if (confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                        <div class="text-danger">
+                            @if (confirmPassword.errors?.['required']) {
+                                <div>Debe ingresar email</div>
+                            }
+                            @if (confirmPassword.errors?.['passwordMatch']) {
+                                <div>Las contraseñas no coinciden</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="mb-5">
+                    <p class="text-question">*Todos los campos son obligatorios</p>
+                </div>
+                <div class="div-btn-login"> <!--Botón que funciona para registrar-->
+                    <button (click)="registrar()" class="btn btn-custumed">¡Registrarme!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<footer class="py-5 my-5 border-top">
+    <div class="container">
+        <div class="row row row-cols-1 row-cols-sm-2 row-cols-md-5">
+            <div class="col mb-3">
+                <a href="/"
+                    class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none text-cargalink_1-67">CargaLink
+                    CDMX</a>
+                <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                    <img src="assets/iconoprincipal.png" alt="Logo" width="auto" height="35" class="me-2">
+                </a>
+                <p class="text-body-secondary text_footer_items">cargalinkcdmx&#64;gmail.com</p>
+            </div>
+
+            <div class="col col-md-4 mb-3">
+
+            </div>
+
+            <div class="col mb-3">
+                <h5 class="text_footer_titulos">Enlaces</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a routerLink="/" class="nav-link p-0 text_footer_items">Principal</a>
+                    </li>
+                    <li class="nav-item mb-2"><a routerLink="/etransporte_registro"
+                            class="nav-link p-0 text_footer_items">Empresas
+                            transportistas</a></li>
+                    <li class="nav-item mb-2"><a routerLink="/ecliente_registro"
+                            class="nav-link p-0 text_footer_items">Empresas
+                            cliente</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col mb-3">
+                <h5 class="text_footer_titulos">Ayuda</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a routerLink="/login" class="nav-link p-0 text_footer_items">Iniciar
+                            sesión</a>
+                    </li>
+                    <li class="nav-item mb-2"><a routerLink="/terms" class="nav-link p-0 text_footer_items">Terminos y
+                            condiciones</a></li>
+                    <li class="nav-item mb-2"><a routerLink="/police" class="nav-link p-0 text_footer_items">Politica de
+                            privacidad</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            </ul>
+            <p class="text-center text-body-secondary">© 2024 CargaLink CDMX. Todos los derechos reservados</p>
+        </div>
+    </div>
+</footer>
