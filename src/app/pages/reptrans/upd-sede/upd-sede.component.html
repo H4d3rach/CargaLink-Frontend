@@ -209,7 +209,7 @@
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#"><svg width="25" height="25" viewBox="0 0 17 18" fill="none"
+                <li><a (click)="logout()" class="dropdown-item" style="cursor: pointer;"><svg width="25" height="25" viewBox="0 0 17 18" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M6.24805 5.96484C6.45995 3.50408 7.7245 2.49927 10.4929 2.49927H10.5817C13.6372 2.49927 14.8607 3.72281 14.8607 6.77825V11.235C14.8607 14.2904 13.6372 15.514 10.5817 15.514H10.4929C7.74501 15.514 6.48045 14.5228 6.25488 12.1031"
@@ -224,52 +224,58 @@
           </div>
         </nav>
       </div>
-  <!--Aqui empieza el contenido principal-->
+  
       <div class="mt-4">
-        <p class="title-principal">Gestión de sedes</p>
+        <p class="title-principal">Modificar Sede</p>
         <hr>
-        <div class="head-principal-container">
-          <button class="btn btn-new" routerLink="/rep_trans/sedes/registrar">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-              </svg>
-              <span>Agregar nueva sede</span>
-          </button>
+        <div  style="padding-left: 15px;">
+          <a routerLink="/rep_trans/sedes" style="cursor: pointer;"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left"
+              viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+            </svg></a>
         </div>
-        <div class="content-principal-management">
-            <table class="table table-hover">
-                <thead class="table-light">
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Dirección</th>
-                        <th scope="col">Acciones</th>
-                      </tr>
-                </thead>
-                <tbody>
-                  @for (sede of sedeList; track $index) { <!--Listado de todas las sedes-->
-                    <tr>
-                        <th scope="row">{{sede.nombre}}</th>
-                        <td>{{sede.direccion}}</td>
-                        <td>
-                          @if (sede.idSede!= undefined) {
-                            <button class="btn-edit" (click)="updateSede(sede.idSede)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-pencil" viewBox="0 0 16 16">
-                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
-                                  </svg>
-                            </button>
-                            
-                            <button class="btn-delete" (click)="deleteSede(sede.idSede)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-trash3" viewBox="0 0 16 16">
-                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                                  </svg>
-                            </button>
-                          }
-                        </td>
-                    </tr>
+        <div class="content-register-update">
+          <div class="card" style="width: 60%;">
+            <div class="card-body">
+              <form [formGroup]="sedeForm">
+                @if(errorBool){ <!--Si se obtiene un error en el formulario, se mostrará una alerta-->
+                  <div class="alert alert-danger" role="alert">
+                      {{errorSede}}
+                    </div>
                   }
-                </tbody>
-              </table>
+                  
+                  <div class="mb-5">
+                    <label for="NombreSede" class="form-label text-update">Nombre de la sede</label>
+                    <input formControlName="nombre" type="text" class="form-control" id="NombreSede" aria-describedby="nombreSede"
+                      placeholder="Sede 123">
+                      @if (nombre.invalid && (nombre.dirty || nombre.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                        <div class="text-danger">
+                            @if (nombre.errors?.['required']) {
+                                <div>Debe ingresar el nombre de la sede</div>
+                            }
+                        </div>
+                    }
+                  </div>
+                  <div class="mb-5">
+                    <label for="direccion" class="form-label text-update">Dirección</label>
+                    <textarea formControlName="direccion" class="form-control" id="direccion" rows="3"
+                      placeholder="E.g. Av Instituto Politécnico Nacional 2580, La Laguna Ticoman, Gustavo A. Madero, 07340 Ciudad de México, CDMX"></textarea>
+                      @if (direccion.invalid && (direccion.dirty || direccion.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                        <div class="text-danger">
+                            @if (direccion.errors?.['required']) {
+                                <div>Debe ingresar la direccion de la sede</div>
+                            }
+                        </div>
+                    }
+                    </div>
+                  <div class="div-btn-update">
+                    <button class="btn btn-update" (click)="updateSede()">Actualizar sede</button>
+                  </div>
+                
+              </form>
+            </div>
+          </div>
         </div>
         <div class="chatbot-container">
           <button class="chatbot-button" (click)="funcionChat()">

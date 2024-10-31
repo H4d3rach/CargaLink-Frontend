@@ -59,7 +59,9 @@ export class LoginService {
   get ifisUserLogged(): Observable<boolean>{
     return this.isUserLogged.asObservable();
   }
-
+  getUserToken():string{
+    return this.userInfo.value;
+  }
   decodificarToken(token: string): modeloSesion | null{ //Función que decodifica el token jwt
     try {
       return jwtDecode<modeloSesion>(token); //Ayuda a retornar el token en formato modeloSesion que es diseñada por nosotros
