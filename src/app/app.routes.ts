@@ -37,6 +37,7 @@ import { AdminHomeComponent } from './pages/admin/admin-home/admin-home.componen
 import { AdminGestionCuentasComponent } from './pages/admin/admin-gestion-cuentas/admin-gestion-cuentas.component';
 import { rutasGuard } from './servicios/autenticacion/rutas.guard';
 import { UpdSedeComponent } from './pages/reptrans/upd-sede/upd-sede.component';
+import { UpdVehiculoComponent } from './pages/reptrans/upd-vehiculo/upd-vehiculo.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent },
@@ -56,6 +57,7 @@ export const routes: Routes = [
     {path: 'rep_trans/vehiculos/registrar', component: RegVehiculoComponent ,canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/semirremolques/registrar', component: RegSemirremolqueComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/sedes/:id', component: UpdSedeComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
+    {path: 'rep_trans/vehiculos/:placa', component: UpdVehiculoComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/configuracion', component: ConfiguracionCuentaReptransComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/chat', component: ChatComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/chat/:idSala', component: ChatSalaComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},

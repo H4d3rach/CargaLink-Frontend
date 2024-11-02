@@ -1,49 +1,50 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { LoginService } from '../../../servicios/autenticacion/login.service';
-import { Router, RouterLink } from '@angular/router';
-import { modeloSede } from '../../../servicios/sedes/modeloSede';
 import { SedeService } from '../../../servicios/sedes/sede.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VehiculoService } from '../../../servicios/vehiculos/vehiculo.service';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { modeloSede } from '../../../servicios/sedes/modeloSede';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { modeloVehiculo } from '../../../servicios/vehiculos/modeloVehiculo';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-reg-vehiculo',
+  selector: 'app-upd-vehiculo',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,RouterLink],
-  templateUrl: './reg-vehiculo.component.html',
-  styleUrl: './reg-vehiculo.component.css'
+  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  templateUrl: './upd-vehiculo.component.html',
+  styleUrl: './upd-vehiculo.component.css'
 })
-export class RegVehiculoComponent implements OnInit{
+export class UpdVehiculoComponent implements OnInit{
   private _login = inject(LoginService) //Inyeccion del servicio de login
   private _sede = inject(SedeService); //Inyeccion del servicio de sedes
   private _vehiculo = inject(VehiculoService); //Inyeccion del servicio de vehiculos
   private router = inject(Router) //Inyeccion del router
+  private route = inject(ActivatedRoute) //Inyeccion del activated route
   isSidebarCollapsed: boolean = false; //Variables de control que nos ayudará a mostrar o no componentes en el html
   chatOpen: boolean = false;
   isCardOpen: boolean = false;
   isCUSelected: boolean = false;
   isUserLogged: boolean = false;
-  isSedeRegister: boolean = false;
   errorVehiculo: string = ""; //Variables para obtener errores y mostrar alertas en el html
   errorBool: boolean = false;
+  idVehiculo: string = ""; 
   sedeList: modeloSede[] = [];
   constructor(private formBuilder: FormBuilder){ //Inyeccion del formBuilder
-
+    this.idVehiculo = String(this.route.snapshot.paramMap.get('placa')); //Obtencion de la placa del vehiculo por medio de la url
   }
   vehiculoForm = this.formBuilder.group( //Creacion del formulario
     {
       placa: ['',[Validators.required]],
-      peso: ['',[Validators.required]],
-      noEjes: ['',[Validators.required]],
-      noLlantas: ['',[Validators.required]],
-      largo: ['',[Validators.required]],
+      peso: [0,[Validators.required]],
+      noEjes: [0,[Validators.required]],
+      noLlantas: [0,[Validators.required]],
+      largo: [0,[Validators.required]],
       marca: ['',[Validators.required]],
       tipo: ['',[Validators.required]],
       estatus: ['',[Validators.required]],
       modelo: ['',[Validators.required]],
-      sede : ['',[Validators.required]],
+      sede : [0,[Validators.required]],
       tipoCamion: [''] 
     }
   )
@@ -63,17 +64,32 @@ export class RegVehiculoComponent implements OnInit{
     });
     this._sede.getAllSedes().subscribe((sedeData)=>{ //Suscripcion que nos ayudará a obtener todas las sedes
       this.sedeList = sedeData;
-      if (this.sedeList.length === 0) { //Condicion que nos ayuda a detectar si el usuario tiene registradas sedes para poder continuar
-        this.isSedeRegister = false;
-    } else {
-        this.isSedeRegister = true;
-    }
     })
-  }
 
-  registrarVehiculo(){ //Metodo que nos ayuda a registrar el vehiculo, utiliza el servicio de vehiculo
+    this._vehiculo.getVehiculo(this.idVehiculo).subscribe({ //Suscripcion que nos ayudará a obtener el vehiculo a modificar
+      next:(vehiculo)=>{
+        this.vehiculoForm.patchValue({
+          placa: vehiculo.placa,
+          peso: vehiculo.peso,
+          noEjes: vehiculo.noEjes,
+          noLlantas: vehiculo.noLlantas,
+          largo: vehiculo.largo,
+          marca: vehiculo.marca,
+          tipo: vehiculo.tipo,
+          estatus: vehiculo.estatus,
+          modelo: vehiculo.modelo,
+          sede: vehiculo.sede.idSede,
+          tipoCamion: vehiculo.tipoCamion
+        });
+      },
+      error: (errorData) =>{
+        console.log(errorData);
+      }
+    });
+  }
+  actualizarVehiculo(){ //Metodo que nos ayudará a actualizar la info del vehiculo, usa el metodo declarado en el servicio del vehiculo
     if(this.vehiculoForm.valid){ //Se comunica con el backend solo cuando los datos del formulario son válidos
-      let body = {} //Construccion del body request para el caso de camion unitario o tracto dependiendo de lo ingresado en el formulario
+      let body = {} //A continuación se construiran los bodys request para los vehiculos que pueden ser unitarios o tractos
       if(this.isCUSelected){
         body = {
           placa: this.vehiculoForm.get('placa')?.value,
@@ -103,7 +119,7 @@ export class RegVehiculoComponent implements OnInit{
         sede : {idSede: this.vehiculoForm.get('sede')?.value}
       }
     }
-      this._vehiculo.crearVehiculo(body as modeloVehiculo).subscribe({ //Ocupa el servicio del login, el cual si todo sale bien, retorna el token
+      this._vehiculo.updateVehiculo(body as modeloVehiculo).subscribe({ //Ocupa el servicio del vehiculo, el cual si todo sale bien, retorna null en caso de exito
         next: () => {
           console.log("Vehiculo creado");
         },
@@ -112,7 +128,7 @@ export class RegVehiculoComponent implements OnInit{
           this.errorBool= true;
           this.errorVehiculo = errorData;
         },
-        complete: () => { //Una vez que se obtiene la respuesta
+        complete: () => { //Una vez que se obtiene el token
           this.errorBool= false;
           this.router.navigateByUrl('rep_trans/vehiculos');
           this.vehiculoForm.reset();
@@ -125,7 +141,7 @@ export class RegVehiculoComponent implements OnInit{
       this.vehiculoForm.markAllAsTouched(); //Nos muestra las alertas o fallos de cada input del formulario
     }
   }
-  onChange(event: any) {
+  onChange(event: any) { //Obtiene los valores seleccionados en un select del html
     const selectedValue = event.target.value;
     this.isCUSelected = selectedValue === 'CAMION_UNITARIO';
   }
@@ -135,7 +151,7 @@ export class RegVehiculoComponent implements OnInit{
   funcionChat(){
     this.chatOpen = !this.chatOpen;
   }
-  seleccionCU(){
+  seleccionCU(){ //Si se selecciona un camión unitario
     this.isCUSelected = !this.isCUSelected;
   }
   logout(){ //Funcion para cerrar sesión
@@ -172,7 +188,7 @@ export class RegVehiculoComponent implements OnInit{
   get sede(){ //Nos ayuda a obtener el control del input de LA sede para Llamarlo desde el html
     return this.vehiculoForm.controls.sede;
   }
-  get tipoCamion(){//Nos ayuda a obtener el control del input del tipo de camion para Llamarlo desde el html
+  get tipoCamion(){ //Nos ayuda a obtener el control del input del tipo de camion para Llamarlo desde el html
     return this.vehiculoForm.controls.tipoCamion;
   }
 }

@@ -12,6 +12,8 @@ export class GestionTransportistaComponent {
   isSidebarCollapsed: boolean = false;
   chatOpen: boolean = false;
   isCardOpen: boolean = false;
+  isUserLogged: boolean = false;
+  
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
