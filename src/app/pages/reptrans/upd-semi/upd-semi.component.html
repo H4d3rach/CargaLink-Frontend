@@ -59,7 +59,7 @@
                 </a>
             </li>
             <li class="nav-item sidebar-custom">
-                <a routerLink="/rep_trans/vehiculos" style="cursor: pointer;" class="nav-link d-flex align-items-center sidebar-custom-2 active" >
+                <a routerLink="/rep_trans/vehiculos" style="cursor: pointer;"class="nav-link d-flex align-items-center sidebar-custom-2" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                         class="bi bi-truck" viewBox="0 0 16 16">
                         <path
@@ -72,7 +72,7 @@
                 </a>
             </li>
             <li class="nav-item sidebar-custom">
-                <a routerLink="/rep_trans/semirremolques" style="cursor: pointer;" class="nav-link d-flex align-items-center sidebar-custom-2" >
+                <a routerLink="/rep_trans/semirremolques" style="cursor: pointer;" class="nav-link d-flex align-items-center sidebar-custom-2 active" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="bi bi-truck-front"
                         viewBox="0 0 16 16">
                         <path
@@ -121,7 +121,7 @@
         <div class="close-sesion-side">
             <hr class="bienvenida-hr">
             <div class="sidebar-custom">
-                <a style="cursor: pointer;" class="nav-link d-flex align-items-center sidebar-custom-2" style="cursor: pointer;" (click)="logout()">
+                <a style="cursor: pointer;" (click)="logout()" class="nav-link d-flex align-items-center sidebar-custom-2" >
                     <svg width="25" height="25" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M6.24805 5.96484C6.45995 3.50408 7.7245 2.49927 10.4929 2.49927H10.5817C13.6372 2.49927 14.8607 3.72281 14.8607 6.77825V11.235C14.8607 14.2904 13.6372 15.514 10.5817 15.514H10.4929C7.74501 15.514 6.48045 14.5228 6.25488 12.1031"
@@ -235,10 +235,10 @@
         </div>
         <!--Contenido principal del componente-->
         <div class="mt-4">
-            <p class="title-principal">Actualización de vehículo</p>
+            <p class="title-principal">Actualizacion de semirremolque</p>
             <hr>
             <div style="padding-left: 15px;">
-                <a routerLink="/rep_trans/vehiculos"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black"
+                <a routerLink="/rep_trans/semirremolques" style="cursor: pointer;"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black"
                         class="bi bi-arrow-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
@@ -247,90 +247,43 @@
             <div class="content-register-update">
                 <div class="card" style="width: 85%;">
                     <div class="card-body">
-                        <form [formGroup]="vehiculoForm">
+                        <form [formGroup]="semiForm">
                             @if(errorBool){ <!--Si se obtiene un error en el formulario, se mostrará una alerta-->
                                 <div class="alert alert-danger" role="alert">
-                                    {{errorVehiculo}}
+                                    {{errorSemi}}
                                   </div>
                                 }
                             <div class="mb-3 row">
                                 <div class="col">
-                                    <label for="placas" class="form-label form-texto text-registro-form">Placas</label>
-                                    <input formControlName="placa" type="text" class="form-control" id="placas"
-                                        aria-label="placasTruck" readonly>
-                                        @if (placa.invalid && (placa.dirty || placa.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                    <label for="identificador" class="form-label form-texto text-registro-form">Identificador</label>
+                                    <input formControlName="nombreIdentificador" type="text" class="form-control" id="identificdor" placeholder="RE125"
+                                        aria-label="idSemi" readonly>
+                                        @if (nombreIdentificador.invalid && (nombreIdentificador.dirty || nombreIdentificador.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
                                             <div class="text-danger">
-                                                @if (placa.errors?.['required']) {
-                                                    <div>Debe ingresar el número de placa</div>
+                                                @if (nombreIdentificador.errors?.['required']) {
+                                                    <div>Debe ingresar el identificador</div>
                                                 }
                                             </div>
                                         }
                                 </div>
                                 <div class="col">
-                                    <label for="marca" class="form-label form-texto text-registro-form">Marca</label>
-                                    <select formControlName="marca" class="form-select form-select-md mb-3" id="marca"
+                                    <label for="kindSemi" class="form-label form-texto text-registro-form">Tipo</label>
+                                    <select formControlName="tipo" class="form-select form-select-md mb-3" id="KindSemi"
                                         aria-label=".form-select-md example">
-                                        <option value="DAF">DAF</option>
-                                        <option value="DINAMO">Dinamo</option>
-                                        <option value="FREIGHTLINER">Freightliner</option>
-                                        <option value="INTERNATIONAL">International</option>
-                                        <option value="ISUZU">Isuzu</option>
-                                        <option value="IVECO">Iveco</option>
-                                        <option value="KIA">KIA</option>
-                                        <option value="KENWORTH">Kenworth</option>
-                                        <option value="MACK">Mack</option>
-                                        <option value="MAN">MAN</option>
-                                        <option value="MERCEDES_BENZ">Mercedes-Benz</option>
-                                        <option value="PETERBILT">Peterbilt</option>
-                                        <option value="SCANIA">Scania</option>
-                                        <option value="VOLVO">Volvo</option>
+                                        <option value="CAJA_SECA">Caja seca</option>
+                                        <option value="ENCORTINADO">Encortinado</option>
+                                        <option value="PLATAFORMA">Plataforma</option>
+                                        <option value="PORTACONTENEDOR">Contenedor</option>
                                     </select>
-                                    @if (marca.invalid && (marca.dirty || marca.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                    @if (tipo.invalid && (tipo.dirty || tipo.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
                                         <div class="text-danger">
-                                            @if (marca.errors?.['required']) {
-                                                <div>Debe ingresar la marca</div>
+                                            @if (tipo.errors?.['required']) {
+                                                <div>Debe ingresar el tipo</div>
                                             }
                                         </div>
                                     }
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="modelo" class="form-label form-texto text-registro-form">Modelo</label>
-                                    <input formControlName="modelo" class="form-control" id="modelo"
-                                        aria-label=".form-select-md example" placeholder="T-680 Next Gen">
-                                        @if (modelo.invalid && (modelo.dirty || modelo.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
-                                            <div class="text-danger">
-                                                @if (modelo.errors?.['required']) {
-                                                    <div>Debe ingresar el modelo del vehiculo</div>
-                                                }
-                                            </div>
-                                        }
-                            </div>
-                            <div class="mb-3">
-                                <label for="kindTruck" class="form-label form-texto text-registro-form">Tipo de vehiculo</label>
-                                    <select formControlName="tipo" class="form-select form-select-md mb-3" id="kindTruck"
-                                        aria-label=".form-select-md example" (change)="onChange($event)">
-                                        <option value="TRACTOCAMION">Tractocamión</option>
-                                        <option value="CAMION_UNITARIO">Camión Unitario</option>
-                                        </select>
-                                        @if (tipo.invalid && (tipo.dirty || tipo.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
-                                            <div class="text-danger">
-                                                @if (tipo.errors?.['required']) {
-                                                    <div>Debe ingresar el tipo de vehiculo</div>
-                                                }
-                                            </div>
-                                        }
-                            </div>
-                            @if (isCUSelected) {
-                            <div class="mb-3">
-                                <label for="kindUnitariTruck" class="form-label form-texto text-registro-form">Tipo de camión unitario</label>
-                                    <select formControlName="tipoCamion" class="form-select form-select-md mb-3" id="kindUnitariTruck"
-                                        aria-label=".form-select-md example">
-                                        <option value="CAJA">Caja</option>
-                                        <option value="PLATAFORMA">Plataforma</option>
-                                        </select>
-                            </div>
-                        }
                             <div class="mb-3 row">
                                 <div class="col">
                                 <label for="largo" class="form-label form-texto text-registro-form">Largo en metros</label>
@@ -345,6 +298,32 @@
                                     }
                                 </div>
                                 <div class="col">
+                                    <label for="ancho" class="form-label form-texto text-registro-form">Ancho en metros</label>
+                                    <input formControlName="ancho" type="number" class="form-control" id="ancho" aria-describedby="ancho"
+                                    placeholder="2.7">
+                                    @if (ancho.invalid && (ancho.dirty || ancho.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                        <div class="text-danger">
+                                            @if (ancho.errors?.['required']) {
+                                                <div>Debe ingresar el ancho</div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                                <div class="col">
+                                    <label for="alto" class="form-label form-texto text-registro-form">Alto en metros</label>
+                                    <input formControlName="alto" type="number" class="form-control" id="alto" aria-describedby="ancho"
+                                    placeholder="4.5">
+                                    @if (alto.invalid && (alto.dirty || alto.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                        <div class="text-danger">
+                                            @if (alto.errors?.['required']) {
+                                                <div>Debe ingresar el alto</div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="col">
                                     <label for="peso" class="form-label form-texto text-registro-form">Peso en kilos</label>
                                     <input formControlName="peso" type="number" class="form-control" id="peso" aria-describedby="peso"
                                     placeholder="40500">
@@ -356,57 +335,38 @@
                                         </div>
                                     }
                                 </div>
-                            </div>
-                            <div class="mb-3 row">
                                 <div class="col">
-                                    <label for="ejes" class="form-label form-texto text-registro-form">Número de Ejes</label>
-                                    <input formControlName="noEjes" type="number" class="form-control" id="ejes" placeholder="4"
-                                        aria-label="ejes">
+                                    <label for="noejes" class="form-label form-texto text-registro-form">Número de ejes</label>
+                                    <input formControlName="noEjes" type="number" class="form-control" id="noejes" aria-describedby="noejes"
+                                        placeholder="3">
                                         @if (noEjes.invalid && (noEjes.dirty || noEjes.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
                                             <div class="text-danger">
                                                 @if (noEjes.errors?.['required']) {
-                                                    <div>Debe ingresar el numero de ejes</div>
+                                                    <div>Debe ingresar los ejes</div>
                                                 }
                                             </div>
-                                        }
-                                </div>
-                                <div class="col">
-                                    <label for="llantas" class="form-label form-texto text-registro-form">Número de Llantas</label>
-                                    <input formControlName="noLlantas" type="number" class="form-control" id="llantas" placeholder="8"
-                                        aria-label="llantas">
-                                        @if (noLlantas.invalid && (noLlantas.dirty || noLlantas.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
-                                            <div class="text-danger">
-                                                @if (noLlantas.errors?.['required']) {
-                                                    <div>Debe ingresar el número de llantas</div>
-                                                }
-                                            </div>
-                                        }
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="sede" class="form-label form-texto text-registro-form">Sede</label>
-                                <select formControlName="sede" class="form-select form-select-md mb-3" id="sede"
-                                    aria-label=".form-select-md example">
-                                    @for (sede of sedeList; track $index) {
-                                        <option value={{sede.idSede}}>{{sede.nombre}}</option>
-                                    }
-                                
-                                </select>
-                                @if (sede.invalid && (sede.dirty || sede.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
-                                    <div class="text-danger">
-                                        @if (sede.errors?.['required']) {
-                                            <div>Debe ingresar la sede</div>
                                         }
                                     </div>
-                                }
+                                    <div class="col">
+                                        <label for="nollantas" class="form-label form-texto text-registro-form">Número de llantas</label>
+                                        <input formControlName="noLlantas" type="number" class="form-control" id="noejes" aria-describedby="nollantas"
+                                            placeholder="3">
+                                            @if (noLlantas.invalid && (noLlantas.dirty || noLlantas.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                                <div class="text-danger">
+                                                    @if (noLlantas.errors?.['required']) {
+                                                        <div>Debe ingresar las llantas</div>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
                             </div>
                             <div class="mb-3">
-                                <label for="estatus" class="form-label form-texto text-registro-form">Estatus actual</label>
+                                <label for="estatus" class="form-label form-texto text-registro-form">Estatus</label>
                                 <select formControlName="estatus" class="form-select form-select-md mb-3" id="estatus"
                                     aria-label=".form-select-md example">
-                                        <option value="EN_SEDE">En sede</option>
-                                        <option value="DISPONIBLE">Disponible</option>
-                                        <option value="NO_DISPONIBLE">No disponible</option>
+                                    <option value="EN_SEDE">En sede</option>
+                                    <option value="DISPONIBLE">Disponible</option>
+                                    <option value="NO_DISPONIBLE">No disponible</option>
                                 </select>
                                 @if (estatus.invalid && (estatus.dirty || estatus.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
                                     <div class="text-danger">
@@ -416,8 +376,24 @@
                                     </div>
                                 }
                             </div>
+                            <div class="mb-3">
+                                <label for="sede" class="form-label form-texto text-registro-form">Sede</label>
+                                <select formControlName="sede" class="form-select form-select-md mb-3" id="sede"
+                                    aria-label=".form-select-md example">
+                                    @for (item of sedeList; track $index) {
+                                    <option value={{item.idSede}}>{{item.nombre}}</option>
+                                    }
+                                </select>
+                                @if (sede.invalid && (sede.dirty || sede.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                    <div class="text-danger">
+                                        @if (sede.errors?.['required']) {
+                                            <div>Debe ingresar la sede</div>
+                                        }
+                                    </div>
+                                }
+                            </div>
                             <div class="div-btn-update">
-                                <button (click)="actualizarVehiculo()" class="btn btn-update">Actualizar Información</button>
+                                <button (click)="actualizarSemi()" class="btn btn-update">Actualizar</button>
                             </div>
                         </form>
                     </div>

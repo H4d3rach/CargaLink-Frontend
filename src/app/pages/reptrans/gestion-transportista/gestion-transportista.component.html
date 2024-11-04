@@ -120,7 +120,7 @@
       <div class="close-sesion-side">
         <hr class="bienvenida-hr">
         <div class="sidebar-custom">
-          <a class="nav-link d-flex align-items-center sidebar-custom-2" style="cursor: pointer;">
+          <a class="nav-link d-flex align-items-center sidebar-custom-2" style="cursor: pointer;" (click)="logout()">
             <svg width="25" height="25" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M6.24805 5.96484C6.45995 3.50408 7.7245 2.49927 10.4929 2.49927H10.5817C13.6372 2.49927 14.8607 3.72281 14.8607 6.77825V11.235C14.8607 14.2904 13.6372 15.514 10.5817 15.514H10.4929C7.74501 15.514 6.48045 14.5228 6.25488 12.1031"
@@ -141,7 +141,7 @@
     <div class="main-content w-100">
       <div class="container-headerbar">
         <nav class="navbar">
-          <button class="btn btn-outline-custom" (click)="toggleSidebar()">
+          <button class="btn btn-outline-custom" (click)="toggleSidebar()" >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
               viewBox="0 0 16 16">
               <path fill-rule="evenodd"
@@ -201,7 +201,7 @@
                 </svg>
               </button>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
-                <li><a class="dropdown-item" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                <li><a class="dropdown-item" style="cursor: pointer;" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                       fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
                       <path
                         d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3q0-.405-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708M3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z" />
@@ -209,7 +209,7 @@
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" ><svg width="25" height="25" viewBox="0 0 17 18" fill="none"
+                <li (click)="logout()"><a class="dropdown-item" style="cursor: pointer;"><svg width="25" height="25" viewBox="0 0 17 18" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M6.24805 5.96484C6.45995 3.50408 7.7245 2.49927 10.4929 2.49927H10.5817C13.6372 2.49927 14.8607 3.72281 14.8607 6.77825V11.235C14.8607 14.2904 13.6372 15.514 10.5817 15.514H10.4929C7.74501 15.514 6.48045 14.5228 6.25488 12.1031"
@@ -229,7 +229,7 @@
         <p class="title-principal">Gestión de Transportistas</p>
         <hr>
         <div class="head-principal-container">
-          <button class="btn btn-new">
+          <button class="btn btn-new" routerLink="/rep_trans/transportistas/registrar">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                 <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
@@ -252,27 +252,29 @@
                       </tr>
                 </thead>
                 <tbody>
+                  @for (transportista of transList; track $index) {
                     <tr>
-                        <th scope="row">ABCD123456HDF</th>
-                        <td>Alan José Alejandre</td>
-                        <td>Sede de Cuautitlán</td>
-                        <td>E+F</td>
-                        <td>5 años</td>
-                        <td>Disponible</td>
-                        <td>5548171564</td>
+                        <th scope="row">{{transportista.idUsuario}}</th>
+                        <td>{{transportista.nombre}} {{transportista.primerApellido}} {{transportista.segundoApellido}}</td>
+                        <td>{{transportista.sede.nombre}}</td>
+                        <td>{{formatText(transportista.categoria)}}</td>
+                        <td>{{transportista.experiencia}} años</td>
+                        <td>{{formatText(transportista.estatusTransportista)}}</td>
+                        <td>{{transportista.telefono}}</td>
                         <td>
-                            <button class="btn-edit">
+                            <button class="btn-edit" (click)="editTrans(transportista.idUsuario)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-pencil" viewBox="0 0 16 16">
                                     <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
                                   </svg>
                             </button>
-                            <button class="btn-delete">
+                            <button class="btn-delete" (click)="eliminarTrans(transportista.idUsuario)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-trash3" viewBox="0 0 16 16">
                                     <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
                                   </svg>
                             </button>
                         </td>
                     </tr>
+                  }
                 </tbody>
               </table>
         </div>

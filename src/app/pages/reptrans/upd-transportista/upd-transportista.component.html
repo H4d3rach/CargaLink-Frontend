@@ -201,7 +201,7 @@
                 </svg>
               </button>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
-                <li><a class="dropdown-item" style="cursor: pointer;" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                <li><a class="dropdown-item" style="cursor: pointer;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                       fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
                       <path
                         d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3q0-.405-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708M3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z" />
@@ -226,8 +226,8 @@
       </div>
   <!--Contenido principal del componente-->
       <div class="mt-4">
-        @if (isSedeRegister) {
-        <p class="title-principal">Registrar Transportistas</p>
+       
+        <p class="title-principal">Actualizar Transportistas</p>
         <hr>
         <div style="padding-left: 15px;">
           <a routerLink="/rep_trans/transportistas" style="cursor: pointer;"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left"
@@ -244,108 +244,32 @@
                         <div class="col">
                             <label for="nombreUser" class="form-label form-texto text-registro-form">Nombre(s)</label>
                             <input formControlName="nombre" type="text" class="form-control" id="nombreUser" placeholder="Nombre(s)"
-                                aria-label="NombreUser">
-                                @if(nombre.invalid && (nombre.dirty || nombre.touched)){
-                                  <div class="text-danger">
-                                      @if (nombre.errors?.['required']) {
-                                          <div>Debe ingresar el nombre</div>
-                                      }
-                                  </div>
-                              }
+                                aria-label="NombreUser" readonly>
                         </div>
                         <div class="col">
                             <label for="primerApellido" class="form-label form-texto text-registro-form">Primer
                                 apellido</label>
                             <input formControlName="primerApellido" type="text" class="form-control" id="primerApellido" placeholder="Primer apellido"
-                                aria-label="Primer apellido">
-                                @if(primerApellido.invalid && (primerApellido.dirty || primerApellido.touched)){
-                                  <div class="text-danger">
-                                      @if (primerApellido.errors?.['required']) {
-                                          <div>Debe ingresar el primer apellido</div>
-                                      }
-                                  </div>
-                              }
+                                aria-label="Primer apellido" readonly>
                         </div>
                         <div class="col">
                             <label for="segundoApellido" class="form-label form-texto text-registro-form">Segundo
                                 apellido</label>
                             <input formControlName="segundoApellido" type="text" class="form-control" id="segundoApellido" placeholder="Segundo apellido"
-                                aria-label="Segundo apellido">
-                                @if(segundoApellido.invalid && (segundoApellido.dirty || segundoApellido.touched)){
-                                  <div class="text-danger">
-                                      @if (segundoApellido.errors?.['required']) {
-                                          <div>Debe ingresar el segundo apellido</div>
-                                      }
-                                  </div>
-                              }
+                                aria-label="Segundo apellido" readonly>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="RFC" class="form-label form-texto text-registro-form">RFC</label>
-                        <input formControlName="idUsuario" type="text" class="form-control" id="RFC" aria-describedby="rfc" placeholder="XXXX123456XXX">
-                        @if(idUsuario.invalid && (idUsuario.dirty || idUsuario.touched)){
-                          <div class="text-danger">
-                              @if (idUsuario.errors?.['required']) {
-                                  <div>Debe ingresar el RFC</div>
-                              }
-                              @if(idUsuario.errors?.['pattern']){
-                                  <div>El RFC no tiene formato válido</div>
-                              }
-                          </div>
-                      }
+                        <input formControlName="idUsuario" type="text" class="form-control" id="RFC" aria-describedby="rfc" placeholder="XXXX123456XXX" readonly>
                       </div>
                     <div class="mb-3">
                         <label for="telefono" class="form-label form-texto text-registro-form">Teléfono</label>
-                        <input formControlName="telefono" type="text" class="form-control" id="telefono" aria-describedby="rfc" placeholder="XXXXXXXXXX">
-                        @if(telefono.invalid && (telefono.dirty || telefono.touched)){
-                          <div class="text-danger">
-                              @if (telefono.errors?.['required']) {
-                                  <div>Debe ingresar el telefono</div>
-                              }
-                              @if (telefono.errors?.['pattern']) {
-                                  <div>Formato inválido para teléfono</div>
-                              }
-                          </div>
-                      }
+                        <input formControlName="telefono" type="text" class="form-control" id="telefono" aria-describedby="rfc" placeholder="XXXXXXXXXX" readonly>
                       </div>
                     <div class="mb-3">
                         <label for="correo" class="form-label form-texto text-registro-form">Correo electrónico</label>
-                        <input formControlName="correo" type="email" class="form-control" id="correo" placeholder="correo@electrónico.com">
-                        @if (correo.invalid && (correo.dirty || correo.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
-                          <div class="text-danger">
-                              @if (correo.errors?.['required']) {
-                                  <div>Debe ingresar email</div>
-                              }
-                              @if (correo.errors?.['email']) {
-                                  <div>Formato de email no válido</div>
-                              }
-                          </div>
-                      }
-                      </div>
-                    <div class="mb-3">
-                        <label for="contra" class="form-label form-texto text-registro-form">Contraseña</label>
-                        <input formControlName="password" type="password" class="form-control" id="contra" placeholder="************">
-                        @if (password.invalid && (password.dirty || password.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
-                          <div class="text-danger">
-                              @if (password.errors?.['required']) {
-                                  <div>Debe ingresar contraseña</div>
-                              }
-                          </div>
-                      }
-                      </div>
-                    <div class="mb-3">
-                        <label for="contraconfirmar" class="form-label form-texto text-registro-form">Confirmar contraseña</label>
-                        <input formControlName="confirmPassword" type="password" class="form-control" id="contraconfirmar" placeholder="************">
-                        @if (confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
-                          <div class="text-danger">
-                              @if (confirmPassword.errors?.['required']) {
-                                  <div>Debe ingresar contraseña validacion</div>
-                              }
-                              @if (confirmPassword.errors?.['passwordMatch']) {
-                                  <div>Las contraseñas no coinciden</div>
-                              }
-                          </div>
-                      }
+                        <input formControlName="correo" type="email" class="form-control" id="correo" placeholder="correo@electrónico.com" readonly>
                       </div>
                     <div class="mb-3 row">
                       <div class="col">
@@ -376,21 +300,6 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                      <label for="estatus" class="form-label form-texto text-registro-form">Estatus</label>
-                      <select formControlName="estatusTransportista" class="form-select form-select-md mb-3" id="estatus" aria-label=".form-select-md example">
-                          <option value="DISPONIBLE">Disponible</option>
-                          <option value="DESCANSANDO">Descansando</option>
-                          <option value="NO_DISPONIBLE">No disponible</option>
-                        </select>
-                        @if (estatusTransportista.invalid && (estatusTransportista.dirty || estatusTransportista.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
-                          <div class="text-danger">
-                              @if (estatusTransportista.errors?.['required']) {
-                                  <div>Debe ingresar el estatus</div>
-                              }
-                          </div>
-                      }
-                    </div>
-                    <div class="mb-3">
                         <label for="sede" class="form-label form-texto text-registro-form">Sede</label>
                         <select formControlName="sede" class="form-select form-select-md mb-3" id="sede" aria-label=".form-select-md example">
                             @for (sede of sedeList; track $index) {
@@ -405,20 +314,13 @@
                             </div>
                         }
                     </div>
-                    <div class="mb-3">
-                        <p class="text-question">*Todos los campos son obligatorios</p>
-                    </div>
                     <div class="div-btn-update">
-                        <button (click)="registrarTrans()" class="btn btn-update">Registrar transportista</button>
+                        <button (click)="updTrans()" class="btn btn-update">Registrar transportista</button>
                     </div>
                 </form>
             </div>
           </div>
-        </div> }
-        @else {
-          <p class="title-principal">Necesita registrar al menos una sede para poder continuar</p>
-            <hr>
-        }
+        </div>
         <div class="chatbot-container">
           <button class="chatbot-button" (click)="funcionChat()">
             <img src="assets/icono_chatbot.png" alt="Imagen del chatbot" class="chatbot-img">

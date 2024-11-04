@@ -38,6 +38,8 @@ import { AdminGestionCuentasComponent } from './pages/admin/admin-gestion-cuenta
 import { rutasGuard } from './servicios/autenticacion/rutas.guard';
 import { UpdSedeComponent } from './pages/reptrans/upd-sede/upd-sede.component';
 import { UpdVehiculoComponent } from './pages/reptrans/upd-vehiculo/upd-vehiculo.component';
+import { UpdSemiComponent } from './pages/reptrans/upd-semi/upd-semi.component';
+import { UpdTransportistaComponent } from './pages/reptrans/upd-transportista/upd-transportista.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent },
@@ -58,6 +60,8 @@ export const routes: Routes = [
     {path: 'rep_trans/semirremolques/registrar', component: RegSemirremolqueComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/sedes/:id', component: UpdSedeComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/vehiculos/:placa', component: UpdVehiculoComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
+    {path: 'rep_trans/semirremolques/:id', component: UpdSemiComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
+    {path: 'rep_trans/transportistas/:id', component: UpdTransportistaComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/configuracion', component: ConfiguracionCuentaReptransComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/chat', component: ChatComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/chat/:idSala', component: ChatSalaComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},

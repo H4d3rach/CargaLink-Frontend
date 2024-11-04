@@ -1,59 +1,50 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { LoginService } from '../../../servicios/autenticacion/login.service';
-import { Router, RouterLink } from '@angular/router';
 import { TransportistaService } from '../../../servicios/transportistas/transportista.service';
 import { SedeService } from '../../../servicios/sedes/sede.service';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { modeloSede } from '../../../servicios/sedes/modeloSede';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { transportistaModelo } from '../../../servicios/transportistas/transportistaModelo';
+import { CommonModule } from '@angular/common';
+import { updTransRepModelo } from '../../../servicios/transportistas/updTransRepModelo';
 
 @Component({
-  selector: 'app-reg-transportista',
+  selector: 'app-upd-transportista',
   standalone: true,
   imports: [CommonModule, RouterLink, ReactiveFormsModule],
-  templateUrl: './reg-transportista.component.html',
-  styleUrl: './reg-transportista.component.css'
+  templateUrl: './upd-transportista.component.html',
+  styleUrl: './upd-transportista.component.css'
 })
-export class RegTransportistaComponent implements OnInit {
+export class UpdTransportistaComponent implements OnInit {
   private _login= inject(LoginService); //Inyeccion del servicio del login
   private _transportista = inject(TransportistaService); //Inyeccion del servicio del transportista
   private _sede = inject(SedeService); //Inyeccion del servicio de la sede
   private router = inject(Router); //Inyeccion del router
+  private route = inject(ActivatedRoute);
   isSidebarCollapsed: boolean = false; //Variables de control que se ocupan para desplegar distintos elementos html
   chatOpen: boolean = false;
   isCardOpen: boolean = false;
-  isSedeRegister: boolean = false;
   isUserLogged: boolean = false;
   errorBool: boolean = false;
   errorTrans: string = "";
   sedeList: modeloSede[] = [];
-  constructor(private formBuilder: FormBuilder){}
-  transForm = this.formBuilder.group({ //Creacioon del formulario
+  idTrans: string | null = "";
+  constructor(private formBuilder: FormBuilder){
+    this.idTrans = this.route.snapshot.paramMap.get('id'); //Obtencion del id por medio de la url
+  }
+  transForm = this.formBuilder.group({ //Creacion del formulario
     idUsuario: ['',[Validators.required, Validators.pattern('^[A-ZÑ]{4}\\d{6}[A-Z0-9]{3}$')]],
     nombre: ['',[Validators.required]],
     primerApellido: ['',[Validators.required]],
     segundoApellido: ['',[Validators.required]],
     correo: ['',[Validators.required, Validators.email]],
-    password:['',[Validators.required]],
-    confirmPassword: ['',[Validators.required]],
     telefono: ['',[Validators.required, Validators.pattern('^[0-9]{10}')]],
-    experiencia:['',[Validators.required]],
+    experiencia:[0,[Validators.required]],
     categoria: ['',[Validators.required]],
-    estatusTransportista:['',[Validators.required]],
-    sede:['',[Validators.required]]
-  },{ validators: this.passwordMatch('password', 'confirmPassword')})
-  passwordMatch(password: string, confirmPassword: string) { //Detalle del validador para confirmar contraseñas
-    return(formGroup: FormGroup)=>{
-      const control = formGroup.controls[password]; //Contraseña original
-      const validControl = formGroup.controls[confirmPassword]; //Contraseña que servirá para comparar
-      if(control.value !== validControl.value){ //Se compara el valor de las contraseñas
-        validControl.setErrors({passwordMatch:true}); //Si no se parecen agrega un error de tipo passwordMatch
-      }else{
-        validControl.setErrors(null); //En caso contrario no se agrega ningún error
-      }
-    }
-  }
+    sede:[0,[Validators.required]]
+  })
+  
   ngOnInit(): void {
     this._login.ifisUserLogged.subscribe({ //Esta suscripción a el servicio login nos ayudará a detectar que el usuario esté logueado
       next:(isUserLogged)=>{              //Si no es así se dirige a la ventana de login
@@ -70,49 +61,52 @@ export class RegTransportistaComponent implements OnInit {
     });
     this._sede.getAllSedes().subscribe((sedeData)=>{ //Suscripcion que nos ayudará a obtener todas las sedes
       this.sedeList = sedeData;
-      if (this.sedeList.length === 0) { //Condicion que nos ayuda a detectar si el usuario tiene registradas sedes para poder continuar
-        this.isSedeRegister = false; 
-    } else {
-        this.isSedeRegister = true;
-    }
+    })
+    this._transportista.getTrans(this.idTrans).subscribe({ //Suscripcion que nos ayudará a obtener la informacion del transportista actual
+      next:(trans) =>{
+        this.transForm.patchValue({
+          idUsuario: trans.idUsuario,
+          nombre: trans.nombre,
+          primerApellido: trans.primerApellido,
+          segundoApellido: trans.segundoApellido,
+          correo: trans.correo,
+          telefono: trans.telefono,
+          experiencia:trans.experiencia,
+          categoria: trans.categoria,
+          sede: trans.sede.idSede
+        })
+      }
     })
   }
 
-  registrarTrans(){
+  updTrans(){
     if(this.transForm.valid){
-      let body = { //Creacion del body request para el registro del transportista obteniendo los valores del formulario
+      let body = { //Creacion del body request para actualizar
         idUsuario: this.transForm.get('idUsuario')?.value,
-        nombre: this.transForm.get('nombre')?.value,
-        primerApellido: this.transForm.get('primerApellido')?.value,
-        segundoApellido: this.transForm.get('segundoApellido')?.value,
-        correo: this.transForm.get('correo')?.value,
-        password: this.transForm.get('password')?.value,
-        telefono: this.transForm.get('telefono')?.value,
         experiencia:this.transForm.get('experiencia')?.value,
         categoria: this.transForm.get('categoria')?.value,
-        estatusTransportista: this.transForm.get('estatusTransportista')?.value,
         sede:{
           idSede : this.transForm.get('sede')?.value
         }
       }
-      this._transportista.createTrans(body as transportistaModelo).subscribe({ //Coneccion con el servicio para registrar un transportista
+      this._transportista.updateTrans(body as updTransRepModelo).subscribe({ //Suscripcion con el servicio de transportista para actualizar
         next: () => { //Si es exitoso 
-          console.log("Transportista registrado");
+          console.log("Transportista modificado");
         },
         error: (errorData) =>{ //Si se reciben errores, en esta directiva del observable se obtienen
           console.log(errorData);
           this.errorBool= true;
           this.errorTrans = errorData;
         },
-        complete: () => { //Una vez que se registra el transportista
+        complete: () => { //Una vez que se actualiza
           this.errorBool= false;
           this.router.navigateByUrl('rep_trans/transportistas'); //Se redirige
       
-          this.transForm.reset(); //Limpia el formulario
+          this.transForm.reset();
         }
       })
     }else{
-      this.transForm.markAllAsTouched(); //Marca todo el formulario como tocado en caso de tener valores incorrectos
+      this.transForm.markAllAsTouched();
     }
   }
   toggleSidebar() {
@@ -141,12 +135,6 @@ export class RegTransportistaComponent implements OnInit {
   get correo(){
     return this.transForm.controls['correo'];
   }
-  get password(){
-    return this.transForm.controls['password'];
-  }
-  get confirmPassword(){
-    return this.transForm.controls['confirmPassword'];
-  }
   get telefono(){
     return this.transForm.controls['telefono'];
   }
@@ -156,9 +144,7 @@ export class RegTransportistaComponent implements OnInit {
   get categoria(){
     return this.transForm.controls['categoria'];
   }
-  get estatusTransportista(){
-    return this.transForm.controls['estatusTransportista'];
-  }
+
   get sede(){
     return this.transForm.controls['sede'];
   }

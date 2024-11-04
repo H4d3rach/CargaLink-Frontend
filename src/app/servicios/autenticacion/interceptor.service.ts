@@ -22,7 +22,7 @@ export class InterceptorService implements HttpInterceptor { //Interceptor que n
         }
       )
     }
-    //console.log(req)
+    console.log(req)
     return next.handle(req); //Se realiza la petición o request
   }
 }

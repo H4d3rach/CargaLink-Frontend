@@ -132,7 +132,7 @@
                     @if (confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
                         <div class="text-danger">
                             @if (confirmPassword.errors?.['required']) {
-                                <div>Debe ingresar email</div>
+                                <div>Debe ingresar contraseña validacion</div>
                             }
                             @if (confirmPassword.errors?.['passwordMatch']) {
                                 <div>Las contraseñas no coinciden</div>
