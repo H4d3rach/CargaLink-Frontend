@@ -101,7 +101,6 @@ export class RegSemirremolqueComponent implements OnInit{
       
     }
     else{
-      console.log("Error en el formulario")
       this.semiForm.markAllAsTouched(); //Nos muestra las alertas o fallos de cada input del formulario
     }
   }

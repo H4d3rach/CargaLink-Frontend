@@ -16,18 +16,21 @@
         }
         <ul class="nav flex-column">
             <li class="nav-item sidebar-custom">
-                <a class="nav-link d-flex align-items-center sidebar-custom-2 active" >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                      </svg>
+                <a routerLink="/cliente" style="cursor: pointer;" class="nav-link d-flex align-items-center sidebar-custom-2 active">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                        class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path
+                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd"
+                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                    </svg>
                     @if (!isSidebarCollapsed) {
                     <span class="ms-2 text-sidebar">Publicar oferta</span>
                     }
                 </a>
             </li>
             <li class="nav-item sidebar-custom">
-                <a class="nav-link d-flex align-items-center sidebar-custom-2" >
+                <a routerLink="/cliente/gestion" style="cursor: pointer;" class="nav-link d-flex align-items-center sidebar-custom-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                         class="bi bi-clipboard-data" viewBox="0 0 16 16">
                         <path
@@ -46,10 +49,12 @@
                 </a>
             </li>
             <li class="nav-item sidebar-custom">
-                <a class="nav-link d-flex align-items-center sidebar-custom-2" >
+                <a routerLink="/cliente/chat" style="cursor: pointer;" class="nav-link d-flex align-items-center sidebar-custom-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                         class="bi bi-chat" viewBox="0 0 16 16">
-                        <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" stroke="white"/>
+                        <path
+                            d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"
+                            stroke="white" />
                     </svg>
                     @if (!isSidebarCollapsed) {
                     <span class="ms-2 text-sidebar">Chat</span>
@@ -60,7 +65,7 @@
         <div class="close-sesion-side">
             <hr class="bienvenida-hr">
             <div class="sidebar-custom" (click)="logout()">
-                <a class="nav-link d-flex align-items-center sidebar-custom-2" >
+                <a style="cursor: pointer;" class="nav-link d-flex align-items-center sidebar-custom-2">
                     <svg width="25" height="25" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M6.24805 5.96484C6.45995 3.50408 7.7245 2.49927 10.4929 2.49927H10.5817C13.6372 2.49927 14.8607 3.72281 14.8607 6.77825V11.235C14.8607 14.2904 13.6372 15.514 10.5817 15.514H10.4929C7.74501 15.514 6.48045 14.5228 6.25488 12.1031"
@@ -102,25 +107,25 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end custom-dropdown-menu"
                             aria-labelledby="dropdownMessages">
-                            <li><a class="dropdown-item" >
+                            <li><a class="dropdown-item">
                                     <div class="message-div"><img src="assets/user_chatbot.png" class="img-dropdown">
                                         <p>Tienes un mensaje de Transoportes Badillo</p>
                                     </div>
                                 </a></li>
                             <hr class="dropdown-divider">
-                            <li><a class="dropdown-item" >
+                            <li><a class="dropdown-item">
                                     <div class="message-div"><img src="assets/user_chatbot.png" class="img-dropdown">
                                         <p>Tienes un mensaje de Transportes Carrillo</p>
                                     </div>
                                 </a></li>
                             <hr class="dropdown-divider">
-                            <li><a class="dropdown-item" >
+                            <li><a class="dropdown-item">
                                     <div class="message-div"><img src="assets/user_chatbot.png" class="img-dropdown">
                                         <p>Tienes un mensaje de alguna empresa </p>
                                     </div>
                                 </a></li>
                             <hr class="dropdown-divider">
-                            <li><a class="dropdown-item text-center text-end-dropdown" >Ver todos los
+                            <li><a class="dropdown-item text-center text-end-dropdown">Ver todos los
                                     mensajes</a></li>
                         </ul>
                     </div>
@@ -139,25 +144,25 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end custom-dropdown-menu"
                             aria-labelledby="dropdownNotifications">
-                            <li><a class="dropdown-item" >
+                            <li><a class="dropdown-item">
                                     <div class="message-div"><img src="assets/user_chatbot.png" class="img-dropdown">
                                         <p>Luis Armando ha empezado el viaje</p>
                                     </div>
                                 </a></li>
                             <hr class="dropdown-divider">
-                            <li><a class="dropdown-item" >
+                            <li><a class="dropdown-item">
                                     <div class="message-div"><img src="assets/user_chatbot.png" class="img-dropdown">
                                         <p>Carlos Alberto ha entregado la carga</p>
                                     </div>
                                 </a></li>
                             <hr class="dropdown-divider">
-                            <li><a class="dropdown-item" >
+                            <li><a class="dropdown-item">
                                     <div class="message-div"><img src="assets/user_chatbot.png" class="img-dropdown">
                                         <p>Jim Root ha tenido un problema</p>
                                     </div>
                                 </a></li>
                             <hr class="dropdown-divider">
-                            <li><a class="dropdown-item text-center text-end-dropdown" >Ver todas las
+                            <li><a class="dropdown-item text-center text-end-dropdown">Ver todas las
                                     notificaciones</a></li>
                         </ul>
                     </div>
@@ -172,16 +177,16 @@
                             </svg>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
-                            <li><a class="dropdown-item" ><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                        height="16" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
+                            <li><a class="dropdown-item" style="cursor: pointer;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
                                         <path
                                             d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3q0-.405-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708M3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z" />
                                     </svg><span style="margin-left: 10px;">Configuración</span></a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li (click)="logout()"><a class="dropdown-item" ><svg width="25" height="25" viewBox="0 0 17 18"
-                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <li (click)="logout()"><a class="dropdown-item" style="cursor: pointer;"><svg width="25" height="25"
+                                        viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M6.24805 5.96484C6.45995 3.50408 7.7245 2.49927 10.4929 2.49927H10.5817C13.6372 2.49927 14.8607 3.72281 14.8607 6.77825V11.235C14.8607 14.2904 13.6372 15.514 10.5817 15.514H10.4929C7.74501 15.514 6.48045 14.5228 6.25488 12.1031"
                                             stroke="black" stroke-width="1.36709" stroke-linecap="round"
@@ -199,249 +204,391 @@
 
         <!--Aqui inicia el contenido principal de la página-->
         <div class="mt-4">
-                <div class="container-empresa">
-                      <div class="row mb-2">
-                        <div class="col-md-6">
-                          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative h-100">
-                            <div class="col p-4 d-flex flex-column position-static">
-                              <strong class="d-inline-block mb-0 text-primary-emphasis"></strong>
-                              <h3 class="mb-3">Publicar nueva oferta</h3>
-                              <form>
-                                <div class="mb-3">
-                                    <label for="recogida" class="form-label form-texto text-registro-form">Dirección completa de recogida</label>
-                                    <input type="text" class="form-control" id="recogida"
-                                        placeholder="Calle, No. Ext, No. Int, Colonia, Estado, C.P.">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="destino" class="form-label form-texto text-registro-form">Dirección del destino</label>
-                                    <input type="text" class="form-control" id="destino"
-                                        placeholder="Calle, No. Ext, No. Int, Colonia, Estado, C.P.">
-                                </div>
-                                <div class="mb-3 row">
-                                <div class="col">
-                                    <label for="fecha" class="form-label form-texto text-registro-form">Fecha de entrega</label>
-                                    <input type="date" class="form-control" id="fecha" >
-                                </div>
-                                <div class="col">
-                                    <label for="hora" class="form-label form-texto text-registro-form">Hora de entrega</label>
-                                    <input type="time" class="form-control" id="hora" >
-                                </div>
-                            </div>
-                                <div class="mb-3">
-                                    <label for="precio" class="form-label text-success-emphasis mb-3"><strong>Precio
-                                        deseado</strong></label>
-                                    <div class="input-group">
-                                      <span class="input-group-text">$</span>
-                                      <input type="number" class="form-control" id="precio" aria-describedby="Precio"
-                                        placeholder="1500">
-                                    </div>
-                                  </div>
-                                  <div class="mb-3">
-                                    <label for="desc" class="form-label form-texto text-registro-form">Descripcion</label>
-                                    <textarea class="form-control" id="desc" rows="2"></textarea>
-                                </div>
-                                <div class="mb-0">
-                                    <label for="pesotot" class="form-label form-texto text-registro-form">Peso total</label>
-                                    <input type="number" class="form-control" id="pesotot"
-                                        placeholder="1000" disabled readonly>
-                                </div>
-                                
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative h-100">
-                            <div class="col p-4 d-flex flex-column position-static">
-                              <h3 class="mb-4">Detalles de la carga</h3>
-                              @if (!isAgreeged) {
-                              <form>
-                                <div class="mb-3">
-                                    <label for="tipocarga" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-2 text-success-emphasis">Tipo de carga</strong></label>
-                                    <select class="form-select form-select-md mb-3" id="tipocarga"
-                                        aria-label=".form-select-md example" (change)="onChange($event)">
-                                        <option value=""selected>Seleccione una opción</option>
-                                        <option value="Embalaje">Carga con embalaje</option>
-                                        <option value="Suelta">Carga suelta</option>
-                                        <option value="Contenedor">Contenedor</option>
-                                    </select>
-                                </div>
-                                @if (isEmbalaje) {
-                                    <div class="mb-3">
-                                        <label for="contenidoCarga" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Contenido</strong></label>
-                                        <input type="text" class="form-control" id="contenidoCarga" aria-describedby="contenido"
-                                            placeholder="Pallets con refrigeradores">
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <div class="col">
-                                        <label for="unidades" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Número de unidades</strong></label>
-                                        <input type="number" class="form-control" id="unidades" aria-describedby="contenido"
-                                            placeholder="60">
-                                        </div>
-                                        <div class="col">
-                                            <label for="pesounidad" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Peso en kilos</strong></label>
-                                        <input type="number" class="form-control" id="pesounidad" aria-describedby="contenido"
-                                            placeholder="600">
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <div class="col">
-                                        <label for="largo" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Largo (mts)</strong></label>
-                                        <input type="number" class="form-control" id="largo" aria-describedby="contenido"
-                                            placeholder="3.6">
-                                        </div>
-                                        <div class="col">
-                                            <label for="ancho" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Ancho (mts)</strong></label>
-                                        <input type="number" class="form-control" id="ancho" aria-describedby="contenido"
-                                            placeholder="2">
-                                        </div>
-                                        <div class="col">
-                                            <label for="alto" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Alto (mts)</strong></label>
-                                        <input type="number" class="form-control" id="alto" aria-describedby="contenido"
-                                            placeholder="4.5">
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="totalweigth" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Peso total</strong></label>
-                                        <input type="number" class="form-control" id="totalweigth" aria-describedby="contenido"
-                                            placeholder="200" disabled readonly>
-                                    </div>
-                                    <button class="btn btn-new" (click)="agregarCarga()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7"/>
-                                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"/>
-                                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"/>
-                                          </svg>
-                                          Agregar carga</button>
-                                }
-                                @if (isSuelta) {
-                                    <div class="mb-3">
-                                        <label for="contenidoCarga" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Contenido</strong></label>
-                                        <textarea class="form-control" id="desc" rows="3"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="totalweigth" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Peso total en kilos</strong></label>
-                                        <input type="number" class="form-control" id="totalweigth" aria-describedby="contenido"
-                                            placeholder="200">
-                                    </div>
-                                    <button class="btn btn-new" (click)="agregarCarga()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7"/>
-                                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"/>
-                                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"/>
-                                          </svg>
-                                          Agregar carga</button>
-                                }
-                                @if (isContenedor) {
-                                    <div class="mb-3">
-                                        <label for="contenidoCarga" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Contenido</strong></label>
-                                        <input type="text" class="form-control" id="contenidoCarga" aria-describedby="contenido"
-                                            placeholder="Electrodomésticos">
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <div class="col">
-                                        <label for="largo" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Largo (mts)</strong></label>
-                                        <input type="number" class="form-control" id="largo" aria-describedby="contenido"
-                                            placeholder="3.6">
-                                        </div>
-                                        <div class="col">
-                                            <label for="ancho" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Ancho (mts)</strong></label>
-                                        <input type="number" class="form-control" id="ancho" aria-describedby="contenido"
-                                            placeholder="2">
-                                        </div>
-                                        <div class="col">
-                                            <label for="alto" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Alto (mts)</strong></label>
-                                        <input type="number" class="form-control" id="alto" aria-describedby="contenido"
-                                            placeholder="4.5">
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="totalweigth" class="form-label form-texto text-registro-form"><strong class="d-inline-block mb-0 text-success-emphasis">Peso total</strong></label>
-                                        <input type="number" class="form-control" id="totalweigth" aria-describedby="contenido"
-                                            placeholder="200">
-                                    </div>
-                                    <button class="btn btn-new" (click)="agregarCarga()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7"/>
-                                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"/>
-                                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"/>
-                                          </svg>
-                                          Agregar carga</button>
-                                }
-                              </form>
-                              @if (isSecondAgreeged) {
-                                <button class="btn btn-return" (click)="regresar()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16" style="margin-right: 10px;">
-                                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-                                      </svg>Regresar</button>
-                              }
-                            }
-                            @if (isAgreeged) {
-                                <button class="btn btn-publicar" (click)="publicarOferta()"><svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3961 1.02996C11.75 0.676008 12.2238 0.467628 12.7238 0.445967C13.2239 0.424306 13.7139 0.590937 14.0971 0.912957L14.2241 1.02996L18.4671 5.27296C18.8208 5.62682 19.029 6.10038 19.0506 6.6002C19.0723 7.10003 18.9058 7.58983 18.5841 7.97296L18.4671 8.10096L8.15309 18.415C7.82107 18.747 7.38282 18.9516 6.91509 18.993L6.73909 19H1.50609C1.25727 19 1.0172 18.9081 0.831923 18.742C0.646643 18.5759 0.529193 18.3473 0.502094 18.1L0.496094 17.99V12.757C0.496208 12.2874 0.661528 11.8329 0.963094 11.473L1.08309 11.343L11.3961 1.02996ZM9.67009 5.58396L2.49609 12.758V17H6.74009L13.9141 9.82596L9.67109 5.58296L9.67009 5.58396ZM12.8101 2.44396L11.0841 4.16996L15.3271 8.41296L17.0531 6.68696L12.8101 2.44396Z" fill="white"/>
-                                    </svg>
-                                    Publicar oferta</button>
-                                <button class="btn btn-new2" (click)="addOther()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16" style="margin-right: 10px;">
-                                        <path fill-rule="evenodd" d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7"/>
-                                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"/>
-                                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"/>
-                                      </svg>Agregar otra carga</button>
-                            }
-                            </div>
-                          </div>
-                        </div>
+            <div class="container-empresa">
+                @if(errorBool){ <!--Si se obtiene un error en el formulario, se mostrará una alerta-->
+                    <div class="alert alert-danger" role="alert">
+                        {{errorOferta}}
                       </div>
+                    }
+                <form [formGroup]="ofertaForm">
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <div
+                                class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative h-100">
+                                <div class="col p-4 d-flex flex-column position-static">
+                                    <strong class="d-inline-block mb-0 text-primary-emphasis"></strong>
+                                    <h3 class="mb-3">Publicar nueva oferta</h3>
+                                    <div class="mb-3"> <!--Formulario de la configuracion de la oferta-->
+                                        <label for="recogida" class="form-label form-texto text-registro-form">Dirección
+                                            completa de recogida</label>
+                                        <input formControlName="lugarInicio" type="text" class="form-control" id="recogida"
+                                            placeholder="Calle, No. Ext, No. Int, Colonia, Estado, C.P.">
+                                            @if (lugarInicio.invalid && (lugarInicio.dirty || lugarInicio.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                                <div class="text-danger">
+                                                    @if (lugarInicio.errors?.['required']) {
+                                                        <div>Debe ingresar el lugar</div>
+                                                    }
+                                                </div>
+                                            }
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="destino" class="form-label form-texto text-registro-form">Dirección
+                                            del
+                                            destino</label>
+                                        <input formControlName="lugarDestino" type="text" class="form-control" id="destino"
+                                            placeholder="Calle, No. Ext, No. Int, Colonia, Estado, C.P.">
+                                            @if (lugarDestino.invalid && (lugarDestino.dirty || lugarDestino.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                                <div class="text-danger">
+                                                    @if (lugarDestino.errors?.['required']) {
+                                                        <div>Debe ingresar el lugar</div>
+                                                    }
+                                                </div>
+                                            }
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <div class="col">
+                                            <label for="fecha" class="form-label form-texto text-registro-form">Fecha de
+                                                entrega</label>
+                                            <input formControlName="fechaDestino" type="date" class="form-control" id="fecha">
+                                            @if (fechaDestino.invalid && (fechaDestino.dirty || fechaDestino.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                                <div class="text-danger">
+                                                    @if (fechaDestino.errors?.['required']) {
+                                                        <div>Debe ingresar la fecha destino</div>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="col">
+                                            <label for="hora" class="form-label form-texto text-registro-form">Hora de
+                                                entrega</label>
+                                            <input formControlName="horaDestino" type="time" class="form-control" id="hora">
+                                            @if (horaDestino.invalid && (horaDestino.dirty || horaDestino.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                                <div class="text-danger">
+                                                    @if (horaDestino.errors?.['required']) {
+                                                        <div>Debe ingresar la hora esperada</div>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="precio" class="form-label text-success-emphasis mb-3"><strong>Precio
+                                                deseado</strong></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input formControlName="precio" type="number" class="form-control" id="precio"
+                                                aria-describedby="Precio" placeholder="1500">
+                                        </div>
+                                        @if (precio.invalid && (precio.dirty || precio.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                            <div class="text-danger">
+                                                @if (precio.errors?.['required']) {
+                                                    <div>Debe ingresar el precio deseado</div>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="desc"
+                                            class="form-label form-texto text-registro-form">Descripcion</label>
+                                        <textarea formControlName="descripcion" class="form-control" id="desc" rows="2"></textarea>
+                                        @if (descripcion.invalid && (descripcion.dirty || descripcion.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                            <div class="text-danger">
+                                                @if (descripcion.errors?.['required']) {
+                                                    <div>Debe ingresar la descripcion</div>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="mb-0"> <!--Peso total que tendremos y no será modificable directamente, si no que se calculará-->
+                                        <label for="pesotot" class="form-label form-texto text-registro-form">Peso
+                                            total</label>
+                                        <input formControlName="pesoTotal" type="number" class="form-control" id="pesotot" placeholder="Se agregará automáticamente"
+                                            readonly>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6"> <!--Formulario para poner los detalles de la carga-->
+                            <div
+                                class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative h-100">
+                                <div class="col p-4 d-flex flex-column position-static">
+                                    <h3 class="mb-4">Detalles de la carga</h3>
+                                    @if (!isAgreeged) {
+
+                                    <div class="mb-3">
+                                        <label for="tipocarga" class="form-label form-texto text-registro-form"><strong
+                                                class="d-inline-block mb-2 text-success-emphasis">Tipo de
+                                                carga</strong></label>
+                                        <select formControlName="tipo" class="form-select form-select-md mb-3" id="tipocarga"
+                                            aria-label=".form-select-md example" (change)="onChange($event)">
+                                            <option value="" selected>Seleccione una opción</option>
+                                            <option value="EMBALAJE">Carga con embalaje</option>
+                                            <option value="SUELTA">Carga suelta</option>
+                                            <option value="CONTENEDOR">Contenedor</option>
+                                        </select>
+                                        @if (tipo.invalid && (tipo.dirty || tipo.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                            <div class="text-danger">
+                                                @if (tipo.errors?.['required']) {
+                                                    <div>Debe ingresar el tipo de carga</div>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    @if (isEmbalaje) { <!--Deteccion si la carga es embalaje para desplegar su formulario-->
+                                        <div class="mb-3">
+                                            <label for="tipoembalaje" class="form-label form-texto text-registro-form"><strong
+                                                    class="d-inline-block mb-2 text-success-emphasis">Tipo de embalaje</strong></label>
+                                            <select formControlName="embalajeTipo" class="form-select form-select-md mb-3" id="tipoembalaje"
+                                                aria-label=".form-select-md example">
+                                                <option value="PALETA">Palett</option>
+                                                <option value="BALA">Bala</option>
+                                                <option value="SACO">Saco</option>
+                                                <option value="BOLSA">Bolsa</option>
+                                                <option value="PACA">Paca</option>
+                                                <option value="BALDES">Baldes</option>
+                                                <option value="BARRILES">Barriles</option>
+                                                <option value="CAJON">Cajon</option>
+                                                <option value="CAJA">Caja</option>
+                                                <option value="JABA">JABA</option>
+                                            </select>
+                                        </div>
+                                    <div class="mb-3">
+                                        <label for="contenidoCarga"
+                                            class="form-label form-texto text-registro-form"><strong
+                                                class="d-inline-block mb-0 text-success-emphasis">Contenido</strong></label>
+                                        <input formControlName="embalajeContenido" type="text" class="form-control" id="contenidoCarga"
+                                            aria-describedby="contenido" placeholder="Pallets con refrigeradores">
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <div class="col">
+                                            <label for="unidades"
+                                                class="form-label form-texto text-registro-form"><strong
+                                                    class="d-inline-block mb-0 text-success-emphasis">Número de
+                                                    unidades</strong></label>
+                                            <input formControlName="embalajeUnidades" type="number" class="form-control" id="unidades"
+                                                aria-describedby="contenido" placeholder="60">
+                                        </div>
+                                        <div class="col">
+                                            <label for="pesounidad"
+                                                class="form-label form-texto text-registro-form"><strong
+                                                    class="d-inline-block mb-0 text-success-emphasis">Peso en
+                                                    kilos por unidad</strong></label>
+                                            <input formControlName="embalajePeso" type="number" class="form-control" id="pesounidad"
+                                                aria-describedby="contenido" placeholder="600">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <div class="col">
+                                            <label for="largo" class="form-label form-texto text-registro-form"><strong
+                                                    class="d-inline-block mb-0 text-success-emphasis">Largo
+                                                    (mts)</strong></label>
+                                            <input formControlName="embalajeLargo" type="number" class="form-control" id="largo"
+                                                aria-describedby="contenido" placeholder="3.6">
+                                        </div>
+                                        <div class="col">
+                                            <label for="ancho" class="form-label form-texto text-registro-form"><strong
+                                                    class="d-inline-block mb-0 text-success-emphasis">Ancho
+                                                    (mts)</strong></label>
+                                            <input formControlName="embalajeAncho" type="number" class="form-control" id="ancho"
+                                                aria-describedby="contenido" placeholder="2">
+                                        </div>
+                                        <div class="col">
+                                            <label for="alto" class="form-label form-texto text-registro-form"><strong
+                                                    class="d-inline-block mb-0 text-success-emphasis">Alto
+                                                    (mts)</strong></label>
+                                            <input formControlName="embalajeAlto" type="number" class="form-control" id="alto"
+                                                aria-describedby="contenido" placeholder="4.5">
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-new" (click)="agregarCarga()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7" />
+                                            <path
+                                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z" />
+                                            <path
+                                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z" />
+                                        </svg>
+                                        Agregar carga</button>
+                                    }
+                                    @if (isSuelta) { <!--Deteccion si la carga es suelta para desplegar su formulario-->
+                                    <div class="mb-3">
+                                        <label for="contenidoCarga"
+                                            class="form-label form-texto text-registro-form"><strong
+                                                class="d-inline-block mb-0 text-success-emphasis">Contenido</strong></label>
+                                        <textarea formControlName="sueltaContenido" class="form-control" id="desc" rows="3"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="totalweigth"
+                                            class="form-label form-texto text-registro-form"><strong
+                                                class="d-inline-block mb-0 text-success-emphasis">Peso total en
+                                                kilos</strong></label>
+                                        <input formControlName="sueltaPeso" type="number" class="form-control" id="totalweigth"
+                                            aria-describedby="contenido" placeholder="200">
+                                    </div>
+                                    <button class="btn btn-new" (click)="agregarCarga()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7" />
+                                            <path
+                                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z" />
+                                            <path
+                                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z" />
+                                        </svg>
+                                        Agregar carga</button>
+                                    }
+                                    @if (isContenedor) { <!--Deteccion si la carga es contenedor para desplegar su formulario-->
+                                    <div class="mb-3">
+                                        <label for="contenidoCarga"
+                                            class="form-label form-texto text-registro-form"><strong
+                                                class="d-inline-block mb-0 text-success-emphasis">Contenido</strong></label>
+                                        <input formControlName="contenedorContenido" type="text" class="form-control" id="contenidoCarga"
+                                            aria-describedby="contenido" placeholder="Electrodomésticos">
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <div class="col">
+                                            <label for="largo" class="form-label form-texto text-registro-form"><strong
+                                                    class="d-inline-block mb-0 text-success-emphasis">Largo
+                                                    (mts)</strong></label>
+                                            <input formControlName="contenedorLargo" type="number" class="form-control" id="largo"
+                                                aria-describedby="contenido" placeholder="3.6">
+                                        </div>
+                                        <div class="col">
+                                            <label for="ancho" class="form-label form-texto text-registro-form"><strong
+                                                    class="d-inline-block mb-0 text-success-emphasis">Ancho
+                                                    (mts)</strong></label>
+                                            <input formControlName="contenedorAncho" type="number" class="form-control" id="ancho"
+                                                aria-describedby="contenido" placeholder="2">
+                                        </div>
+                                        <div class="col">
+                                            <label for="alto" class="form-label form-texto text-registro-form"><strong
+                                                    class="d-inline-block mb-0 text-success-emphasis">Alto
+                                                    (mts)</strong></label>
+                                            <input formControlName="contenedorAlto" type="number" class="form-control" id="alto"
+                                                aria-describedby="contenido" placeholder="4.5">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="totalweigth"
+                                            class="form-label form-texto text-registro-form"><strong
+                                                class="d-inline-block mb-0 text-success-emphasis">Peso
+                                                total</strong></label>
+                                        <input formControlName="contenedorPeso" type="number" class="form-control" id="totalweigth"
+                                            aria-describedby="contenido" placeholder="200">
+                                    </div>
+                                    <button class="btn btn-new" (click)="agregarCarga()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7" />
+                                            <path
+                                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z" />
+                                            <path
+                                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z" />
+                                        </svg>
+                                        Agregar carga</button>
+                                    }
+
+                                    @if (isSecondAgreeged) { <!--Deteccion si se agregó otra carga y da la opcion de regresar para publicar-->
+                                    <button class="btn btn-return" (click)="regresar()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16"
+                                            style="margin-right: 10px;">
+                                            <path fill-rule="evenodd"
+                                                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                                        </svg>Regresar</button>
+                                    }
+                                    }
+                                    @if (isAgreeged) { <!--Deteccion si se agregó una carga y da la opcion de publicar oferta o agregar otra carga-->
+                                    <button class="btn btn-publicar" (click)="publicarOferta()"><svg width="20"
+                                            height="19" viewBox="0 0 20 19" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M11.3961 1.02996C11.75 0.676008 12.2238 0.467628 12.7238 0.445967C13.2239 0.424306 13.7139 0.590937 14.0971 0.912957L14.2241 1.02996L18.4671 5.27296C18.8208 5.62682 19.029 6.10038 19.0506 6.6002C19.0723 7.10003 18.9058 7.58983 18.5841 7.97296L18.4671 8.10096L8.15309 18.415C7.82107 18.747 7.38282 18.9516 6.91509 18.993L6.73909 19H1.50609C1.25727 19 1.0172 18.9081 0.831923 18.742C0.646643 18.5759 0.529193 18.3473 0.502094 18.1L0.496094 17.99V12.757C0.496208 12.2874 0.661528 11.8329 0.963094 11.473L1.08309 11.343L11.3961 1.02996ZM9.67009 5.58396L2.49609 12.758V17H6.74009L13.9141 9.82596L9.67109 5.58296L9.67009 5.58396ZM12.8101 2.44396L11.0841 4.16996L15.3271 8.41296L17.0531 6.68696L12.8101 2.44396Z"
+                                                fill="white" />
+                                        </svg>
+                                        Publicar oferta</button>
+                                    <button class="btn btn-new2" (click)="addOther()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16"
+                                            style="margin-right: 10px;">
+                                            <path fill-rule="evenodd"
+                                                d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7" />
+                                            <path
+                                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z" />
+                                            <path
+                                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z" />
+                                        </svg>Agregar otra carga</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="album py-4 bg-body-tertiary mt-4">
+                <div class="container"> <!--Se mostraán las cargas que haz registrado-->
+                    <h3 class="mb-3 text-center">Cargas Registradas</h3>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                        @for (carga of cargaList; track $index) {
+                            @if (isEmb(carga)) { <!--Deteccion si la carga es de embalaje para mostrar la tarjeta de la carga con sus caracteristicas-->
+                                <div class="col">
+                                    <div class="card mb-4 rounded-3 shadow-sm h-100">
+                                        <div class="card-header py-3">
+                                            <h4 class="my-0 fw-normal">Carga con embalaje</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text"><strong>Tipo: </strong>{{carga.tipoEmbalaje}}</p>
+                                            <p class="card-text"><strong>Contenido: </strong>{{carga.contenido}}</p>
+                                            <p class="card-text"><strong>Número de unidades: </strong>{{carga.noUnidades}}</p>
+                                            <p class="card-text"><strong>Peso en kilos: </strong>{{carga.pesoUnitario}}</p>
+                                            <p class="card-text"><strong>Largo: </strong>{{carga.largo}}</p>
+                                            <p class="card-text"><strong>Ancho: </strong>{{carga.ancho}}</p>
+                                            <p class="card-text"><strong>Alto: </strong>{{carga.alto}}</p>
+                                            <p class="card-text"><strong>Peso total: </strong>{{carga.pesoTotal}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (isSlt(carga)) { <!--Deteccion si la carga es suelta para mostrar la tarjeta de la carga con sus caracteristicas-->
+                                <div class="col">
+                                    <div class="card mb-4 rounded-3 shadow-sm h-100">
+                                        <div class="card-header py-3">
+                                            <h4 class="my-0 fw-normal">Carga suelta</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text"><strong>Contenido: </strong>{{carga.descripcion}}</p>
+                                            <p class="card-text"><strong>Peso total: </strong>{{carga.pesoTotal}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (isCont(carga)) { <!--Deteccion si la carga es de contenedor para mostrar la tarjeta de la carga con sus caracteristicas-->
+                                <div class="col">
+                                    <div class="card mb-4 rounded-3 shadow-sm h-100">
+                                        <div class="card-header py-3">
+                                            <h4 class="my-0 fw-normal">Carga contenedor</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text"><strong>Contenido: </strong>{{carga.contenido}}</p>
+                                            <p class="card-text"><strong>Largo: </strong>{{carga.largo}}</p>
+                                            <p class="card-text"><strong>Ancho: </strong>{{carga.ancho}}</p>
+                                            <p class="card-text"><strong>Alto: </strong>{{carga.alto}}</p>
+                                            <p class="card-text"><strong>Peso total: </strong>{{carga.pesoTotal}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        
+                    </div>
                 </div>
-              <div class="album py-4 bg-body-tertiary mt-4">
-                <div class="container">
-                    <h3 class="mb-3 text-center">Detalles de la carga</h3>
-                  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    <div class="col">
-                        <div class="card mb-4 rounded-3 shadow-sm h-100">
-                            <div class="card-header py-3">
-                              <h4 class="my-0 fw-normal">Carga con embalaje</h4>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text"><strong>Contenido: </strong>Pallets con refrigeradores</p>
-                                <p class="card-text"><strong>Número de unidades: </strong>60</p>
-                                <p class="card-text"><strong>Peso en kilos: </strong>600</p>
-                                <p class="card-text"><strong>Largo: </strong>12.50</p>
-                                <p class="card-text"><strong>Ancho: </strong>2.30</p>
-                                <p class="card-text"><strong>Alto: </strong>2.50</p>
-                                <p class="card-text"><strong>Peso total: </strong>500.7</p>
-                            </div>
-                          </div>
-                    </div>
-                    <div class="col">
-                        <div class="card mb-4 rounded-3 shadow-sm h-100">
-                            <div class="card-header py-3">
-                              <h4 class="my-0 fw-normal">Carga suelta</h4>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text"><strong>Contenido: </strong>Llantas</p>
-                                <p class="card-text"><strong>Peso total: </strong>500.7</p>
-                            </div>
-                          </div>
-                    </div>
-                    <div class="col">
-                        <div class="card mb-4 rounded-3 shadow-sm h-100">
-                            <div class="card-header py-3">
-                              <h4 class="my-0 fw-normal">Carga contenedor</h4>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text"><strong>Contenido: </strong>Electrodomésticos</p>
-                                <p class="card-text"><strong>Largo: </strong>12.50</p>
-                                <p class="card-text"><strong>Ancho: </strong>2.30</p>
-                                <p class="card-text"><strong>Alto: </strong>2.50</p>
-                                <p class="card-text"><strong>Peso total: </strong>500.7</p>
-                            </div>
-                          </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            
+            </div>
+
             <div class="chatbot-container">
                 <button class="chatbot-button" (click)="funcionChat()">
                     <img src="assets/icono_chatbot.png" alt="Imagen del chatbot" class="chatbot-img">
