@@ -14,6 +14,11 @@ export class OfertaService {
       catchError(this.manejadorErrores)
     )
   }
+  viewAllOfertas(): Observable<modeloOferta[]>{ //Conexion con el endpoint del backend que nos devolverá todos los registros de la tabla ofertas
+    return this._http.get<modeloOferta[]>('http://localhost:8082/representante/transporte/oferta').pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
   manejadorErrores(error:HttpErrorResponse){ //Metodo que ayuda a manejar los errores
     if(error.status === 0){
       console.error('No se ha enviado el codigo del error', error.error);

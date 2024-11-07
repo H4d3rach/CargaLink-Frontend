@@ -55,9 +55,9 @@ export class ETransporteRegistroComponent implements OnInit{
         /*formData.forEach((value, key) => {
           console.log(`${key}:`, value);
         });*/
-      //this._registro.setEmpresa(formData); //Se guarda la información de la empresa
-      //this._registro.setKindEmpresa("TRANSPORTE"); //Se agrega el tipo de empresa TRANSPORTE
-      //this.router.navigateByUrl('usuario_registro'); //Se redirige a el registro del usuario
+      this._registro.setEmpresa(formData); //Se guarda la información de la empresa
+      this._registro.setKindEmpresa("TRANSPORTE"); //Se agrega el tipo de empresa TRANSPORTE
+      this.router.navigateByUrl('usuario_registro'); //Se redirige a el registro del usuario
     }
     else{
       this.etransForm.markAllAsTouched(); //Nos muestra las alertas o fallos de cada input del formulario

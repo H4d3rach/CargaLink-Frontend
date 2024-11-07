@@ -1,3 +1,5 @@
+import { modeloRegCli } from "../registro/modeloRegCli";
+
 export interface Carga {
     idCarga?: number;      
     pesoTotal: number;
@@ -29,9 +31,16 @@ export interface Carga {
   export interface modeloOferta {
     descripcion: string;
     lugarInicio: string;
+    horaInicio?: string; //Checar
     lugarDestino: string;
+    horaTermino?: string; //Checar
     precio: number;
+    fechaInicio?: string; //Checar
+    fechaFin?: string; //Checar
+    contrato?: string; //Checar
+    estatus?: string;
     pesoTotal: number;
-    cargas: Carga[];  
+    cargas: Carga[];
+    representanteCliente: modeloRegCli;  
   }
   

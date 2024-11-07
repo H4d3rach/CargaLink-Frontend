@@ -4,7 +4,7 @@ export interface modeloRegCli {
     primerApellido:    string;
     segundoApellido:   string;
     correo:            string;
-    password:          string;
+    password?:          string;
     telefono:          string;
     empresaCliente: EmpresaCliente;
 }
