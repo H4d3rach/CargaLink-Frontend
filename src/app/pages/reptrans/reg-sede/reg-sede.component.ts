@@ -24,7 +24,7 @@ export class RegSedeComponent implements OnInit{
   errorBool: boolean = false;
 
   sedeForm = this.formBuilder.group({ //Creación del formulario de las sedes
-    nombre: ['',[Validators.required]],
+    nombre: ['',[Validators.required, Validators.maxLength(45)]],
     direccion: ['',[Validators.required]]
   })
   

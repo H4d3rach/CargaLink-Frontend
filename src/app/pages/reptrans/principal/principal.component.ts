@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { modeloOferta } from '../../../servicios/ofertas/modeloOferta';
 import { OfertaService } from '../../../servicios/ofertas/oferta.service';
+import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
 
 @Component({
   selector: 'app-principal',
@@ -18,9 +19,12 @@ export class PrincipalComponent implements OnInit {
   isCardOpen: boolean = false;
   isUserLogged: boolean = false;
   ofertasList: modeloOferta[]= []; //Lista que guardará todas las ofertas disponibles
+  //postulacionList: modeloOferta[] = [];
   private _login = inject(LoginService); //Inyeccion del servicio de login
   private _oferta = inject(OfertaService); //Inyeccion del servicio de oferta
+  private _postulacion = inject(PostulacionService);
   private router = inject(Router); //Inyeccion del router
+  private route = inject(ActivatedRoute);
   constructor(){
   }
   ngOnInit(): void {
@@ -38,8 +42,24 @@ export class PrincipalComponent implements OnInit {
       }
     });
     this._oferta.viewAllOfertas().subscribe((ofertaData)=>{
-      this.ofertasList = ofertaData.filter(oferta => oferta.estatus === 'OFERTA');
+      const ofertasAll = ofertaData.filter(oferta => oferta.estatus === 'OFERTA');
+      let user = {idUsuario: ""}
+      const userInfo = sessionStorage.getItem('UserInfo');
+      if(userInfo){
+        user = JSON.parse(userInfo);
+      }
+      this._postulacion.viewAlMyPostulaciones(user.idUsuario).subscribe((postulacionData)=>{
+        const postulaciones = postulacionData.map(postulacion => postulacion.oferta.idOferta);
+
+        this.ofertasList = ofertasAll.filter(oferta => !postulaciones.includes(oferta.idOferta))
+      })
     })
+  }
+  verDetalles(id: number){
+    this.router.navigate(['/rep_trans/detalles_trabajo', id]);
+  }
+  postularse(id: number){
+    this.router.navigate(['/rep_trans/postularse',id])
   }
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;

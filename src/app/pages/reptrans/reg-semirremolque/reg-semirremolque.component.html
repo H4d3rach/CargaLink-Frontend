@@ -295,6 +295,9 @@
                                             @if (largo.errors?.['required']) {
                                                 <div>Debe ingresar el largo</div>
                                             }
+                                            @if (largo.errors?.['pattern']) {
+                                                <div>largo inválido</div>
+                                            }
                                         </div>
                                     }
                                 </div>
@@ -307,6 +310,9 @@
                                             @if (ancho.errors?.['required']) {
                                                 <div>Debe ingresar el ancho</div>
                                             }
+                                            @if (ancho.errors?.['pattern']) {
+                                                <div>Ancho inválido</div>
+                                            }
                                         </div>
                                     }
                                 </div>
@@ -318,6 +324,9 @@
                                         <div class="text-danger">
                                             @if (alto.errors?.['required']) {
                                                 <div>Debe ingresar el alto</div>
+                                            }
+                                            @if (alto.errors?.['pattern']) {
+                                                <div>Alto invalido</div>
                                             }
                                         </div>
                                     }
@@ -333,6 +342,9 @@
                                             @if (peso.errors?.['required']) {
                                                 <div>Debe ingresar el peso</div>
                                             }
+                                            @if (peso.errors?.['pattern']) {
+                                                <div>Peso inválido</div>
+                                            }
                                         </div>
                                     }
                                 </div>
@@ -345,6 +357,9 @@
                                                 @if (noEjes.errors?.['required']) {
                                                     <div>Debe ingresar los ejes</div>
                                                 }
+                                                @if (noEjes.errors?.['pattern']) {
+                                                    <div>Numero inválido</div>
+                                                }
                                             </div>
                                         }
                                     </div>
@@ -356,6 +371,9 @@
                                                 <div class="text-danger">
                                                     @if (noLlantas.errors?.['required']) {
                                                         <div>Debe ingresar las llantas</div>
+                                                    }
+                                                    @if (noLlantas.errors?.['pattern']) {
+                                                        <div>Número inválido</div>
                                                     }
                                                 </div>
                                             }

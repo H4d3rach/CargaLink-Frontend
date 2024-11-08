@@ -342,6 +342,9 @@
                                             @if (largo.errors?.['required']) {
                                                 <div>Debe ingresar el largo</div>
                                             }
+                                            @if (largo.errors?.['pattern']) {
+                                                <div>Largo inválido</div>
+                                            }
                                         </div>
                                     }
                                 </div>
@@ -353,6 +356,9 @@
                                         <div class="text-danger">
                                             @if (peso.errors?.['required']) {
                                                 <div>Debe ingresar el peso</div>
+                                            }
+                                            @if (peso.errors?.['pattern']) {
+                                                <div>Peso inválido</div>
                                             }
                                         </div>
                                     }
@@ -368,6 +374,9 @@
                                                 @if (noEjes.errors?.['required']) {
                                                     <div>Debe ingresar el numero de ejes</div>
                                                 }
+                                                @if (noEjes.errors?.['pattern']) {
+                                                    <div>Ejes inválidos</div>
+                                                }
                                             </div>
                                         }
                                 </div>
@@ -379,6 +388,9 @@
                                             <div class="text-danger">
                                                 @if (noLlantas.errors?.['required']) {
                                                     <div>Debe ingresar el número de llantas</div>
+                                                }
+                                                @if (noLlantas.errors?.['pattern']) {
+                                                    <div>Numero de llantas inválido</div>
                                                 }
                                             </div>
                                         }

@@ -35,12 +35,12 @@ export class RegSemirremolqueComponent implements OnInit{
     nombreIdentificador: ['',[Validators.required]],
     estatus: ['',[Validators.required]],
     tipo: ['',[Validators.required]],
-    largo: ['',[Validators.required]],
-    ancho: ['',[Validators.required]],
-    alto: ['',[Validators.required]],
-    peso: ['',[Validators.required]],
-    noEjes: ['',[Validators.required]],
-    noLlantas: ['',[Validators.required]],
+    largo: ['',[Validators.required, Validators.pattern('^(?:[1-9](?:\.[0-9]{1,2})?|1[0-6](?:\.[0-9]{1,2})?)$')]],
+    ancho: ['',[Validators.required, Validators.pattern('^(?:[1-9](?:\.[0-9]{1,2})?|2(?:\.[0-5][0-9]{0,1})?)$')]],
+    alto: ['',[Validators.required, Validators.pattern('^(?:[1-4](?:\.[0-9]{1,2})?|4(?:\.[0-2][0-9]{0,1})?)$')]],
+    peso: ['',[Validators.required, Validators.pattern('^[1-9][0-9]{3,4}$')]],
+    noEjes: ['',[Validators.required, Validators.pattern('^[1-9]$')]],
+    noLlantas: ['',[Validators.required, Validators.pattern('^([1-9]|[1][0-2])$')]],
     sede : ['',[Validators.required]]
   })
   ngOnInit(): void {

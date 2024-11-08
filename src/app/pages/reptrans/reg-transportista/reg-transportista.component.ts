@@ -38,7 +38,7 @@ export class RegTransportistaComponent implements OnInit {
     password:['',[Validators.required]],
     confirmPassword: ['',[Validators.required]],
     telefono: ['',[Validators.required, Validators.pattern('^[0-9]{10}')]],
-    experiencia:['',[Validators.required]],
+    experiencia:['',[Validators.required, Validators.pattern('^([0-9]|[1-6][0-9]|7[0-5])$')]],
     categoria: ['',[Validators.required]],
     estatusTransportista:['',[Validators.required]],
     sede:['',[Validators.required]]

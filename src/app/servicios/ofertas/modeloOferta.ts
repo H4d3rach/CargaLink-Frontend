@@ -29,18 +29,19 @@ export interface Carga {
   
   
   export interface modeloOferta {
-    descripcion: string;
-    lugarInicio: string;
+    descripcion?: string;
+    lugarInicio?: string;
     horaInicio?: string; //Checar
-    lugarDestino: string;
+    lugarDestino?: string;
     horaTermino?: string; //Checar
-    precio: number;
+    precio?: number;
     fechaInicio?: string; //Checar
     fechaFin?: string; //Checar
     contrato?: string; //Checar
     estatus?: string;
-    pesoTotal: number;
-    cargas: Carga[];
-    representanteCliente: modeloRegCli;  
+    pesoTotal?: number;
+    cargas?: Carga[];
+    representanteCliente?: modeloRegCli;  
+    idOferta?: number;
   }
   

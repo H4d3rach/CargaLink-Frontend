@@ -35,10 +35,10 @@ export class RegVehiculoComponent implements OnInit{
   vehiculoForm = this.formBuilder.group( //Creacion del formulario
     {
       placa: ['',[Validators.required]],
-      peso: ['',[Validators.required]],
-      noEjes: ['',[Validators.required]],
-      noLlantas: ['',[Validators.required]],
-      largo: ['',[Validators.required]],
+      peso: ['',[Validators.required, Validators.pattern('^[1-9][0-9]{3,4}$')]],
+      noEjes: ['',[Validators.required, Validators.pattern('^[1-9]$')]],
+      noLlantas: ['',[Validators.required, Validators.pattern('^([1-9]|[1][0-2])$')]],
+      largo: ['',[Validators.required, Validators.pattern('^(1[0-3](\.[0-9]{1,2})?|[1-9](\.[0-9]{1,2})?$)')]],
       marca: ['',[Validators.required]],
       tipo: ['',[Validators.required]],
       estatus: ['',[Validators.required]],

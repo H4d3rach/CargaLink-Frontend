@@ -365,12 +365,15 @@
                       </div>
                         <div class="col">
                           <label for="experiencia" class="form-label form-texto text-registro-form">Años de experiencia</label>
-                          <input formControlName="experiencia" type="text" class="form-control" id="experiencia" aria-describedby="exp" placeholder="5">
+                          <input formControlName="experiencia" min="0" max="70" type="text" class="form-control" id="experiencia" aria-describedby="exp" placeholder="5">
                           @if (experiencia.invalid && (experiencia.dirty || experiencia.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
                             <div class="text-danger">
                                 @if (experiencia.errors?.['required']) {
                                     <div>Debe ingresar la experiencia</div>
                                 }
+                                @if (experiencia.errors?.['pattern']) {
+                                  <div>Número no válido</div>
+                              }
                             </div>
                         }
                         </div>
