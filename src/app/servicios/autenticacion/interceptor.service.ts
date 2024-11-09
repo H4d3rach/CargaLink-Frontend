@@ -1,4 +1,4 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoginService } from './login.service';
@@ -11,18 +11,28 @@ export class InterceptorService implements HttpInterceptor { //Interceptor que n
   constructor() { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token: string = this._login.getUserToken(); //Se obtiene el token del usuario
-    if(token!=""){ //Si tenemos un token entonces procedemos a 
-      req=req.clone( //Clonar nuestro request
-        {
-          setHeaders:{ //Añadirle los siguientes headers para poder confirmar que el usuario está autenticado
-            'Content-Type': 'application/json;charset=utf-8',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
+    let headers = req.headers;
+    if(req.body instanceof FormData){
+      req.body.forEach((value, key)=>{
+        if (value instanceof File){
+        }else{
+          headers = headers.append(`Content-Type-${key}`,'application/json')
         }
-      )
+      });
+      const cloneReq = req.clone({headers})
+      console.log("AQUI SALIENDO SI APARECE ALGO DESPUES LLAMA");
+      console.log(cloneReq)
+      return next.handle(cloneReq)
     }
-    console.log(req)
-    return next.handle(req); //Se realiza la petición o request
+    else if(token!=""){ //Si tenemos un token entonces procedemos a 
+      headers = headers.set('Content-Type', 'application/json;charset=utf-8')
+                        .set('Accept', 'application/json')
+                        .set('Authorization', `Bearer ${token}`)
+                        
+    }
+    const cloneReq = req.clone({headers})
+                        console.log(cloneReq)
+                        return next.handle(cloneReq); //Se realiza la petición o request
+    
   }
 }

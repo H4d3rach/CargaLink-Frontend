@@ -43,14 +43,8 @@ export class PrincipalComponent implements OnInit {
     });
     this._oferta.viewAllOfertas().subscribe((ofertaData)=>{
       const ofertasAll = ofertaData.filter(oferta => oferta.estatus === 'OFERTA');
-      let user = {idUsuario: ""}
-      const userInfo = sessionStorage.getItem('UserInfo');
-      if(userInfo){
-        user = JSON.parse(userInfo);
-      }
-      this._postulacion.viewAlMyPostulaciones(user.idUsuario).subscribe((postulacionData)=>{
+      this._postulacion.viewAlMyPostulaciones().subscribe((postulacionData)=>{
         const postulaciones = postulacionData.map(postulacion => postulacion.oferta.idOferta);
-
         this.ofertasList = ofertasAll.filter(oferta => !postulaciones.includes(oferta.idOferta))
       })
     })

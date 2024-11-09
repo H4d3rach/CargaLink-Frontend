@@ -15,6 +15,8 @@ export class UsuarioRegistroComponent implements OnInit{
   private _registro = inject(RegistroTransporteService); //Inyeccion del servicio de registro
   private router = inject(Router); //Inyeccion del enrutador 
   formulario?: FormData | null; //Variable que servirá para obtener toda la información de la empresa
+  logo?: File | null;
+  pdf?: File | null;
   errorLogin: string = "";
   errorBool: boolean = false;
   constructor(private formBuilder: FormBuilder){ //Forma de inyectar el formBuilder de acuerdo a la documentación
@@ -68,11 +70,12 @@ export class UsuarioRegistroComponent implements OnInit{
           nombreComercial: this.formulario?.get('nombreComercial'),
           rfc: this.formulario?.get('rfc'),
           direccion: this.formulario?.get('direccion'),
-          logo: this.formulario?.get('logo'),
-          documentoFiscal: this.formulario?.get('documentoFiscal')
         }
       }
-      this._registro.registroTransporte(bodyCombinado as modeloRegTrans).subscribe({ //Ocupa el servicio del registro con el metodo de registrar empresa y usaurio de transporte
+       this.pdf = this._registro.getPdf()
+      this.logo = this._registro.getLogo()
+      if(this.pdf && this.logo){
+      this._registro.registroTransporte(bodyCombinado as modeloRegTrans, this.pdf, this.logo).subscribe({ //Ocupa el servicio del registro con el metodo de registrar empresa y usaurio de transporte
         next: (token) => { //Si es exitoso retorna un token
           console.log(token);
         },
@@ -88,7 +91,7 @@ export class UsuarioRegistroComponent implements OnInit{
       
           this.userForm.reset();
         }
-      })
+      })}
       }
       else if(kindEmpresa == 'CLIENTE'){ //Funciona igual que la condición anterior pero para empresa/usuario cliente
         const bodyCombinado ={
@@ -105,10 +108,11 @@ export class UsuarioRegistroComponent implements OnInit{
             nombreComercial: this.formulario?.get('nombreComercial'),
             rfc: this.formulario?.get('rfc'),
             direccion: this.formulario?.get('direccion'),
-            logo: this.formulario?.get('logo'),
           }
         }
-        this._registro.registroCliente(bodyCombinado as modeloRegCli).subscribe({ //Ocupa el servicio de registro con el metodo de registrar cliente
+        this.logo = this._registro.getLogo()
+        if(this.logo){
+        this._registro.registroCliente(bodyCombinado as modeloRegCli, this.logo).subscribe({ //Ocupa el servicio de registro con el metodo de registrar cliente
           next: (token) => {
             console.log(token);
           },
@@ -124,6 +128,7 @@ export class UsuarioRegistroComponent implements OnInit{
             this.userForm.reset();
           }
         })
+      }
       }
     }else{
       this.userForm.markAllAsTouched();

@@ -15,8 +15,8 @@ export class PostulacionService {
       catchError(this.manejadorErrores)
     )
   }
-  viewAlMyPostulaciones(id: string): Observable<modeloPostulcion[]>{
-    return this._http.get<modeloPostulcion[]>(`http://localhost:8082/representante/transporte/postulacion/${id}`).pipe(
+  viewAlMyPostulaciones(): Observable<modeloPostulcion[]>{
+    return this._http.get<modeloPostulcion[]>(`http://localhost:8082/representante/transporte/postulacion`).pipe(
       catchError(this.manejadorErrores)
     )
   }

@@ -36,28 +36,26 @@ export class ETransporteRegistroComponent implements OnInit{
   registroParcial(){ //Función para guardar la información de la empresa y nos dirige a la vista del registro del usuario
     if(this.etransForm.valid){ //Confirmación de que el formulario tenga la información válida
       const formData = new FormData(); //Variable que guardará la información obtenida en el formulario
+      let docufisc: File;
+      let logoE: File;
       formData.append('razonSocial', this.etransForm.get('razonSocial')?.value || '');
       formData.append('nombreComercial', this.etransForm.get('nombreComercial')?.value || '');
       formData.append('rfc', this.etransForm.get('rfc')?.value || '');
       formData.append('descripcion', this.etransForm.get('descripcion')?.value || '');
       formData.append('direccion', this.etransForm.get('direccion')?.value || '');
       const docfisc = this.etransForm.get('documentoFiscal')?.value as unknown as File; //Transforma el valor del documento a un archivo
-      if (docfisc){
-        //formData.append('documentoFiscal', docfisc);
-        formData.append('documentoFiscal', 'cadenaPrueba');
-      }
       const logo =  this.etransForm.get('logo')?.value as unknown as File; //Transforma el valor del logo a un archivo
-      if(logo){
-        //formData.append('logo', logo);
-        console.log(logo)
-        formData.append('logo', 'PruebaCadena2');
+      if(docfisc && logo){
+        docufisc = docfisc;
+        logoE = logo;
+        this._registro.setEmpresa(formData, logoE, docufisc); //Se guarda la información de la empresa
+        this._registro.setKindEmpresa("TRANSPORTE"); //Se agrega el tipo de empresa TRANSPORTE
+        this.router.navigateByUrl('usuario_registro'); //Se redirige a el registro del usuario
       }
         /*formData.forEach((value, key) => {
           console.log(`${key}:`, value);
         });*/
-      this._registro.setEmpresa(formData); //Se guarda la información de la empresa
-      this._registro.setKindEmpresa("TRANSPORTE"); //Se agrega el tipo de empresa TRANSPORTE
-      this.router.navigateByUrl('usuario_registro'); //Se redirige a el registro del usuario
+      
     }
     else{
       this.etransForm.markAllAsTouched(); //Nos muestra las alertas o fallos de cada input del formulario

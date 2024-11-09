@@ -36,12 +36,8 @@ export class GestionTrabajosComponent implements OnInit{
         }
       }
     });
-    let user = {idUsuario: ""}
-      const userInfo = sessionStorage.getItem('UserInfo');
-      if(userInfo){
-        user = JSON.parse(userInfo);
-      }
-    this._postulacion.viewAlMyPostulaciones(user.idUsuario).subscribe((postulacionData)=>{
+    
+    this._postulacion.viewAlMyPostulaciones().subscribe((postulacionData)=>{
       console.log(postulacionData)
       this.postulacionList = postulacionData;
       //console.log(this.postulacionList)

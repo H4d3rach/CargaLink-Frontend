@@ -218,7 +218,12 @@
       <div class="container-principal" (click)="toggleCard()">
         @for (oferta of ofertasList; track $index) { <!--Control para mostrar todas las ofertas disponibles-->
         <div class="card" style="width: 18rem;">
-          <img src="assets/cargas_prueba.png" class="card-img-top" alt="...">
+          @if (oferta.representanteCliente?.empresaCliente?.logo) {
+          <img [src]="'http://localhost:8082/files/images/'+oferta.representanteCliente?.empresaCliente?.logo" class="card-img-top" alt="Logo Empresa">
+          }
+          @else {
+            <img src="assets\logoGenerico.jpg" class="card-img-top" alt="Logo Empresa">
+          }
           <div class="card-body second-body">
             <h5 class="card-title">{{oferta.lugarDestino}}</h5>
             <p class="card-text"><strong>Peso total: </strong>{{oferta.pesoTotal}} Kilos</p>

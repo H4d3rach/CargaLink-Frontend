@@ -39,12 +39,11 @@ export class EClienteRegistroComponent {
       formData.append('direccion', this.ecliForm.get('direccion')?.value || '');
       const logo =  this.ecliForm.get('logo')?.value as unknown as File; //Transforma el valor del logo a un archivo
       if(logo){
-        //formData.append('logo', logo);
-        formData.append('logo', 'PruebaCadena2');
+        this._registro.setEmpresa(formData,logo); //Se guarda la información de la empresa
+        this._registro.setKindEmpresa("CLIENTE"); //Se agrega el tipo de empresa CLIENTE
+        this.router.navigateByUrl('usuario_registro'); //Se redirige a el registro del usuario
       }
-      this._registro.setEmpresa(formData); //Se guarda la información de la empresa
-      this._registro.setKindEmpresa("CLIENTE"); //Se agrega el tipo de empresa CLIENTE
-      this.router.navigateByUrl('usuario_registro'); //Se redirige a el registro del usuario
+      
     }
     else{
       this.ecliForm.markAllAsTouched(); //Nos muestra las alertas o fallos de cada input del formulario

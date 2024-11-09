@@ -15,6 +15,6 @@ export interface EmpresaTransporte {
     nombreComercial: string;
     rfc:             string;
     direccion:       string;
-    logo:            string;
-    documentoFiscal: string;
+    logo?:            string;
+    documentoFiscal?: string;
 }
