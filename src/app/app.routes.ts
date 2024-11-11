@@ -40,6 +40,7 @@ import { UpdSedeComponent } from './pages/reptrans/upd-sede/upd-sede.component';
 import { UpdVehiculoComponent } from './pages/reptrans/upd-vehiculo/upd-vehiculo.component';
 import { UpdSemiComponent } from './pages/reptrans/upd-semi/upd-semi.component';
 import { UpdTransportistaComponent } from './pages/reptrans/upd-transportista/upd-transportista.component';
+import { ClienteTransporteDetallesComponent } from './pages/rep_cli/cliente-transporte-detalles/cliente-transporte-detalles.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent },
@@ -48,7 +49,7 @@ export const routes: Routes = [
     {path: 'ecliente_registro', component: EClienteRegistroComponent},
     {path: 'usuario_registro', component: UsuarioRegistroComponent},
     {path: 'rep_trans', component: PrincipalComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
-    {path: 'rep_trans/detalles_trabajo/:idTabajo', component: SeeWorkDetailsComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
+    {path: 'rep_trans/detalles_trabajo/:idTrabajo', component: SeeWorkDetailsComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/sedes', component: GestionSedeComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/transportistas', component: GestionTransportistaComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/vehiculos', component: GestionVehiculoComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
@@ -75,9 +76,10 @@ export const routes: Routes = [
     {path: 'cliente/chat/:idSala', component: ClienteChatSalaComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/gestion', component: ClienteGestionTrabajosComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/gestion/oferta/:idOferta', component: ClienteOfertaDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
-    {path: 'cliente/gestion/oferta/postulaciones', component: ClienteOfertaPostulacionesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
-    {path: 'cliente/gestion/oferta/postulaciones/:idPostulacion', component: ClientePostulacionesDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
-    {path: 'cliente/gestion/trabajo/:idTrabajo', component: ClienteTrabajoDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
+    {path: 'cliente/gestion/oferta/postulante/:idRepresentante', component: ClienteTransporteDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
+    {path: 'cliente/gestion/oferta/postulaciones/:idOferta', component: ClienteOfertaPostulacionesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
+    {path: 'cliente/gestion/oferta/postulaciones/detalles/:idPostulacion', component: ClientePostulacionesDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
+    {path: 'cliente/gestion/oferta/detalles/:idOferta', component: ClienteTrabajoDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/gestion/trabajo/pagar/:idTrabajo', component: ClienteTrabajoPagarComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/configuracion', component: ClienteConfiguracionComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'admin', component: AdminHomeComponent, canActivate: [rutasGuard], data: {rol: 'ADMINISTRADOR'}},

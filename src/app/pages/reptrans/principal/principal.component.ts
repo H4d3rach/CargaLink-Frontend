@@ -19,6 +19,7 @@ export class PrincipalComponent implements OnInit {
   isCardOpen: boolean = false;
   isUserLogged: boolean = false;
   ofertasList: modeloOferta[]= []; //Lista que guardará todas las ofertas disponibles
+  isUserValid?: boolean;
   //postulacionList: modeloOferta[] = [];
   private _login = inject(LoginService); //Inyeccion del servicio de login
   private _oferta = inject(OfertaService); //Inyeccion del servicio de oferta
@@ -41,13 +42,25 @@ export class PrincipalComponent implements OnInit {
         }
       }
     });
-    this._oferta.viewAllOfertas().subscribe((ofertaData)=>{
+    this._oferta.viewAllOfertas().subscribe({
+      next: (ofertaData)=>{
+        this.isUserValid = true;
       const ofertasAll = ofertaData.filter(oferta => oferta.estatus === 'OFERTA');
       this._postulacion.viewAlMyPostulaciones().subscribe((postulacionData)=>{
         const postulaciones = postulacionData.map(postulacion => postulacion.oferta.idOferta);
         this.ofertasList = ofertasAll.filter(oferta => !postulaciones.includes(oferta.idOferta))
       })
-    })
+    },
+    error: (error) =>{
+      if(error.status === 401){
+        this.isUserValid = false;
+      }
+      else{
+        console.log("Surgio un error diferente")
+        console.error(error);
+      }
+    }
+  })
   }
   verDetalles(id: number){
     this.router.navigate(['/rep_trans/detalles_trabajo', id]);

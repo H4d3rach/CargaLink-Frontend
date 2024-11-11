@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 import { OfertaService } from '../../../servicios/ofertas/oferta.service';
 import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
 import { modeloPostulcion } from '../../../servicios/postulaciones/modeloPostulacion';
+import { modeloOferta } from '../../../servicios/ofertas/modeloOferta';
 
 @Component({
   selector: 'app-postulacion',
@@ -27,6 +28,7 @@ export class PostulacionComponent implements OnInit {
   idOferta: number = 0;
   errorBool: boolean = false;
   errorPostulacion: string = "";
+  ofertaDetails?: modeloOferta;
   constructor(private formBuilder: FormBuilder){
     this.idOferta = Number(this.route.snapshot.paramMap.get('idTrabajo'));
   }
@@ -47,6 +49,9 @@ export class PostulacionComponent implements OnInit {
         }
       }
     });
+    this._oferta.seeOfertaDetails(this.idOferta).subscribe((ofertaData)=>{
+      this.ofertaDetails = ofertaData;
+    })
   }
   postularse(){
     if(this.formPostulacion.valid){

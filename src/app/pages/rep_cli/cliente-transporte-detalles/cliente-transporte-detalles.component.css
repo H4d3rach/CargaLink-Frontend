@@ -151,72 +151,8 @@
     padding-left: 15px;
     gap: 15px;
   }
-  
   .second-body{
     background-color: #F4F5F7;
-  }
-  .card-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); 
-    color: white;
-    opacity: 0;
-    transition: opacity 0.3s ease; 
-  }
-  
-  .card:hover .card-overlay,
-  .card:focus-within .card-overlay {
-    opacity: 1; 
-  }
-  .card-overlay.visible {
-    opacity: 1;
-  }
-  .btn-see{
-    color: white;
-    font-size: 16px;
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 0%;
-    text-decoration: none;
-    font-weight: 200;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-    width: 60%;
-  }
-  .btn-see:hover{
-    background-color: white;
-    color: #000000;
-  }
-  .btn-send{
-    width: 60%;
-    background-color: white;
-    color: #CCBB5F;
-    font-size: 16px;
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 0%;
-    text-decoration: none;
-    font-weight: 200;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-  }
-  .btn-send:hover{
-    background-color: #f4f4f4;
-    color: #ada055;
-  }
-  .btn-post{
-    width: 60%;
-    background-color: #CCBB5F;
-    color: white;
-    font-size: 16px;
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 0%;
-    text-decoration: none;
-    font-weight: 700;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-  }
-  .btn-post:hover{
-    background-color: #ada055;
-    color: white;
   }
   .text-end-dropdown{
     font-size: 15px;
@@ -238,45 +174,113 @@
     border-radius: 50%;
  }
  .title-principal{
-    color:black;
-      font-size: 32px;
-      font-family: 'Poppins', sans-serif;
-      letter-spacing: 0%;
-      text-decoration: none;
-      font-weight: 400;
-      padding-left: 15px;
-   }
-   .content-principal-management{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding-top: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-.acordeon-div{
-    width: 100%;
-}
-.btn-table{
-    width: 100%;
-}
-.div-table{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-}
-.acordeon-text{
-    color:black;
-    font-size: 20px;
+  color:black;
+    font-size: 32px;
     font-family: 'Poppins', sans-serif;
     letter-spacing: 0%;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 400;
+    padding-left: 15px;
+ }
+ .container-empresa{
+  margin-left: 3%;
+  margin-right: 3%;
+ }
+ .title-empresa{
+  color: black;
+    font-size: 56px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0%;
+    text-decoration: none;
+    font-weight: 500;
+ }
+ .btn-new{
+    color: #FFFFFF;
+    background-color: #B88E2F;
+    font-weight: 500;
+    margin-bottom: 15px;
+ }
+ .btn-new:hover{
+    background-color: #a77c29;
+  color: #fff;
+ }
+ .btn-publicar{
+    color: #FFFFFF;
+    background-color: #005E72;
+    font-weight: 500;
+    padding: 15px 15px 15px 15px;
+    margin-bottom: 20px;
+ }
+ .btn-publicar:hover{
+    background-color: #0484a0;
+    color: #FFFFFF;
+ }
+ .btn-new2{
+    color: #FFFFFF;
+    background-color: #B88E2F;
+    font-weight: 500;
+    padding: 15px 15px 15px 15px;
+    margin-bottom: 20px;
+    width: 100%;
+ }
+ .btn-new2:hover{
+    background-color: #a77c29;
+  color: #fff;
+ }
+ .btn-return{
+    color: #FFFFFF;
+    background-color: rgba(255, 0, 0, 0.584);
+    font-weight: 500;
+    width: 150px;
+ }
+ .btn-return:hover{
+    color: #FFFFFF;
+    background-color: rgba(255, 0, 0, 0.788);
+ }
+ .chat-img {
+  width: auto;
+  height: 40px;
+  border-radius: 20%;
+  margin-right: 10px;
 }
-   @media (max-width:1120px) {
-    .custom-dropdown-menu{
-      width: 175px;
-     }
+.chat-item {
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
+}
+
+.chat-item:hover {
+  background-color: #f1f1f1; 
+}
+.barra{
+  overflow-y: auto;
+}
+.text-header{
+  color:black;
+  font-size: 32px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0%;
+  text-decoration: none;
+  font-weight: 400;
+  padding-left: 15px;
+}
+.text-name{
+  color:black;
+  font-size: 18px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0%;
+  text-decoration: none;
+  font-weight: 600;
+}
+.text-message{
+  color:black;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0%;
+  text-decoration: none;
+  font-weight: 300;
+}
+ @media (max-width:1120px) {
+  .custom-dropdown-menu{
+    width: 175px;
    }
+ }

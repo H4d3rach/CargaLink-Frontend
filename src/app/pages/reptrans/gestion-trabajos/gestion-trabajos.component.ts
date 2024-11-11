@@ -21,6 +21,8 @@ export class GestionTrabajosComponent implements OnInit{
   private _postulacion = inject(PostulacionService);
   private router = inject(Router);
   postulacionList: modeloPostulcion[] = [];
+  viajesActualesList: modeloPostulcion[] = [];
+  viajesFinalizadosList: modeloPostulcion[]=[];
   isUserLogged: boolean =  false;
   ngOnInit(): void {
     this._login.ifisUserLogged.subscribe({ //Metodo que ayuda a detectar si un usuario está loggeado o no
@@ -38,12 +40,23 @@ export class GestionTrabajosComponent implements OnInit{
     });
     
     this._postulacion.viewAlMyPostulaciones().subscribe((postulacionData)=>{
-      console.log(postulacionData)
-      this.postulacionList = postulacionData;
+      this.postulacionList = postulacionData.filter(postulacion => postulacion.oferta.estatus === 'OFERTA');
+      this.viajesActualesList = postulacionData.filter(postulacion => postulacion.oferta.estatus != 'OFERTA' && postulacion.oferta.estatus != 'PAGADO');
+      this.viajesFinalizadosList = postulacionData.filter(postulacion => postulacion.oferta.estatus === 'PAGADO');
       //console.log(this.postulacionList)
     })
   }
-
+ eliminar(id:number){
+  this._postulacion.deletePostulacion(id).subscribe({
+    next: ()=>{
+      console.log("Postulacion eliminada")
+      this.postulacionList = this.postulacionList.filter(postulacion => postulacion.idPostulacion != id);
+    },
+    error : (error)=>{
+      console.log(error);
+    }
+  })
+ }
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }

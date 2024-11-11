@@ -261,20 +261,17 @@
               class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative h-100">
               <div class="col p-4 d-flex flex-column position-static">
                 <h3 class="mb-4">Detalles del viaje</h3>
-                <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Empresa: </strong> Grupo
-                  Herdez</p>
+                <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Empresa: </strong> {{ofertaDetails?.representanteCliente?.empresaCliente?.nombreComercial}}</p>
                 <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Lugar de recogida: </strong>
-                  ESCOM IPN, Unidad Profesional Adolfo López Mateos, Av. Juan de Dios Bátiz, Nueva Industrial Vallejo,
-                  Gustavo A. Madero, 07320 Ciudad de México, CDMX</p>
+                  {{ofertaDetails?.lugarInicio}}</p>
                 <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Lugar de destino: </strong>
-                  Calle Circuito del Gato 202, Ciudad Administrativa, 98160 Zacatecas</p>
+                  {{ofertaDetails?.lugarDestino}}</p>
                 <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Fecha de entrega programada:
-                  </strong> 6 de diciembre a las 13:00 hrs</p>
+                  </strong> {{ofertaDetails?.fechaFin}} a las {{ofertaDetails?.horaTermino}}</p>
                 <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Precio deseado: </strong>
-                  $80000</p>
-                <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Descripción: </strong> Esta
-                  carga se debe entregar de una forma especial a no más de 15 km/hr</p>
-                <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Peso total: </strong> 20000
+                  {{ofertaDetails?.precio | currency}}</p>
+                <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Descripción: </strong> {{ofertaDetails?.descripcion}}</p>
+                <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Peso total: </strong> {{ofertaDetails?.pesoTotal}}
                   kgs</p>
               </div>
             </div>

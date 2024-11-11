@@ -167,8 +167,8 @@ export class ClienteHomeComponent implements OnInit{
         descripcion: cargaDescripcion,
         lugarInicio: lugarInicio,
         lugarDestino: lugarDestino,
-        //fechaDestino: fechaDestino,
-        //horaDestino: horaDestino,
+        fechaFin: fechaDestino,
+        horaTermino: horaDestino,
         precio: precio,
         pesoTotal: this.pesoCargaTotal,
         cargas: this.cargaList

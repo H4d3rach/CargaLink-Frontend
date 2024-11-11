@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { modeloOferta } from './modeloOferta';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, concatAll, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,26 @@ export class OfertaService {
   }
   viewAllOfertas(): Observable<modeloOferta[]>{ //Conexion con el endpoint del backend que nos devolverá todos los registros de la tabla ofertas
     return this._http.get<modeloOferta[]>('http://localhost:8082/representante/transporte/oferta').pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  viewMyOfertas(): Observable<modeloOferta[]>{
+    return this._http.get<modeloOferta[]>('http://localhost:8082/representante/cliente/oferta').pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  seeOfertaDetails(id: number): Observable<modeloOferta>{
+    return this._http.get<modeloOferta>(`http://localhost:8082/representante/cliente/oferta/${id}`).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  seeOfertaDetailsRepTrans(id: number): Observable<modeloOferta>{
+    return this._http.get<modeloOferta>(`http://localhost:8082/representante/cliente/oferta/${id}`).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  deleteOferta(id: number): Observable<any>{
+    return this._http.delete(`http://localhost:8082/representante/transporte/oferta/${id}`).pipe(
       catchError(this.manejadorErrores)
     )
   }

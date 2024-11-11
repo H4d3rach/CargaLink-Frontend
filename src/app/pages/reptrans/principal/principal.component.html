@@ -213,6 +213,7 @@
     </div>
     
     <div class="mt-4">
+      @if (isUserValid) {
       <p class="title-principal">Cargas disponibles</p>
       
       <div class="container-principal" (click)="toggleCard()">
@@ -226,8 +227,8 @@
           }
           <div class="card-body second-body">
             <h5 class="card-title">{{oferta.lugarDestino}}</h5>
+            <p class="card-text"><strong>Fecha y hora deseadas: </strong>{{oferta.fechaFin}} a las {{oferta.horaTermino}}</p>
             <p class="card-text"><strong>Peso total: </strong>{{oferta.pesoTotal}} Kilos</p>
-            <p class="card-text">{{oferta.descripcion}}</p>
             <h4>Precio estimado: MXN {{oferta.precio | currency}}</h4>
           </div>
 
@@ -247,6 +248,18 @@
       }
 
       </div>
+    }
+    @else {
+      <div class="container">
+        <p class="title-principal">En espera de validación</p>
+        <div class="alert alert-warning" role="alert">
+        <p>El equipo de CargaLink CDMX se encuentra revisando tu información, cuando seas validado podrás ver todos los trabajos disponibles a los cuales <strong>¡PODRÁS POSTULARTE!</strong></p>
+      </div>
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <img src="assets/truck-novalid.png" style="width: 60%;">
+      </div>
+      </div>
+    }
       <div class="chatbot-container">
         <button class="chatbot-button" (click)="funcionChat()">
           <img src="assets/icono_chatbot.png" alt="Imagen del chatbot" class="chatbot-img">

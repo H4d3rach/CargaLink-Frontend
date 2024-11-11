@@ -1,0 +1,6 @@
+.star-rating .back-stars svg { 
+    color: #ccc;
+} 
+.star-rating .front-stars svg { 
+    color: gold; 
+}

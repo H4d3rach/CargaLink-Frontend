@@ -31,13 +31,13 @@ export interface Carga {
   export interface modeloOferta {
     descripcion?: string;
     lugarInicio?: string;
-    horaInicio?: string; //Checar
+    horaInicio?: string; 
     lugarDestino?: string;
-    horaTermino?: string; //Checar
+    horaTermino?: string; 
     precio?: number;
-    fechaInicio?: string; //Checar
-    fechaFin?: string; //Checar
-    contrato?: string; //Checar
+    fechaInicio?: string; 
+    fechaFin?: string; 
+    contrato?: string; 
     estatus?: string;
     pesoTotal?: number;
     cargas?: Carga[];

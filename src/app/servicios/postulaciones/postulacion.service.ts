@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { modeloPostulcion } from './modeloPostulacion';
-import { modeloOferta } from '../ofertas/modeloOferta';
+import { modeloRepTrans } from './modeloRepTrans';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,26 @@ export class PostulacionService {
   }
   viewAlMyPostulaciones(): Observable<modeloPostulcion[]>{
     return this._http.get<modeloPostulcion[]>(`http://localhost:8082/representante/transporte/postulacion`).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  viewAllPostulaciones(id: number): Observable<modeloPostulcion[]>{
+    return this._http.get<modeloPostulcion[]>(`http://localhost:8082/representante/cliente/postulacion/${id}`).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  aceptarPostulacion(postulacion: modeloPostulcion): Observable<any>{
+    return this._http.patch<any>('http://localhost:8082/representante/cliente/postulacion', postulacion).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  deletePostulacion(id: number): Observable<any>{
+    return this._http.delete<any>(`http://localhost:8082/representante/transporte/postulacion/${id}`).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  viewDetallesRepTrans(id: string): Observable<modeloRepTrans>{
+    return this._http.get<modeloRepTrans>(`http://localhost:8082/representante/cliente/detalles/RepTrans/${id}`).pipe(
       catchError(this.manejadorErrores)
     )
   }

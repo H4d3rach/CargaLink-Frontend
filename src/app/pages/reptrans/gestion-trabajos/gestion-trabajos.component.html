@@ -270,8 +270,10 @@
                                         <td>{{postulacion.oferta.fechaFin}} a las {{postulacion.oferta.horaTermino}}</td>
                                         <td>
                                             <div class="div-table">
+                                                @if (postulacion.idPostulacion) {
                                             <button class="btn btn-dark btn-table">Mensajes</button>
-                                            <button class="btn btn-danger btn-table">Eliminar</button>
+                                            <button class="btn btn-danger btn-table" (click)="eliminar(postulacion.idPostulacion)">Eliminar</button>
+                                                }
                                         </div>
                                         </td>
                                     </tr>
@@ -303,8 +305,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @for (viaje of viajesActualesList; track $index) {
                                     <tr>
-                                        <th scope="row">Koblenz</th>
+                                        <th scope="row">{{viaje.oferta.representanteCliente?.empresaCliente?.nombreComercial}}</th>
                                         <td>Alan Alejandre <br>
                                             Ismael Estanislao
                                         </td>
@@ -317,12 +320,12 @@
                                             RE908
                                         </TD>
                                         <td>
-                                            Av Instituto Politécnico Nacional 2580, La Laguna Ticoman, Gustavo A. Madero, 07340 Ciudad de México, CDMX
+                                           {{viaje.oferta.lugarDestino}}
                                         </td>
                                         <td>
-                                            6 de Diciembre a las 13:45
+                                            {{viaje.oferta.fechaFin}} a las {{viaje.oferta.horaTermino}}
                                         </td>
-                                        <td>Entregado</td>
+                                        <td>{{viaje.oferta.estatus}}</td>
                                         <td>
                                             <div class="div-table">
                                             <button class="btn btn-dark btn-table">Mensajes</button>
@@ -330,6 +333,7 @@
                                         </div>
                                         </td>
                                     </tr>
+                                }
                                 </tbody>
                             </table>
                         </div>
