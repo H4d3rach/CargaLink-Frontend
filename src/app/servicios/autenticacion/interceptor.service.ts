@@ -19,6 +19,9 @@ export class InterceptorService implements HttpInterceptor { //Interceptor que n
           headers = headers.append(`Content-Type-${key}`,'application/json')
         }
       });
+      if(token!=""){
+        headers = headers.append('Authorization', `Bearer ${token}`)
+      }
       const cloneReq = req.clone({headers})
       console.log("AQUI SALIENDO SI APARECE ALGO DESPUES LLAMA");
       console.log(cloneReq)

@@ -5,6 +5,7 @@ import { EstrellasComponent } from "../estrellas/estrellas.component";
 import { modeloRegTrans } from '../../../servicios/registro/modeloRegTrans';
 import { Calificaciones, modeloRepTrans } from '../../../servicios/postulaciones/modeloRepTrans';
 import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-cliente-transporte-detalles',
@@ -18,6 +19,7 @@ export class ClienteTransporteDetallesComponent implements OnInit{
   private _postulacion = inject(PostulacionService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private location = inject(Location);
   isUserLogged: boolean = false;
   isSidebarCollapsed: boolean = false; //Variables de control que ayudan a mostrar componentes en el html
   chatOpen: boolean = false;
@@ -77,6 +79,9 @@ export class ClienteTransporteDetallesComponent implements OnInit{
     this.precio = totalPrecio / cantidadCalificaciones;
     this.atencion = totalAtencion / cantidadCalificaciones;
     this.promedio = totalPromedio / cantidadCalificaciones;
+  }
+  regresar(){
+    this.location.back();
   }
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;

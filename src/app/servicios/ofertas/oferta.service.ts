@@ -35,7 +35,7 @@ export class OfertaService {
     )
   }
   deleteOferta(id: number): Observable<any>{
-    return this._http.delete(`http://localhost:8082/representante/transporte/oferta/${id}`).pipe(
+    return this._http.delete(`http://localhost:8082/representante/cliente/oferta/${id}`).pipe(
       catchError(this.manejadorErrores)
     )
   }

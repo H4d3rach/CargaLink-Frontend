@@ -4,6 +4,7 @@ import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { Router, RouterLink } from '@angular/router';
 import { OfertaService } from '../../../servicios/ofertas/oferta.service';
 import { modeloOferta } from '../../../servicios/ofertas/modeloOferta';
+import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
 
 @Component({
   selector: 'app-cliente-gestion-trabajos',
@@ -16,6 +17,7 @@ export class ClienteGestionTrabajosComponent implements OnInit {
   
   private _login = inject(LoginService);
   private _oferta = inject(OfertaService);
+  private _postulacion = inject(PostulacionService);
   private router = inject(Router);
   isSidebarCollapsed: boolean = false;
   chatOpen: boolean = false;

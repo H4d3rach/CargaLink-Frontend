@@ -57,6 +57,19 @@ export class GestionTrabajosComponent implements OnInit{
     }
   })
  }
+ detailsViaje(id: number){
+  this.router.navigate(['/rep_trans/detallesViaje/',id]);
+ }
+ formatText(text: string | undefined): string { //Metodo que ayuda a  darle formato a respuestas que lo requieran
+  if(text){
+  return text
+    .toLowerCase()
+    .replace(/_/g,' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase());}
+    else{
+      return "";
+    }
+}
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }

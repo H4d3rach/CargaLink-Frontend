@@ -279,25 +279,18 @@
                     <p class="text-name">Alan Alejandre</p>
                 </div>
                 <hr>
-                <div class="message-real user-message-real">
-                    <img src="assets/cargas_prueba.png" class="avatar-chat">
+                @for (mensaje of messagesList; track $index) {
+                <div class="message-real text-message" [ngClass]="{'user-message-real':mensaje.usuario?.idUsuario === idUser, 'no-user-message': mensaje.usuario?.idUsuario !== idUser}">
+                    @if (mensaje.usuario?.empresaCliente != null) {
+                    <img [src]="'http://localhost:8082/files/images/'+mensaje.usuario?.empresaCliente?.logo" class="avatar-chat">
+                    }@else {
+                        <img [src]="'http://localhost:8082/files/images/'+mensaje.usuario?.empresaTransporte?.logo" class="avatar-chat">
+                    }
                     <div class="message-content-real text-message">
-                        <p>Ayudame con esto por favor</p>
+                        <p>{{mensaje.contenido}}</p>
                     </div>
                 </div>
-                <div class="message-real no-user-message text-message">
-                    <img src="assets/prueba_logo.jpg" class="avatar-chat">
-                    <div class="message-content-real">
-                        <p>Hola, ¿Cómo puedo ayudarte hoy?</p>
-                    </div>
-                </div>
-                <div class="message-real user-message-real text-message">
-                    <img src="assets/cargas_prueba.png" class="avatar-chat">
-                    <div class="message-content-real">
-                        <p>Ayudame con esto por favor</p>
-                    </div>
-                </div>
-            </div>
+            }
             <div class="chat-footer">
                 <input type="text" placeholder="Escribe tu mensaje..." class="form-control">
                 <button class="btn btn-dark">Enviar</button>

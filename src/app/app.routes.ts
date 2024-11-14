@@ -41,6 +41,8 @@ import { UpdVehiculoComponent } from './pages/reptrans/upd-vehiculo/upd-vehiculo
 import { UpdSemiComponent } from './pages/reptrans/upd-semi/upd-semi.component';
 import { UpdTransportistaComponent } from './pages/reptrans/upd-transportista/upd-transportista.component';
 import { ClienteTransporteDetallesComponent } from './pages/rep_cli/cliente-transporte-detalles/cliente-transporte-detalles.component';
+import { SeeViajeDetailsComponent } from './pages/reptrans/see-viaje-details/see-viaje-details.component';
+import { ConfigurarViajeComponent } from './pages/reptrans/configurar-viaje/configurar-viaje.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent },
@@ -50,6 +52,8 @@ export const routes: Routes = [
     {path: 'usuario_registro', component: UsuarioRegistroComponent},
     {path: 'rep_trans', component: PrincipalComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/detalles_trabajo/:idTrabajo', component: SeeWorkDetailsComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
+    {path: 'rep_trans/detallesViaje/:idTrabajo', component: SeeViajeDetailsComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
+    {path: 'rep_trans/configurarViaje/:idTrabajo', component: ConfigurarViajeComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/sedes', component: GestionSedeComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/transportistas', component: GestionTransportistaComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/vehiculos', component: GestionVehiculoComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
@@ -65,7 +69,7 @@ export const routes: Routes = [
     {path: 'rep_trans/transportistas/:id', component: UpdTransportistaComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/configuracion', component: ConfiguracionCuentaReptransComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/chat', component: ChatComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
-    {path: 'rep_trans/chat/:idSala', component: ChatSalaComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
+    {path: 'rep_trans/chat/:idCliente', component: ChatSalaComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/postularse/:idTrabajo', component: PostulacionComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'transportista/chat', component: TransChatComponent, canActivate: [rutasGuard], data: {rol: 'TRANSPORTISTA'}},
     {path: 'transportista/chat/:idSala', component: TransChatSalaComponent, canActivate: [rutasGuard], data: {rol: 'TRANSPORTISTA'}},

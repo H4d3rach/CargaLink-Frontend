@@ -19,7 +19,7 @@ export class PrincipalComponent implements OnInit {
   isCardOpen: boolean = false;
   isUserLogged: boolean = false;
   ofertasList: modeloOferta[]= []; //Lista que guardará todas las ofertas disponibles
-  isUserValid?: boolean;
+  isUserValid: boolean = true;
   //postulacionList: modeloOferta[] = [];
   private _login = inject(LoginService); //Inyeccion del servicio de login
   private _oferta = inject(OfertaService); //Inyeccion del servicio de oferta
@@ -52,13 +52,7 @@ export class PrincipalComponent implements OnInit {
       })
     },
     error: (error) =>{
-      if(error.status === 401){
         this.isUserValid = false;
-      }
-      else{
-        console.log("Surgio un error diferente")
-        console.error(error);
-      }
     }
   })
   }

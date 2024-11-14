@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, concatAll, Observable, throwError } from 'rxjs';
 import { modeloPostulcion } from './modeloPostulacion';
 import { modeloRepTrans } from './modeloRepTrans';
+import { modeloRecursos } from '../ofertas/modeloRecursos';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,18 @@ export class PostulacionService {
   }
   viewDetallesRepTrans(id: string): Observable<modeloRepTrans>{
     return this._http.get<modeloRepTrans>(`http://localhost:8082/representante/cliente/detalles/RepTrans/${id}`).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  asignarRecursos(id: number, precio: number,file: File, listRecursos: modeloRecursos[]): Observable<any>{
+    const formData = new FormData()
+      formData.append('recursos', JSON.stringify(listRecursos));
+      formData.append('precio', precio.toString());
+      formData.append('file', file);
+      console.log(formData.get('recursos'));
+      console.log(formData.get('precio'))
+      console.log(formData.get('file'))
+    return this._http.post<any>(`http://localhost:8082/representante/transporte/recurso/${id}`, formData).pipe(
       catchError(this.manejadorErrores)
     )
   }

@@ -308,16 +308,19 @@
                                     @for (viaje of viajesActualesList; track $index) {
                                     <tr>
                                         <th scope="row">{{viaje.oferta.representanteCliente?.empresaCliente?.nombreComercial}}</th>
-                                        <td>Alan Alejandre <br>
-                                            Ismael Estanislao
+                                        <td>@if(viaje.oferta.estatus === 'CONFIGURANDO'){
+                                            <p class="text-primary">Falta asignar</p>  
+                                        }
                                         </td>
                                         <td>
-                                            ABD789 <br>
-                                            PLC097
+                                            @if(viaje.oferta.estatus === 'CONFIGURANDO'){
+                                                <p class="text-primary">Falta asignar</p>  
+                                            }
                                         </td>
                                         <TD>
-                                            RE456 <br>
-                                            RE908
+                                            @if(viaje.oferta.estatus === 'CONFIGURANDO'){
+                                                <p class="text-primary">Falta asignar</p>  
+                                            }
                                         </TD>
                                         <td>
                                            {{viaje.oferta.lugarDestino}}
@@ -325,11 +328,13 @@
                                         <td>
                                             {{viaje.oferta.fechaFin}} a las {{viaje.oferta.horaTermino}}
                                         </td>
-                                        <td>{{viaje.oferta.estatus}}</td>
+                                        <td>{{formatText(viaje.oferta.estatus)}}</td>
                                         <td>
                                             <div class="div-table">
+                                                @if (viaje.oferta.idOferta) {
                                             <button class="btn btn-dark btn-table">Mensajes</button>
-                                            <button class="btn btn-warning btn-table">Detalles</button>
+                                            <button class="btn btn-warning btn-table" (click)="detailsViaje(viaje.oferta.idOferta)">Detalles</button>
+                                                }
                                         </div>
                                         </td>
                                     </tr>
