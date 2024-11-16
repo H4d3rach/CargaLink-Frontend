@@ -57,6 +57,9 @@ export class SeeWorkDetailsComponent implements OnInit{
   funcionChat(){
     this.chatOpen = !this.chatOpen;
   }
+  chat(id:string | undefined){
+    this.router.navigate(['/rep_trans/chat/',id]);
+  }
   logout(){ //Metodo que nos ayuda a cerrar sesión
     this._login.logout();
     this.router.navigateByUrl('');

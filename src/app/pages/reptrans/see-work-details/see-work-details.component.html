@@ -285,7 +285,7 @@
                               <strong class="d-inline-block mb-2 text-primary-emphasis"></strong>
                               <h3 class="mb-0">Representante</h3>
                               <p class="card-text mb-auto">{{ofertaDetails?.representanteCliente?.nombre}} {{ofertaDetails?.representanteCliente?.primerApellido}} {{ofertaDetails?.representanteCliente?.segundoApellido}}</p>
-                              <button class="btn btn-dark">Enviar mensaje</button>
+                              <button class="btn btn-dark" (click)="chat(ofertaDetails?.representanteCliente?.idUsuario)">Enviar mensaje</button>
                             </div>
                             <div class="col-md-6 d-none d-lg-block">
                                 <img src="assets/carga_representante.jpg" class="bd-placeholder-img card-img-top" alt="Imagen de ejemplo" style="height:100%; object-fit:cover;">

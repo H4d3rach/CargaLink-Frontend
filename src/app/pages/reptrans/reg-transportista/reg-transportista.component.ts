@@ -7,6 +7,7 @@ import { SedeService } from '../../../servicios/sedes/sede.service';
 import { modeloSede } from '../../../servicios/sedes/modeloSede';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { transportistaModelo } from '../../../servicios/transportistas/transportistaModelo';
+import { ChatService } from '../../../servicios/chats/chat.service';
 
 @Component({
   selector: 'app-reg-transportista',
@@ -20,6 +21,7 @@ export class RegTransportistaComponent implements OnInit {
   private _transportista = inject(TransportistaService); //Inyeccion del servicio del transportista
   private _sede = inject(SedeService); //Inyeccion del servicio de la sede
   private router = inject(Router); //Inyeccion del router
+  private _chat =  inject(ChatService);
   isSidebarCollapsed: boolean = false; //Variables de control que se ocupan para desplegar distintos elementos html
   chatOpen: boolean = false;
   isCardOpen: boolean = false;
@@ -97,7 +99,9 @@ export class RegTransportistaComponent implements OnInit {
       }
       this._transportista.createTrans(body as transportistaModelo).subscribe({ //Coneccion con el servicio para registrar un transportista
         next: () => { //Si es exitoso 
-          console.log("Transportista registrado");
+          this._chat.getChat(body.idUsuario).subscribe((chat)=>{
+            console.log("Chat creado")
+          })
         },
         error: (errorData) =>{ //Si se reciben errores, en esta directiva del observable se obtienen
           console.log(errorData);
@@ -107,7 +111,6 @@ export class RegTransportistaComponent implements OnInit {
         complete: () => { //Una vez que se registra el transportista
           this.errorBool= false;
           this.router.navigateByUrl('rep_trans/transportistas'); //Se redirige
-      
           this.transForm.reset(); //Limpia el formulario
         }
       })

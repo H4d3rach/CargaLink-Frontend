@@ -203,11 +203,14 @@
     }
     .chat-body-real{
           padding: 10px;
-          height: 530px;
-          overflow-y: auto;
+          height: 580px;
           background-color: #EBE6DF;
           display: flex;
           flex-direction: column;
+    }
+    .contentChat{
+      height: 70%;
+      overflow-y: auto;
     }
     .text-header{
       color:black;

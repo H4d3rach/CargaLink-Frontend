@@ -271,7 +271,7 @@
                                         <td>
                                             <div class="div-table">
                                                 @if (postulacion.idPostulacion) {
-                                            <button class="btn btn-dark btn-table">Mensajes</button>
+                                            <button class="btn btn-dark btn-table" (click)="chat(postulacion.oferta.representanteCliente?.idUsuario)">Mensajes</button>
                                             <button class="btn btn-danger btn-table" (click)="eliminar(postulacion.idPostulacion)">Eliminar</button>
                                                 }
                                         </div>

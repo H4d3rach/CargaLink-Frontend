@@ -89,6 +89,9 @@ export class ClienteTransporteDetallesComponent implements OnInit{
   funcionChat(){
     this.chatOpen = !this.chatOpen;
   }
+  chat(id:string | undefined){
+    this.router.navigate(['/cliente/chat/',id]);
+  }
   logout(){ //Metodo que ayuda a cerrar sesión
     this._login.logout();
     this.router.navigateByUrl('');

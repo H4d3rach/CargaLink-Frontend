@@ -1,14 +1,16 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { ChatService } from '../../../servicios/chats/chat.service';
-import { modeloMensaje } from '../../../servicios/chats/modeloMensaje';
+import { modeloMensaje, modeloUsuario } from '../../../servicios/chats/modeloMensaje';
+import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
+import { modeloChat } from '../../../servicios/chats/modeloChat';
 
 @Component({
   selector: 'app-chat-sala',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './chat-sala.component.html',
   styleUrl: './chat-sala.component.css'
 })
@@ -17,21 +19,31 @@ export class ChatSalaComponent {
   private _chat = inject(ChatService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private location = inject(Location);
   idCliente: string = "";
   idUser: string = "";
   idChat: number = 0;
+  chat?: modeloChat;
+  otherUser?: modeloUsuario;
+  myUser?: modeloUsuario;
   messagesList:modeloMensaje[] = [];
   isSidebarCollapsed: boolean = false;
   chatOpen: boolean = false;
   isUserLogged: boolean = false;
-  constructor(){
+  userInfo?:string | null;
+  constructor(private formBuilder: FormBuilder){
+    this._chat.initConectionSocket(); 
     this.idCliente = String(this.route.snapshot.paramMap.get('idCliente')); 
-    const userInfo =sessionStorage.getItem('UserInfo');
-    if(userInfo){
-      const userInfoJson = JSON.parse(userInfo);
+    this.userInfo =sessionStorage.getItem('UserInfo');
+    if(this.userInfo){
+      const userInfoJson = JSON.parse(this.userInfo);
       this.idUser = userInfoJson.idUsuario;
     }
   }
+  messageForm = this.formBuilder.group({
+    mensaje: ['']
+  })
+  
   ngOnInit(): void {
     this._login.ifisUserLogged.subscribe({ //Esta suscripción a el servicio login nos ayudará a detectar que el usuario esté logueado
       next:(isUserLogged)=>{              //Si no es así se dirige a la ventana de login
@@ -47,16 +59,45 @@ export class ChatSalaComponent {
       }
     });
     this._chat.getChat(this.idCliente).subscribe(chat => {
-      this.idChat = chat;
-      this._chat.getMessages(this.idChat).subscribe(messages =>{
-        this.messagesList = messages;
-      })
+      this.chat = chat;
+      this.idChat = this.chat.idChat;
+      this._chat.unirseChat(this.idChat);
+      if(this.chat.usuario1.idUsuario == this.idUser){
+        this.myUser = this.chat.usuario1;
+        this.otherUser = this.chat.usuario2;
+      }else{
+        this.myUser = this.chat.usuario2;
+        this.otherUser = this.chat.usuario1;
+      }
+      console.log(this.chat)
+      this._chat.getMessageSubject().subscribe(messages =>{
+        this.messagesList = messages
+      });
     })
+  }
+  sendMessage(){
+    const mensaje = this.messageForm.get('mensaje')?.value;
+    if(mensaje){
+      this._chat.enviarMensaje(this.idChat, mensaje, this.idUser);
+      const nuevoMensaje: modeloMensaje = {
+        contenido: mensaje,
+        usuario: {idUsuario: this.idUser},
+        fecha: new Date()
+      };
+      this.messageForm.reset();
+    }
   }
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+  }
+  logout(){ //Funcion que nos ayuda a cerrar sesión
+    this._login.logout();
+    this.router.navigateByUrl('');
+  }
+  volver(){
+    this.location.back();
   }
 }

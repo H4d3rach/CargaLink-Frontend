@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { modeloOferta } from '../../../servicios/ofertas/modeloOferta';
 import { OfertaService } from '../../../servicios/ofertas/oferta.service';
 import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
+import { modeloMensaje } from '../../../servicios/chats/modeloMensaje';
 
 @Component({
   selector: 'app-principal',
@@ -20,12 +21,13 @@ export class PrincipalComponent implements OnInit {
   isUserLogged: boolean = false;
   ofertasList: modeloOferta[]= []; //Lista que guardará todas las ofertas disponibles
   isUserValid: boolean = true;
+  notifications: modeloMensaje[] = [];
+  unreadCount: number = 0;
   //postulacionList: modeloOferta[] = [];
   private _login = inject(LoginService); //Inyeccion del servicio de login
   private _oferta = inject(OfertaService); //Inyeccion del servicio de oferta
   private _postulacion = inject(PostulacionService);
   private router = inject(Router); //Inyeccion del router
-  private route = inject(ActivatedRoute);
   constructor(){
   }
   ngOnInit(): void {
@@ -56,6 +58,7 @@ export class PrincipalComponent implements OnInit {
     }
   })
   }
+
   verDetalles(id: number){
     this.router.navigate(['/rep_trans/detalles_trabajo', id]);
   }
@@ -71,9 +74,12 @@ export class PrincipalComponent implements OnInit {
   toggleCard(){
     this.isCardOpen = !this.isCardOpen;
   }
-
+  chat(id:string | undefined){
+    this.router.navigate(['/rep_trans/chat/',id]);
+  }
   logout(){ //Metodo que nos ayuda a cerrar sesión
     this._login.logout();
     this.router.navigateByUrl('');
   }
+
 }
