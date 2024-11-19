@@ -272,7 +272,16 @@
         <!--Aqui inicia el contenido principal de la página-->
         <div class="mt-4">
             <div class="container-empresa">
-               
+                @if(errorBool){
+                <div class="alert alert-danger" role="alert">
+                    {{errorString}}
+                  </div>
+                }
+                @if(errorLicencia){
+                    <div class="alert alert-danger" role="alert">
+                        {{errorLicenciaString}}
+                      </div>
+                }
                 <div class="row mb-2">
                     
                     <div class="col-md-6">
@@ -288,6 +297,13 @@
                                             <span class="input-group-text">$</span>
                                             <input formControlName="precioFinal" type="number" class="form-control"
                                                 id="precioFinal" aria-label="precioFinal">
+                                                @if(precioF.invalid && (precioF.dirty || precioF.touched)){
+                                                    <div class="text-danger">
+                                                        @if (precioF.errors?.['required']) {
+                                                            <div>Debe ingresar Precio</div>
+                                                        }
+                                                    </div>
+                                                }
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -295,6 +311,13 @@
                                             (pdf)</label>
                                         <input formControlName="contrato" class="form-control form-control-lg"
                                             id="contrato" type="file" accept=".pdf" (change)="onFileSelect($event)">
+                                            @if(contract.invalid && (contract.dirty || contract.touched)){
+                                                <div class="text-danger">
+                                                    @if (contract.errors?.['required']) {
+                                                        <div>Debe adjuntar el contrato</div>
+                                                    }
+                                                </div>
+                                            }
                                     </div>
                                     <hr class="mt-5">
                                     @if (isTransTurn) {
@@ -417,6 +440,20 @@
                                 }
                                     @else if(isUnitary){
                                         <h3 class="mb-4">Opciones</h3>
+                                        @if (errorBool) {
+                                            <button class="btn btn-new2" (click)="addOtherUni()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                                    class="bi bi-clipboard-plus" viewBox="0 0 16 16" style="margin-right: 10px;">
+                                                    <path fill-rule="evenodd"
+                                                        d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7" />
+                                                    <path
+                                                        d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z" />
+                                                    <path
+                                                        d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z" />
+                                                </svg>Agregar otro recurso</button>
+                                                <button class="btn btn-danger" (click)="borrarRecursos()">Borrar recursos asignados</button>
+                                        }
+                                        @else {
                                         <button class="btn btn-publicar" (click)="publicarUni()"><svg width="20"
                                             height="19" viewBox="0 0 20 19" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -435,6 +472,7 @@
                                                 <path
                                                     d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z" />
                                             </svg>Agregar Otro recurso</button>
+                                        }
                                     }
                                 }
                                 @else if (isSemiTurn && semi) {

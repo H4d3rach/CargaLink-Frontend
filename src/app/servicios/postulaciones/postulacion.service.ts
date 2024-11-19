@@ -41,15 +41,25 @@ export class PostulacionService {
       catchError(this.manejadorErrores)
     )
   }
-  asignarRecursos(id: number, precio: number,file: File, listRecursos: modeloRecursos[]): Observable<any>{
-    const formData = new FormData()
-      formData.append('recursos', JSON.stringify(listRecursos));
-      formData.append('precio', precio.toString());
+  asignarRecursos(id: number, precio: any,file: File, listRecursos: modeloRecursos[]): Observable<any>{
+    console.log(id);
+    console.log(precio);
+    console.log(listRecursos);
+    const formData = new FormData();
+    const recursos= new Blob([JSON.stringify(listRecursos)],{type:'application/json'});
+    const price = new Blob([JSON.stringify(precio)],{type:'application/json'});
+      formData.append('recursos', recursos);
+      formData.append('precio', price);
       formData.append('file', file);
       console.log(formData.get('recursos'));
       console.log(formData.get('precio'))
       console.log(formData.get('file'))
     return this._http.post<any>(`http://localhost:8082/representante/transporte/recurso/${id}`, formData).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  getResourcesByOferta(ofertaId: number | undefined): Observable<any>{
+    return this._http.get<any>(`http://localhost:8082/representante/transporte/recurso/${ofertaId}`).pipe(
       catchError(this.manejadorErrores)
     )
   }

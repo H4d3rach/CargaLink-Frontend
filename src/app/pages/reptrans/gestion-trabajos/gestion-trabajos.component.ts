@@ -42,8 +42,17 @@ export class GestionTrabajosComponent implements OnInit{
     this._postulacion.viewAlMyPostulaciones().subscribe((postulacionData)=>{
       this.postulacionList = postulacionData.filter(postulacion => postulacion.oferta.estatus === 'OFERTA');
       this.viajesActualesList = postulacionData.filter(postulacion => postulacion.oferta.estatus != 'OFERTA' && postulacion.oferta.estatus != 'PAGADO');
+      //this.despliegueViajesActuales();
       this.viajesFinalizadosList = postulacionData.filter(postulacion => postulacion.oferta.estatus === 'PAGADO');
       //console.log(this.postulacionList)
+    })
+  }
+  despliegueViajesActuales(){
+    const promesa = this.viajesActualesList.map(postulacion => {
+      const ofertaId = postulacion.oferta.idOferta;
+      return this._postulacion.getResourcesByOferta(ofertaId).toPromise().then(recursos =>{
+        postulacion.oferta['recursos'] = recursos;
+      })
     })
   }
  eliminar(id:number){

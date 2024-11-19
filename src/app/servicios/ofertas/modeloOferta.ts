@@ -1,4 +1,5 @@
 import { modeloRegCli } from "../registro/modeloRegCli";
+import { modeloRecursos } from "./modeloRecursos";
 
 export interface Carga {
     idCarga?: number;      
@@ -43,5 +44,6 @@ export interface Carga {
     cargas?: Carga[];
     representanteCliente?: modeloRegCli;  
     idOferta?: number;
+    recursos?: modeloRecursos[];
   }
   

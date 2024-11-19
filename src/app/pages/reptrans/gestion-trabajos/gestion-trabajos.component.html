@@ -310,6 +310,8 @@
                                         <th scope="row">{{viaje.oferta.representanteCliente?.empresaCliente?.nombreComercial}}</th>
                                         <td>@if(viaje.oferta.estatus === 'CONFIGURANDO'){
                                             <p class="text-primary">Falta asignar</p>  
+                                        }@else {
+                                            <p class="text-primary"></p> 
                                         }
                                         </td>
                                         <td>
