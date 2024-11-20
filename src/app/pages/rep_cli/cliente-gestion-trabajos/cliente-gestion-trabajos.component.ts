@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { OfertaService } from '../../../servicios/ofertas/oferta.service';
 import { modeloOferta } from '../../../servicios/ofertas/modeloOferta';
 import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
+import { modeloPostulcion } from '../../../servicios/postulaciones/modeloPostulacion';
 
 @Component({
   selector: 'app-cliente-gestion-trabajos',
@@ -25,6 +26,7 @@ export class ClienteGestionTrabajosComponent implements OnInit {
   ofertasPublicadasList: modeloOferta[]=[];
   viajesEnCursoList: modeloOferta[]=[];
   viajesFinalizados: modeloOferta[]=[];
+  postulacionList: modeloPostulcion[] = [];
   ngOnInit(): void {
     this._login.ifisUserLogged.subscribe({ //Conexion al servicio del login para determinar si el usuario está loggeado
       next:(isUserLogged)=>{
@@ -51,10 +53,25 @@ export class ClienteGestionTrabajosComponent implements OnInit {
         'FINALIZADO'
       ];
       this.viajesEnCursoList = ofertasData.filter(oferta => oferta.estatus && estatusEnCurso.includes(oferta.estatus));
+      const promise = this.viajesEnCursoList.map(oferta =>
+        this._postulacion.viewAllPostulaciones(oferta.idOferta!).toPromise()
+      );
+      Promise.all(promise)
+      .then((postulaciones)=>{
+        this.postulacionList = postulaciones.map(postulaciones => postulaciones![0]);
+        console.log(this.postulacionList);
+      })
+      .catch((error)=>{
+        console.error('Error al obtener las postulaciones:', error);
+      });
+      this.postulacionList.sort((a, b) => { 
+        return estatusEnCurso.indexOf(a.oferta.estatus??'') - estatusEnCurso.indexOf(b.oferta.estatus??'  '); 
+      });
       this.viajesFinalizados = ofertasData.filter(oferta => oferta.estatus === 'PAGADO')
     }
     )
   }
+  
   verPostulaciones(id: number){
     this.router.navigate(['/cliente/gestion/oferta/postulaciones/',id]);
   }

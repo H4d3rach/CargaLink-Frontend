@@ -37,6 +37,14 @@ export class TransportistaService {
       catchError(this.manejadorErrores)
     )
   }
+  changeEstatus(status: string): Observable<any>{
+    const body = {
+      EstatusTransportista: status
+    }
+    return this._http.put<any>('http://localhost:8082/transportista/editar',body).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
   manejadorErrores(error:HttpErrorResponse){ //Metodo que ayuda a manejar los errores
     if(error.status === 0){
       console.error('No se ha enviado el codigo del error', error);

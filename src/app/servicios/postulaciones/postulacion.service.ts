@@ -58,8 +58,8 @@ export class PostulacionService {
       catchError(this.manejadorErrores)
     )
   }
-  getResourcesByOferta(ofertaId: number | undefined): Observable<any>{
-    return this._http.get<any>(`http://localhost:8082/representante/transporte/recurso/${ofertaId}`).pipe(
+  getResourcesByOferta(ofertaId: number | undefined): Observable<modeloRecursos[]>{
+    return this._http.get<modeloRecursos[]>(`http://localhost:8082/representante/transporte/recurso/${ofertaId}`).pipe(
       catchError(this.manejadorErrores)
     )
   }

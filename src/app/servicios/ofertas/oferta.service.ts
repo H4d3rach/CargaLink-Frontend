@@ -39,6 +39,11 @@ export class OfertaService {
       catchError(this.manejadorErrores)
     )
   }
+  viewOfertaTransportista(): Observable<modeloOferta>{
+    return this._http.get<modeloOferta>('http://localhost:8082/transportista/oferta').pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
   manejadorErrores(error:HttpErrorResponse){ //Metodo que ayuda a manejar los errores
     if(error.status === 0){
       console.error('No se ha enviado el codigo del error', error.error);

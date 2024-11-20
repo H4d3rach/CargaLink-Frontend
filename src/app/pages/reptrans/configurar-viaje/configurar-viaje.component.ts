@@ -260,14 +260,14 @@ export class ConfigurarViajeComponent implements OnInit{
     if(this.recursosForm.valid){
     const recursosSemi: modeloRecursos = {
       vehiculo: {
-        placa: this.vehiculo?.placa,
-        tipo: this.vehiculo?.tipo
+        placa: this.vehiculo?.placa ?? '',
+        tipo: this.vehiculo?.tipo ?? ''
       } ,
       transportista: {
-        idUsuario: this.transportista?.idUsuario
+        idUsuario: this.transportista?.idUsuario ?? ''
       },
       semirremolque: {
-        idSemirremolque: this.semi?.idSemirremolque
+        idSemirremolque: this.semi?.idSemirremolque ?? 0
       }
     }
     if(this.verificarLicenciaSemi()==false){
@@ -301,11 +301,11 @@ export class ConfigurarViajeComponent implements OnInit{
     if(this.recursosForm.valid){
     const recursosUni: modeloRecursos = {
       vehiculo: {
-        placa: this.vehiculo?.placa,
-        tipo: this.vehiculo?.tipo
-      },
+        placa: this.vehiculo?.placa ?? '',
+        tipo: this.vehiculo?.tipo ?? ''
+      } ,
       transportista: {
-        idUsuario: this.transportista?.idUsuario
+        idUsuario: this.transportista?.idUsuario ?? ''
       }
     }
     if(this.verificarLicenciaUni()==false){
@@ -339,11 +339,11 @@ export class ConfigurarViajeComponent implements OnInit{
   addOtherUni(){
     const recursosUni: modeloRecursos = {
       vehiculo: {
-        placa: this.vehiculo?.placa,
-        tipo: this.vehiculo?.tipo
-      },
+        placa: this.vehiculo?.placa ?? '',
+        tipo: this.vehiculo?.tipo ?? ''
+      } ,
       transportista: {
-        idUsuario: this.transportista?.idUsuario
+        idUsuario: this.transportista?.idUsuario ?? ''
       }
     }
     if(this.verificarLicenciaUni()==false){
@@ -368,14 +368,14 @@ export class ConfigurarViajeComponent implements OnInit{
   addOtherSemi(){
     const recursosSemi: modeloRecursos = {
       vehiculo: {
-        placa: this.vehiculo?.placa,
-        tipo: this.vehiculo?.tipo
-      },
+        placa: this.vehiculo?.placa ?? '',
+        tipo: this.vehiculo?.tipo ?? ''
+      } ,
       transportista: {
-        idUsuario: this.transportista?.idUsuario
+        idUsuario: this.transportista?.idUsuario ?? ''
       },
       semirremolque: {
-        idSemirremolque: this.semi?.idSemirremolque
+        idSemirremolque: this.semi?.idSemirremolque ?? 0
       }
     }
     if(this.verificarLicenciaSemi()==false){

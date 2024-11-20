@@ -23,6 +23,7 @@ export class SeeViajeDetailsComponent {
   isUserLogged: boolean =  false;
   idOferta: number = 0;
   oferta?: modeloOferta;
+  diferentEstatus: boolean = false;
   constructor(private formBuilder: FormBuilder){
     this.idOferta = Number(this.route.snapshot.paramMap.get('idTrabajo'));
   }
@@ -43,6 +44,9 @@ export class SeeViajeDetailsComponent {
     });
     this._oferta.seeOfertaDetailsRepTrans(this.idOferta).subscribe((ofertaData)=>{
       this.oferta = ofertaData;
+      if(ofertaData.estatus != 'CONFIGURANDO'){
+        this.diferentEstatus = true;
+      }
     })
   }
   

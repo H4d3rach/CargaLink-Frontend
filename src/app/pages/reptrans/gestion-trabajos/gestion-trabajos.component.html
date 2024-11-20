@@ -311,17 +311,28 @@
                                         <td>@if(viaje.oferta.estatus === 'CONFIGURANDO'){
                                             <p class="text-primary">Falta asignar</p>  
                                         }@else {
-                                            <p class="text-primary"></p> 
+                                            @for (recurso of viaje.oferta.recursos; track $index) {
+                                                {{recurso.transportista?.nombre}} {{recurso.transportista?.primerApellido}} {{recurso.transportista?.segundoApellido}}
+                                            }
                                         }
                                         </td>
                                         <td>
                                             @if(viaje.oferta.estatus === 'CONFIGURANDO'){
                                                 <p class="text-primary">Falta asignar</p>  
                                             }
+                                            @else {
+                                                @for (recurso of viaje.oferta.recursos; track $index) {
+                                                    {{recurso.vehiculo?.placa}}
+                                                }
+                                            }
                                         </td>
                                         <TD>
                                             @if(viaje.oferta.estatus === 'CONFIGURANDO'){
                                                 <p class="text-primary">Falta asignar</p>  
+                                            }@else {
+                                                @for (recurso of viaje.oferta.recursos; track $index) {
+                                                    {{recurso.semirremolque?.nombreIdentificador}}
+                                                }
                                             }
                                         </TD>
                                         <td>
@@ -334,7 +345,7 @@
                                         <td>
                                             <div class="div-table">
                                                 @if (viaje.oferta.idOferta) {
-                                            <button class="btn btn-dark btn-table">Mensajes</button>
+                                            <button class="btn btn-dark btn-table" (click)="chat(viaje.oferta.representanteCliente?.idUsuario )">Mensajes</button>
                                             <button class="btn btn-warning btn-table" (click)="detailsViaje(viaje.oferta.idOferta)">Detalles</button>
                                                 }
                                         </div>
