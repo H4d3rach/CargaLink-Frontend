@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { modeloOferta } from './modeloOferta';
+import { modeloCalificacion, modeloOferta } from './modeloOferta';
 import { catchError, concatAll, Observable, throwError } from 'rxjs';
 
 @Injectable({
@@ -41,6 +41,11 @@ export class OfertaService {
   }
   viewOfertaTransportista(): Observable<modeloOferta>{
     return this._http.get<modeloOferta>('http://localhost:8082/transportista/oferta').pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  pagarViaje(id: number, calificacion: modeloCalificacion): Observable<any>{
+    return this._http.patch(`http://localhost:8082/representante/cliente/oferta/pagar/${id}`, calificacion).pipe(
       catchError(this.manejadorErrores)
     )
   }

@@ -43,7 +43,7 @@ export class GestionTrabajosComponent implements OnInit{
       this.postulacionList = postulacionData.filter(postulacion => postulacion.oferta.estatus === 'OFERTA');
       this.viajesActualesList = postulacionData.filter(postulacion => postulacion.oferta.estatus != 'OFERTA' && postulacion.oferta.estatus != 'PAGADO');
       this.despliegueViajesActuales();
-      this.viajesFinalizadosList = postulacionData.filter(postulacion => postulacion.oferta.estatus === 'PAGADO');
+      //this.viajesFinalizadosList = postulacionData.filter(postulacion => postulacion.oferta.estatus === 'PAGADO');
       //console.log(this.postulacionList)
     })
   }
@@ -59,7 +59,7 @@ export class GestionTrabajosComponent implements OnInit{
       this.viajesActualesList.forEach(element => {
         console.log(element.oferta.recursos);
       });
-      const estadoOrden = ['CONFIGURANDO', 'RECOGIENDO', 'EMBARCANDO', 'EN_CAMINO', 'PROBLEMA', 'ENTREGADO', 'FINALIZADO']; 
+      const estadoOrden = ['CONFIGURANDO','FINALIZADO','CONFIGURADO']; 
       this.viajesActualesList.sort((a, b) => { 
         return estadoOrden.indexOf(a.oferta.estatus??'') - estadoOrden.indexOf(b.oferta.estatus??'  '); 
       });

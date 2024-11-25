@@ -79,7 +79,7 @@ export const routes: Routes = [
     {path: 'cliente/chat', component: ClienteChatComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/chat/:idTrans', component: ClienteChatSalaComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/gestion', component: ClienteGestionTrabajosComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
-    {path: 'cliente/gestion/oferta/:idOferta', component: ClienteOfertaDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
+    {path: 'cliente/gestion/trabajo/detalles/:idTrabajo', component: ClienteOfertaDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/gestion/oferta/postulante/:idRepresentante', component: ClienteTransporteDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/gestion/oferta/postulaciones/:idOferta', component: ClienteOfertaPostulacionesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/gestion/oferta/postulaciones/detalles/:idPostulacion', component: ClientePostulacionesDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},

@@ -6,6 +6,8 @@ import { OfertaService } from '../../../servicios/ofertas/oferta.service';
 import { Carga, Contenedor, Embalaje, modeloOferta, Suelta } from '../../../servicios/ofertas/modeloOferta';
 import { FormsModule } from '@angular/forms';
 import { TransportistaService } from '../../../servicios/transportistas/transportista.service';
+import { modeloRecursos } from '../../../servicios/ofertas/modeloRecursos';
+import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
 
 @Component({
   selector: 'app-trans-home',
@@ -18,6 +20,7 @@ export class TransHomeComponent implements OnInit{
   private _login = inject(LoginService);
   private _oferta = inject(OfertaService);
   private _trans = inject(TransportistaService);
+  private _postulacion = inject(PostulacionService);
   private router = inject(Router);
   isSidebarCollapsed: boolean = false;
   chatOpen: boolean = false;
@@ -26,6 +29,21 @@ export class TransHomeComponent implements OnInit{
   isUserLogged: boolean = false;
   oferta?: modeloOferta;
   estatusSeleccionado: string = ''; 
+  recurso?: modeloRecursos;
+  idUser: string = "";
+  estatusActual: string = "";
+  flujoEstatus: {[key: string]: string}={
+    'RECOGIENDO': 'EMBARCANDO',
+    'EMBARCANDO': 'EN_CAMINO',
+    'EN_CAMINO': 'ENTREGADO'
+  }
+  constructor(){
+    const userInfo =sessionStorage.getItem('UserInfo');
+    if(userInfo){
+      const userInfoJson = JSON.parse(userInfo);
+      this.idUser = userInfoJson.idUsuario;
+    }
+  }
   ngOnInit(): void {
     this._login.ifisUserLogged.subscribe({
       next:(isUserLogged)=>{
@@ -44,9 +62,15 @@ export class TransHomeComponent implements OnInit{
       next: (OFERTA)=>{
         this.oferta = OFERTA;
         this.isInTravel = true;
+        this._postulacion.getMyResource(this.oferta.idOferta).subscribe((myPost)=>{
+          this.recurso = myPost;
+        })
       },
       error: (error)=>{
         this.isInTravel = false;
+        this._trans.getTrans(this.idUser).subscribe((dataUser)=>{
+          this.estatusActual = dataUser.estatusTransportista;
+        });
       }
     })
   }
@@ -69,7 +93,8 @@ export class TransHomeComponent implements OnInit{
     if (this.estatusSeleccionado) {
       this._trans.changeEstatus(this.estatusSeleccionado).subscribe({
         next: ()=>{
-          console.log("Todo bien")
+          this.estatusActual = this.estatusSeleccionado;
+
         },
         error: (error)=>{
           console.log(error)
@@ -79,6 +104,42 @@ export class TransHomeComponent implements OnInit{
       console.log('Por favor, selecciona un estatus.');
     }
   }
+  siguienteTexto(currentEstatus?: string): string | null{
+    if(!currentEstatus)return null;
+    const next = this.flujoEstatus[currentEstatus];
+    switch(next){
+      case 'EMBARCANDO':
+        return 'Embarcar';
+      case 'EN_CAMINO':
+        return 'Iniciar viaje';
+      case 'ENTREGADO':
+        return 'Entregar'
+      default:
+        return null;
+    }
+  }
+  siguienteEstatus(currentEstatus?: string){
+    return currentEstatus ? this.flujoEstatus[currentEstatus] || null: null;
+  }
+  updateEstatus(currentEstatus?: string){
+    const next = this.siguienteEstatus(currentEstatus);
+    if(next){
+      this._postulacion.updateEstatus(this.recurso?.idRecurso,next).subscribe(()=>{
+        this.recurso = { ...this.recurso, estatus: next };
+      })
+    }
+  }
+  formatText(text: string | undefined): string { //Metodo que ayuda a  darle formato a respuestas que lo requieran
+    if(text){
+    return text
+      .toLowerCase()
+      .replace(/_/g,' ')
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+    }else{
+      return "";
+    }
+  }
+
   logout(){
     this._login.logout();
     this.router.navigateByUrl('');

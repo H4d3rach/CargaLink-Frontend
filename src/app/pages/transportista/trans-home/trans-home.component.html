@@ -207,10 +207,13 @@
                 <div class="card card-style">
                     <div class="card-body">
                         <p class="texto-viaje">Control del viaje</p>
+                        <p class="text-center texto-card"><strong>{{formatText(recurso?.estatus)}}</strong></p>
+                        <hr>
                     </div>
-                    <button class="btn btn-custom">Actualizar estatus</button>
+                    <button class="btn btn-custom"  [disabled]="!siguienteEstatus(recurso?.estatus)" (click)="updateEstatus(recurso?.estatus)">{{ siguienteTexto(recurso?.estatus) }}</button>
                     <div class="accordion accordion-flush" id="accordionFlushExample"
                         style="margin-bottom: 15px; margin-left: 10px; margin-right: 10px;">
+                        @if(recurso?.estatus!='ENTREGADO'){
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed texto-card" type="button"
@@ -228,6 +231,9 @@
                                 </div>
                             </div>
                         </div>
+                    }@else {
+                        <p class="text-center texto-card"><strong>Viaje Finalizado</strong></p>
+                    }
                     </div>
                 </div>
                 <div class="container">
@@ -298,11 +304,10 @@
                 <div class="card card-style">
                     <div class="card-body">
                         <p class="texto-viaje">Estatus actual</p>
-                        <p class="text-center texto-card"><strong>Disponible</strong></p>
+                        <p class="text-center texto-card"><strong>{{formatText(estatusActual)}}</strong></p>
                         <hr>
                         <form class="mt-5">
                             <select [(ngModel)]="estatusSeleccionado" name="estatus" class="form-select" aria-label="Default select">
-                                <option selected>Cambiar mi estatus</option>
                                 <option value="DISPONIBLE">Disponible</option>
                                 <option value="DESCANSANDO">En descanso</option>
                                 <option value="NO_DISPONIBLE">No disponible</option>

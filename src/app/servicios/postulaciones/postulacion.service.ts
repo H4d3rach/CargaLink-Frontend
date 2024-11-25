@@ -63,6 +63,19 @@ export class PostulacionService {
       catchError(this.manejadorErrores)
     )
   }
+  getMyResource(id: number | undefined): Observable<modeloRecursos>{
+    return this._http.get<modeloRecursos>(`http://localhost:8082/transportista/recurso/${id}`).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  updateEstatus(id: number | undefined, estatus: string | null): Observable<any>{
+    const status = {
+      estatus: estatus
+    }
+    return this._http.patch<any>(`http://localhost:8082/transportista/recurso/${id}`, status).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
   manejadorErrores(error:HttpErrorResponse){ //Metodo que ayuda a manejar los errores
     if(error.status === 0){
       console.error('No se ha enviado el codigo del error', error.error);

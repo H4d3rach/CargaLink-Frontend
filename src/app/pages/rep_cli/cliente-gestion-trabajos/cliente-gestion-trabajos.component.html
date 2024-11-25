@@ -210,11 +210,17 @@
                                         <td>
                                             {{postulacion.oferta.fechaFin}} a las {{postulacion.oferta.horaTermino}}
                                         </td>
-                                        <td>{{postulacion.oferta.estatus}}</td>
+                                        <td>@if(postulacion.oferta.estatus=='CONFIGURANDO'){
+                                            <P>Asignando recursos</P>
+                                            }@else if (postulacion.oferta.estatus=='CONFIGURADO') {
+                                                <p>Viaje iniciado</p>
+                                            }@else {
+                                                <p class="text-primary">Falta realizar pago</p>
+                                            }</td>
                                         <td>
                                             <div class="div-table">
                                             <button class="btn btn-dark btn-table" (click)="chat(postulacion.representanteTransporte.idUsuario)">Mensajes</button>
-                                            <button class="btn btn-warning btn-table">Detalles</button>
+                                            <button class="btn btn-warning btn-table " (click)="detalles(postulacion.oferta.idOferta)">Detalles</button>
                                         </div>
                                         </td>
                                     </tr>

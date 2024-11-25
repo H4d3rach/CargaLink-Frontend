@@ -1,10 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Carga, Contenedor, Embalaje, modeloOferta, Suelta } from '../../../servicios/ofertas/modeloOferta';
 import { OfertaService } from '../../../servicios/ofertas/oferta.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { modeloRecursos } from '../../../servicios/ofertas/modeloRecursos';
+import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
 
 @Component({
   selector: 'app-see-viaje-details',
@@ -13,9 +15,10 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './see-viaje-details.component.html',
   styleUrl: './see-viaje-details.component.css'
 })
-export class SeeViajeDetailsComponent {
+export class SeeViajeDetailsComponent implements OnInit{
   private _login = inject(LoginService);
   private _oferta =  inject(OfertaService);
+  private _postulacion = inject(PostulacionService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   isSidebarCollapsed: boolean = false;
@@ -23,7 +26,8 @@ export class SeeViajeDetailsComponent {
   isUserLogged: boolean =  false;
   idOferta: number = 0;
   oferta?: modeloOferta;
-  diferentEstatus: boolean = false;
+  diferentEstatus?: string = '';
+  recursos: modeloRecursos[]=[];
   constructor(private formBuilder: FormBuilder){
     this.idOferta = Number(this.route.snapshot.paramMap.get('idTrabajo'));
   }
@@ -44,8 +48,11 @@ export class SeeViajeDetailsComponent {
     });
     this._oferta.seeOfertaDetailsRepTrans(this.idOferta).subscribe((ofertaData)=>{
       this.oferta = ofertaData;
-      if(ofertaData.estatus != 'CONFIGURANDO'){
-        this.diferentEstatus = true;
+      this.diferentEstatus = ofertaData.estatus;
+      if(ofertaData.estatus == 'CONFIGURADO' || this.oferta.estatus=='FINALIZADO'){
+        this._postulacion.getResourcesByOferta(ofertaData.idOferta).subscribe((listaRecursos)=>{
+          this.recursos = listaRecursos;
+        })
       }
     })
   }
@@ -71,5 +78,15 @@ export class SeeViajeDetailsComponent {
   logout(){ //Metodo que nos ayuda a cerrar sesión
     this._login.logout();
     this.router.navigateByUrl('');
+  }
+  formatText(text: string | undefined): string { //Metodo que ayuda a  darle formato a respuestas que lo requieran
+    if(text){
+    return text
+      .toLowerCase()
+      .replace(/_/g,' ')
+      .replace(/\b\w/g, (char) => char.toUpperCase());}
+      else{
+        return "";
+      }
   }
 }

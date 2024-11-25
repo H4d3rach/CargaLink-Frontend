@@ -6,6 +6,7 @@ export interface modeloRecursos{
     vehiculo?: modeloVehiculoRecurso;
     transportista?: transSeguroModeloRecurso;
     semirremolque?: modeloSemirremolqueRecurso;
+    estatus?: string;
 }
 export interface modeloSemirremolqueRecurso {
     idSemirremolque: number;

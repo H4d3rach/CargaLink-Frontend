@@ -200,8 +200,7 @@
 
         <!--Aqui inicia el contenido principal de la página-->
         <div class="mt-4">
-            @if (diferentEstatus==true) {}
-            @else{
+            @if(diferentEstatus=='CONFIGURANDO'){
             <div class="container-empresa">
                 <div class="row mb-2">
                     <div class="col-md-6">
@@ -211,7 +210,8 @@
                                 <h3 class="mb-4">Detalles del viaje</h3>
                                 <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Lugar de
                                         recogida: </strong> {{oferta?.lugarInicio}}</p>
-                                <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Lugar destino: </strong> {{oferta?.lugarDestino}}</p>
+                                <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Lugar destino:
+                                    </strong> {{oferta?.lugarDestino}}</p>
                                 <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Fecha de
                                         entrega programada: </strong> {{oferta?.fechaFin}} a las {{oferta?.horaTermino}}
                                 </p>
@@ -315,7 +315,265 @@
                     </div>
                 </div>
             </div>
-        }
+            }@else {
+            <div class="container-empresa">
+                <div class="row mb-2">
+                    <div
+                        class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative h-100">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <div class="container mb-3"> 
+                                <h3 class="mb-3 text-center">Recursos asignados</h3>
+                            @for (recurso of recursos; track $index) {
+                                @switch (recurso.estatus) {
+                                @case ('RECOGIENDO') {
+                                <div class="alert alert-primary" role="alert">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                        class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16"
+                                        role="img" aria-label="Warning:">
+                                        <path
+                                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                                    </svg>
+                                    El transportista se encuentra en camino a recoger la carga
+                                </div>
+                                }
+                                @case ('EMBARCANDO') {
+                                <div class="alert alert-primary" role="alert">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                        class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16"
+                                        role="img" aria-label="Warning:">
+                                        <path
+                                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                                    </svg>
+                                    El transportista se encuentra embarcando
+                                </div>
+                                }
+                                @case('EN_CAMINO'){
+                                <div class="alert alert-primary" role="alert">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                        class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16"
+                                        role="img" aria-label="Warning:">
+                                        <path
+                                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                                    </svg>
+                                    El transportista ha comenzado el viaje
+                                </div>
+                                }
+                                @case ('PROBLEMA') {
+                                <div class="alert alert-danger" role="alert">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                        class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16"
+                                        role="img" aria-label="Warning:">
+                                        <path
+                                            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                    </svg>
+                                    El transportista tuvo un contratiempo
+                                </div>
+                                }
+                                @case ('ENTREGADO') {
+                                <div class="alert alert-success" role="alert">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                        class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16"
+                                        role="img" aria-label="Warning:">
+                                        <path
+                                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                                    </svg>
+                                    se ha entregado la carga
+                                </div>
+                                }
+                                }
+
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+                                    <div class="col">
+                                        <div class="card mb-4 rounded-3 shadow-sm h-100">
+                                            <div class="card-header py-3">
+                                                <h4 class="my-0 fw-normal">Transportista</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text"><strong>Nombre:
+                                                    </strong>{{recurso.transportista?.nombre}}</p>
+                                                <p class="card-text"><strong>Primer Apellido:
+                                                    </strong>{{recurso.transportista?.primerApellido}}</p>
+                                                <p class="card-text"><strong>Segundo Apellido:
+                                                    </strong>{{recurso.transportista?.segundoApellido}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="card mb-4 rounded-3 shadow-sm h-100">
+                                            <div class="card-header py-3">
+                                                <h4 class="my-0 fw-normal">Vehiculo</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text"><strong>Placas:
+                                                    </strong>{{recurso.vehiculo?.placa}}</p>
+                                                <p class="card-text"><strong>Marca:
+                                                    </strong>{{formatText(recurso.vehiculo?.marca)}}
+                                                </p>
+                                                <p class="card-text"><strong>Modelo:
+                                                    </strong>{{recurso.vehiculo?.modelo}}</p>
+                                                <p class="card-text"><strong>Tipo:
+                                                    </strong>{{formatText(recurso.vehiculo?.tipo)}}
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @if (recurso.semirremolque) {
+                                    <div class="col">
+                                        <div class="card mb-4 rounded-3 shadow-sm h-100">
+                                            <div class="card-header py-3">
+                                                <h4 class="my-0 fw-normal">Semirremolque</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text"><strong>Tipo:
+                                                    </strong>{{formatText(recurso.semirremolque.tipo)}}</p>
+                                                <p class="card-text"><strong>Dimensiones:
+                                                    </strong>{{recurso.semirremolque.largo}} x
+                                                    {{recurso.semirremolque.ancho}} x {{recurso.semirremolque.alto}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    }
+
+                                </div>
+                                <hr>
+                                }
+                            </div>
+                            <h3 class="mb-3">Detalles de la oferta</h3>
+                            <form>
+                                <div class="row mb-3"> <!--Formulario de la configuracion de la oferta-->
+                                    <div class="col-md-6">
+                                        <label for="recogida" class="form-label form-texto text-registro-form">Dirección
+                                            completa de recogida</label>
+                                        <input [value]="oferta?.lugarInicio" type="text" class="form-control"
+                                            id="recogida" readonly>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="destino" class="form-label form-texto text-registro-form">Dirección
+                                            del
+                                            destino</label>
+                                        <input [value]="oferta?.lugarDestino" type="text" class="form-control"
+                                            id="destino" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <label for="fecha" class="form-label form-texto text-registro-form">Fecha de
+                                            entrega</label>
+                                        <input [value]="oferta?.fechaFin" type="date" class="form-control" id="fecha"
+                                            readonly>
+
+                                    </div>
+                                    <div class="col">
+                                        <label for="hora" class="form-label form-texto text-registro-form">Hora
+                                            programada de
+                                            entrega</label>
+                                        <input [value]="oferta?.horaTermino" type="time" class="form-control" id="hora"
+                                            readonly>
+                                    </div>
+                                    <div class="col">
+                                        <label for="precio" class="form-label text-success-emphasis mb-3">Precio
+                                        </label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input [value]="oferta?.precio" type="number" class="form-control"
+                                                id="precio" aria-describedby="Precio" placeholder="1500" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label for="pesotot" class="form-label form-texto text-registro-form">Peso
+                                            total</label>
+                                        <input [value]="oferta?.pesoTotal" type="number" class="form-control"
+                                            id="pesotot" placeholder="Se agregará automáticamente" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="desc"
+                                        class="form-label form-texto text-registro-form">Descripcion</label>
+                                    <textarea [value]="oferta?.descripcion" class="form-control" id="desc" rows="2"
+                                        readonly></textarea>
+
+                                </div>
+                            </form>
+                            <h3 class="mb-3">Detalles de las cargas</h3>
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                                @for (carga of oferta?.cargas; track $index) {
+                                @if (isEmb(carga)) {
+                                <div class="col">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="position-relative">
+                                            <img src="assets/carga_embalaje.jpg" class="bd-placeholder-img card-img-top"
+                                                alt="Imagen de ejemplo"
+                                                style="width:100%; height:225px; object-fit:cover;">
+                                            <div class="position-absolute top-50 start-50 translate-middle text-white"
+                                                style="background-color: rgba(0, 0, 0, 0.5); padding: 0.5rem;">
+                                                Carga con embalaje
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text"><strong>Contenido: </strong>{{carga.tipoEmbalaje}}
+                                                {{carga.contenido}}</p>
+                                            <p class="card-text"><strong>Número de unidades: </strong>
+                                                {{carga.noUnidades}}</p>
+                                            <p class="card-text"><strong>Peso Unitario: </strong> {{carga.pesoUnitario}}
+                                            </p>
+                                            <p class="card-text"><strong>Largo: </strong> {{carga.largo}}</p>
+                                            <p class="card-text"><strong>Ancho: </strong>{{carga.ancho}}</p>
+                                            <p class="card-text"><strong>Alto: </strong>{{carga.alto}}</p>
+                                            <p class="card-text"><strong>Peso total: </strong>{{carga.pesoTotal}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                                @else if (isSlt(carga)) {
+                                <div class="col">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="position-relative">
+                                            <img src="assets/carga_suelta.jpg" class="bd-placeholder-img card-img-top"
+                                                alt="Imagen de ejemplo"
+                                                style="width:100%; height:225px; object-fit:cover;">
+                                            <div class="position-absolute top-50 start-50 translate-middle text-white"
+                                                style="background-color: rgba(0, 0, 0, 0.5); padding: 0.5rem;">
+                                                Carga Suelta
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text"><strong>Contenido: </strong>{{carga.descripcion}}</p>
+                                            <p class="card-text"><strong>Peso total: </strong>{{carga.pesoTotal}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                } @else if (isCont(carga)) {
+                                <div class="col">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="position-relative">
+                                            <img src="assets/carga_contenedor.jpg"
+                                                class="bd-placeholder-img card-img-top" alt="Imagen de ejemplo"
+                                                style="width:100%; height:225px; object-fit:cover;">
+                                            <div class="position-absolute top-50 start-50 translate-middle text-white"
+                                                style="background-color: rgba(0, 0, 0, 0.5); padding: 0.5rem;">
+                                                Carga en contenedor
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text"><strong>Contenido: </strong>{{carga.contenido}}</p>
+                                            <p class="card-text"><strong>Largo: </strong>{{carga.largo}}</p>
+                                            <p class="card-text"><strong>Ancho: </strong>{{carga.ancho}}</p>
+                                            <p class="card-text"><strong>Alto: </strong>{{carga.alto}}</p>
+                                            <p class="card-text"><strong>Peso total: </strong>{{carga.pesoTotal}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
             <div class="chatbot-container">
                 <button class="chatbot-button" (click)="funcionChat()">
                     <img src="assets/icono_chatbot.png" alt="Imagen del chatbot" class="chatbot-img">

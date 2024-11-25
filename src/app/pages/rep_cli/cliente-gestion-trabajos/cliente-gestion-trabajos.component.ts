@@ -44,13 +44,9 @@ export class ClienteGestionTrabajosComponent implements OnInit {
     this._oferta.viewMyOfertas().subscribe((ofertasData)=>{
       this.ofertasPublicadasList = ofertasData.filter(oferta => oferta.estatus === 'OFERTA');
       const estatusEnCurso = [
-        'CONFIGURANDO', 
-        'RECOGIENDO', 
-        'EMBARCANDO', 
-        'EN_CAMINO', 
-        'PROBLEMA', 
-        'ENTREGADO', 
-        'FINALIZADO'
+        'FINALIZADO',
+        'CONFIGURADO',
+        'CONFIGURANDO'
       ];
       this.viajesEnCursoList = ofertasData.filter(oferta => oferta.estatus && estatusEnCurso.includes(oferta.estatus));
       const promise = this.viajesEnCursoList.map(oferta =>
@@ -88,6 +84,9 @@ export class ClienteGestionTrabajosComponent implements OnInit {
         console.log(error);
       }
     })
+  }
+  detalles(id: number | undefined){
+    this.router.navigate(['/cliente/gestion/trabajo/detalles/',id])
   }
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;

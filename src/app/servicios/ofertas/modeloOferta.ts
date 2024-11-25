@@ -47,3 +47,10 @@ export interface Carga {
     recursos?: modeloRecursos[];
   }
   
+  export interface modeloCalificacion{
+    puntualidad: number;
+    estadoCarga: number;
+    precio: number;
+    atencion: number;
+    comentario: string;
+  }
