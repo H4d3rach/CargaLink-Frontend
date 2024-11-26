@@ -297,7 +297,7 @@
                                         <td>@if(viaje.oferta.estatus === 'CONFIGURANDO'){
                                             {{formatText(viaje.oferta.estatus)}} 
                                         }@else if(viaje.oferta.estatus === 'FINALIZADO'){
-                                            <p class="text-primary">Falta pagar</p>
+                                            <p class="text-primary">Falta el pago</p>
                                         }
                                         @else {
                                             @for (recurso of viaje.oferta.recursos; track $index) {

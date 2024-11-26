@@ -56,6 +56,17 @@ export class ClienteOfertaDetallesComponent implements OnInit{
       }
     })
   }
+  downloadContrato(nombre: string){
+    this._oferta.getPdf(nombre).subscribe({
+      next: (blob)=>{
+        const url = URL.createObjectURL(blob);
+        window.open(url,'_blank')
+      },
+      error: (error)=>{
+        console.log("Error al abrir el pdf");
+      }
+    });
+  }
   isEmb(carga: Carga): carga is Embalaje{
     return carga.tipo==="EMBALAJE";
   }

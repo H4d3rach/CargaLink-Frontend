@@ -215,6 +215,17 @@
     text-decoration: none;
     font-weight: 500;
  }
+ .btn-publicar{
+  color: #FFFFFF;
+  background-color: #005E72;
+  font-weight: 500;
+  padding: 15px 15px 15px 15px;
+  margin-bottom: 20px;
+}
+.btn-publicar:hover{
+  background-color: #0484a0;
+  color: #FFFFFF;
+}
  .btn-new2{
   color: #FFFFFF;
   background-color: #B88E2F;
@@ -226,10 +237,6 @@
 .btn-new2:hover{
   background-color: #a77c29;
 color: #fff;
-}
-.btn-container{
-  display: flex;
-  gap: 15px;
 }
  @media (max-width:1120px) {
   .custom-dropdown-menu{

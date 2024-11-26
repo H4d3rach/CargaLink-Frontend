@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -15,13 +15,13 @@ import { PostulacionService } from '../../../servicios/postulaciones/postulacion
 import { OfertaService } from '../../../servicios/ofertas/oferta.service';
 type resource = transSeguroModelo | modeloVehiculo | modeloSemirremolque;
 @Component({
-  selector: 'app-configurar-viaje',
+  selector: 'app-upd-recursos',
   standalone: true,
   imports: [CommonModule, RouterLink, ReactiveFormsModule],
-  templateUrl: './configurar-viaje.component.html',
-  styleUrl: './configurar-viaje.component.css'
+  templateUrl: './upd-recursos.component.html',
+  styleUrl: './upd-recursos.component.css'
 })
-export class ConfigurarViajeComponent implements OnInit{
+export class UpdRecursosComponent implements OnInit{
   private _login = inject(LoginService);
   private _postulacion = inject(PostulacionService);
   private _oferta = inject(OfertaService);
@@ -30,6 +30,7 @@ export class ConfigurarViajeComponent implements OnInit{
   private _semirremolque = inject(SemirremolqueService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private location = inject(Location)
   oferta?: modeloOferta;
   idOferta: number = 0;
   isUserLogged: boolean = false;
@@ -55,11 +56,12 @@ export class ConfigurarViajeComponent implements OnInit{
   pesoCarga: number | undefined = 0;
   pesoActual: number = 0;
   pesoSoportado: number = 0;
+  recursos: modeloRecursos[]=[];
+  recursosEliminados: modeloRecursos[]=[];
   constructor(private formBuilder: FormBuilder){
     this.idOferta = Number(this.route.snapshot.paramMap.get('idTrabajo'));
   }
   recursosForm = this.formBuilder.group({
-    precioFinal: ['', [Validators.required]],
     contrato: ['', [Validators.required]],
     transportista: ['', [Validators.required]],
     vehiculo: ['', [Validators.required]],
@@ -93,6 +95,9 @@ export class ConfigurarViajeComponent implements OnInit{
     });
     this._oferta.seeOfertaDetailsRepTrans(this.idOferta).subscribe((oferta)=>{
       this.pesoCarga = oferta.pesoTotal;
+    })
+    this._postulacion.getResourcesByOferta(this.idOferta).subscribe((listaRecursos)=>{
+      this.recursos = listaRecursos;
     })
   }
   onChange(event: any) { //Metodo que ayuda a obtener el valor del select tipo de carga y ayuda a desplegar el formulario para cada tipo
@@ -276,12 +281,28 @@ export class ConfigurarViajeComponent implements OnInit{
         this.errorString = "";
         this.errorLicencia = false;
         this.errorLicenciaString = "";
+
+        if(this.recursos.length > 0){
+    this.recursos.forEach(element => {
+      this.recursosList.push(element);
+    });
+  }
     this.recursosList?.push(recursosSemi);
     let contrato: File = this.recursosForm.get('contrato')?.value as unknown as File;;
-    const precio = Number(this.recursosForm.get('precioFinal')?.value)
     if(contrato){
-      
-      this._postulacion.asignarRecursos(this.idOferta,{precio: precio},contrato,this.recursosList).subscribe({
+      if(this.recursosEliminados.length>0){
+        this.recursosEliminados.forEach(element => {
+          this._postulacion.eliminarRecurso(element.idRecurso||0).subscribe({
+            next: ()=>{
+              console.log("Todo eliminado")
+            },
+            error: (error)=>{
+              console.log(error);
+            }
+          })
+        });
+      }
+      this._postulacion.modificarRecursos(this.idOferta,contrato,this.recursosList).subscribe({
         next: ()=>{
           console.log("Next")
         },
@@ -294,7 +315,8 @@ export class ConfigurarViajeComponent implements OnInit{
       })
     }
   }
-  }}else{
+  }}
+  else{
     this.recursosForm.markAllAsTouched();
   }}
   publicarUni(){
@@ -316,9 +338,8 @@ export class ConfigurarViajeComponent implements OnInit{
     this.errorLicenciaString = "";
     this.recursosList?.push(recursosUni);
     let contrato: File = this.recursosForm.get('contrato')?.value as unknown as File;;
-    const precio = Number(this.recursosForm.get('precioFinal')?.value)
     if(contrato){
-      this._postulacion.asignarRecursos(this.idOferta,{precio: precio},contrato,this.recursosList).subscribe({
+      this._postulacion.modificarRecursos(this.idOferta,contrato,this.recursosList).subscribe({
         next: ()=>{
           console.log("Next")
         },
@@ -441,8 +462,39 @@ export class ConfigurarViajeComponent implements OnInit{
     }
     
   }
-  get precioF(){ //Nos ayuda a obtener el control del input Llamarlo desde el html
-    return this.recursosForm.controls.precioFinal;
+  volver(){
+    this.location.back();
+  }
+  formatText(text: string | undefined): string { //Metodo que ayuda a  darle formato a respuestas que lo requieran
+    if(text){
+    return text
+      .toLowerCase()
+      .replace(/_/g,' ')
+      .replace(/\b\w/g, (char) => char.toUpperCase());}
+      else{
+        return "";
+      }
+  }
+  eliminarRecurso(id: number){
+    this.recursosEliminados.push(this.recursos[id]);
+    this.recursos.splice(id,1);
+    if(this.recursos.length!=0){
+      this.recursos.forEach(recurso => {
+        this.transportista = recurso.transportista as unknown as transSeguroModelo;
+        this.vehiculo = recurso.vehiculo as unknown as modeloVehiculo;
+        if(this.vehiculo.tipo == 'CAMION_UNITARIO'){
+          const verificacion = this.verificarUnitario();
+        }else{
+          this.semi = recurso.semirremolque as unknown as modeloSemirremolque;
+          const verify = this.verificarSemi();
+        }
+      });
+      this.transportista = undefined;
+      this.vehiculo = undefined;
+      this.semi = undefined;
+      this.errorString = "";
+      this.errorBool = false;
+    }
   }
   get contract(){
     return this.recursosForm.controls.contrato;
@@ -456,5 +508,4 @@ export class ConfigurarViajeComponent implements OnInit{
   get traila(){
     return this.recursosForm.controls.semirremolque;
   }
-
 }

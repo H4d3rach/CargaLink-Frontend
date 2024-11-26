@@ -60,8 +60,9 @@ export class ClienteGestionTrabajosComponent implements OnInit {
       .catch((error)=>{
         console.error('Error al obtener las postulaciones:', error);
       });
+
       this.postulacionList.sort((a, b) => { 
-        return estatusEnCurso.indexOf(a.oferta.estatus??'') - estatusEnCurso.indexOf(b.oferta.estatus??'  '); 
+        return estatusEnCurso.indexOf(a.oferta.estatus||'') - estatusEnCurso.indexOf(b.oferta.estatus||''); 
       });
       this.viajesFinalizados = ofertasData.filter(oferta => oferta.estatus === 'PAGADO')
     }

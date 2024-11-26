@@ -5,6 +5,7 @@ import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
 import { modeloPostulcion } from '../../../servicios/postulaciones/modeloPostulacion';
 import { modeloOferta } from '../../../servicios/ofertas/modeloOferta';
+import { OfertaService } from '../../../servicios/ofertas/oferta.service';
 
 @Component({
   selector: 'app-gestion-trabajos',
@@ -55,7 +56,6 @@ export class GestionTrabajosComponent implements OnInit{
       });
     });
     Promise.all(promesa).then(()=>{
-      console.log("Todos los recursos han sido asignados");
       this.viajesActualesList.forEach(element => {
         console.log(element.oferta.recursos);
       });

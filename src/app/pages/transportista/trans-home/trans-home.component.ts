@@ -26,6 +26,7 @@ export class TransHomeComponent implements OnInit{
   chatOpen: boolean = false;
   isCardOpen: boolean = false;
   isInTravel: boolean = false; //CHECAR!!!!!!!!!!!!!!
+  isInProblem: boolean = false;
   isUserLogged: boolean = false;
   oferta?: modeloOferta;
   estatusSeleccionado: string = ''; 
@@ -64,6 +65,8 @@ export class TransHomeComponent implements OnInit{
         this.isInTravel = true;
         this._postulacion.getMyResource(this.oferta.idOferta).subscribe((myPost)=>{
           this.recurso = myPost;
+          if(myPost.estatus=='PROBLEMA')
+            this.isInProblem = true;
         })
       },
       error: (error)=>{
@@ -103,6 +106,28 @@ export class TransHomeComponent implements OnInit{
     } else {
       console.log('Por favor, selecciona un estatus.');
     }
+  }
+  reportarProblema(){
+    this._postulacion.updateEstatus(this.recurso?.idRecurso,'PROBLEMA').subscribe({
+      next: ()=>{
+        this.recurso = { ...this.recurso, estatus: 'PROBLEMA' };
+        this.isInProblem=true;
+      },
+      error: (error)=>{
+        console.error(error);
+      }
+    })
+  }
+  solucionarProblema(){
+    this._postulacion.updateEstatus(this.recurso?.idRecurso,'RECOGIENDO').subscribe({
+      next: ()=>{
+        this.recurso = { ...this.recurso, estatus: 'RECOGIENDO' };
+        this.isInProblem=false;
+      },
+      error: (error)=>{
+        console.error(error);
+      }
+    })
   }
   siguienteTexto(currentEstatus?: string): string | null{
     if(!currentEstatus)return null;

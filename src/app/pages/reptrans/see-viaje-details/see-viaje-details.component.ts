@@ -28,6 +28,7 @@ export class SeeViajeDetailsComponent implements OnInit{
   oferta?: modeloOferta;
   diferentEstatus?: string = '';
   recursos: modeloRecursos[]=[];
+  isInProblem: boolean = false;
   constructor(private formBuilder: FormBuilder){
     this.idOferta = Number(this.route.snapshot.paramMap.get('idTrabajo'));
   }
@@ -52,11 +53,29 @@ export class SeeViajeDetailsComponent implements OnInit{
       if(ofertaData.estatus == 'CONFIGURADO' || this.oferta.estatus=='FINALIZADO'){
         this._postulacion.getResourcesByOferta(ofertaData.idOferta).subscribe((listaRecursos)=>{
           this.recursos = listaRecursos;
+          this.recursos.forEach((recurso)=>{
+            if(recurso.estatus == 'PROBLEMA'){
+              this.isInProblem = true;
+            }
+          })
         })
       }
     })
   }
-  
+  downloadContrato(nombre: string){
+    this._oferta.getPdf(nombre).subscribe({
+      next: (blob)=>{
+        const url = URL.createObjectURL(blob);
+        window.open(url,'_blank')
+      },
+      error: (error)=>{
+        console.log("Error al abrir el pdf");
+      }
+    });
+  }
+  changeRecursos(){
+    this.router.navigate(['/rep_trans/modificarViaje/', this.idOferta]);
+  }
   isEmb(carga: Carga): carga is Embalaje{
     return carga.tipo==="EMBALAJE";
   }

@@ -42,9 +42,6 @@ export class PostulacionService {
     )
   }
   asignarRecursos(id: number, precio: any,file: File, listRecursos: modeloRecursos[]): Observable<any>{
-    console.log(id);
-    console.log(precio);
-    console.log(listRecursos);
     const formData = new FormData();
     const recursos= new Blob([JSON.stringify(listRecursos)],{type:'application/json'});
     const price = new Blob([JSON.stringify(precio)],{type:'application/json'});
@@ -55,6 +52,20 @@ export class PostulacionService {
       console.log(formData.get('precio'))
       console.log(formData.get('file'))
     return this._http.post<any>(`http://localhost:8082/representante/transporte/recurso/${id}`, formData).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  modificarRecursos(id: number, file: File, listRecursos: modeloRecursos[]): Observable<any>{
+    const formData = new FormData();
+    const recursos= new Blob([JSON.stringify(listRecursos)],{type:'application/json'});
+      formData.append('recursos', recursos);
+      formData.append('file', file);
+    return this._http.put<any>(`http://localhost:8082/representante/transporte/recurso/${id}`, formData).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  eliminarRecurso(id: number): Observable<any>{
+    return this._http.delete<any>(`http://localhost:8082/representante/transporte/recurso/${id}`).pipe(
       catchError(this.manejadorErrores)
     )
   }

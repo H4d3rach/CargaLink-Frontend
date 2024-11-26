@@ -49,6 +49,11 @@ export class OfertaService {
       catchError(this.manejadorErrores)
     )
   }
+  getPdf(contrato: string): Observable<Blob>{
+    return this._http.get<Blob>(`http://localhost:8082/files/pdf/${contrato}`,{responseType: 'blob' as 'json'}).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
   manejadorErrores(error:HttpErrorResponse){ //Metodo que ayuda a manejar los errores
     if(error.status === 0){
       console.error('No se ha enviado el codigo del error', error.error);
