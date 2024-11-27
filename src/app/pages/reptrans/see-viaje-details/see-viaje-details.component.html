@@ -207,6 +207,14 @@
                         <div
                             class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative h-100">
                             <div class="col p-4 d-flex flex-column position-static">
+                                <div style="margin-bottom: 15px;">
+                                    <a style="cursor: pointer;" (click)="volver()"><svg xmlns="http://www.w3.org/2000/svg"
+                                            width="25" height="25" fill="black" class="bi bi-arrow-left"
+                                            viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                                        </svg></a>
+                                </div>
                                 <h3 class="mb-4">Detalles del viaje</h3>
                                 <p class="mb-3"><strong class="d-inline-block mb-2 text-success-emphasis">Lugar de
                                         recogida: </strong> {{oferta?.lugarInicio}}</p>
@@ -321,6 +329,14 @@
                     <div
                         class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative h-100">
                         <div class="col p-4 d-flex flex-column position-static">
+                            <div style="margin-bottom: 15px;">
+                                <a style="cursor: pointer;" (click)="volver()"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="25" height="25" fill="black" class="bi bi-arrow-left"
+                                        viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                                    </svg></a>
+                            </div>
                             <div class="container mb-3"> 
                                 <h3 class="mb-3 text-center">Recursos asignados</h3>
                             @for (recurso of recursos; track $index) {

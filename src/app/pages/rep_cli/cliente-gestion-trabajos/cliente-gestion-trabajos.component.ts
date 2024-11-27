@@ -27,6 +27,7 @@ export class ClienteGestionTrabajosComponent implements OnInit {
   viajesEnCursoList: modeloOferta[]=[];
   viajesFinalizados: modeloOferta[]=[];
   postulacionList: modeloPostulcion[] = [];
+  finalizadosList: modeloPostulcion[] = [];
   ngOnInit(): void {
     this._login.ifisUserLogged.subscribe({ //Conexion al servicio del login para determinar si el usuario está loggeado
       next:(isUserLogged)=>{
@@ -55,7 +56,6 @@ export class ClienteGestionTrabajosComponent implements OnInit {
       Promise.all(promise)
       .then((postulaciones)=>{
         this.postulacionList = postulaciones.map(postulaciones => postulaciones![0]);
-        console.log(this.postulacionList);
       })
       .catch((error)=>{
         console.error('Error al obtener las postulaciones:', error);
@@ -64,7 +64,18 @@ export class ClienteGestionTrabajosComponent implements OnInit {
       this.postulacionList.sort((a, b) => { 
         return estatusEnCurso.indexOf(a.oferta.estatus||'') - estatusEnCurso.indexOf(b.oferta.estatus||''); 
       });
-      this.viajesFinalizados = ofertasData.filter(oferta => oferta.estatus === 'PAGADO')
+
+      this.viajesFinalizados = ofertasData.filter(oferta => oferta.estatus === 'PAGADO');
+      const promesa = this.viajesFinalizados.map(oferta =>
+        this._postulacion.viewAllPostulaciones(oferta.idOferta!).toPromise()
+      );
+      Promise.all(promesa)
+      .then((postulaciones)=>{
+        this.finalizadosList = postulaciones.map(postulaciones => postulaciones![0]);
+      })
+      .catch((error)=>{
+        console.error('Error al obtener las postulaciones:', error);
+      });
     }
     )
   }

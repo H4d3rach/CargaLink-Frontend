@@ -3,7 +3,7 @@ import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Carga, Contenedor, Embalaje, modeloOferta, Suelta } from '../../../servicios/ofertas/modeloOferta';
 import { OfertaService } from '../../../servicios/ofertas/oferta.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { modeloRecursos } from '../../../servicios/ofertas/modeloRecursos';
 import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
@@ -21,6 +21,7 @@ export class SeeViajeDetailsComponent implements OnInit{
   private _postulacion = inject(PostulacionService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private location = inject(Location)
   isSidebarCollapsed: boolean = false;
   chatOpen: boolean = false;
   isUserLogged: boolean =  false;
@@ -50,7 +51,7 @@ export class SeeViajeDetailsComponent implements OnInit{
     this._oferta.seeOfertaDetailsRepTrans(this.idOferta).subscribe((ofertaData)=>{
       this.oferta = ofertaData;
       this.diferentEstatus = ofertaData.estatus;
-      if(ofertaData.estatus == 'CONFIGURADO' || this.oferta.estatus=='FINALIZADO'){
+      if(ofertaData.estatus == 'CONFIGURADO' || this.oferta.estatus=='FINALIZADO' || this.oferta.estatus=='PAGADO'){
         this._postulacion.getResourcesByOferta(ofertaData.idOferta).subscribe((listaRecursos)=>{
           this.recursos = listaRecursos;
           this.recursos.forEach((recurso)=>{
@@ -97,6 +98,9 @@ export class SeeViajeDetailsComponent implements OnInit{
   logout(){ //Metodo que nos ayuda a cerrar sesión
     this._login.logout();
     this.router.navigateByUrl('');
+  }
+  volver(){
+    this.location.back();
   }
   formatText(text: string | undefined): string { //Metodo que ayuda a  darle formato a respuestas que lo requieran
     if(text){

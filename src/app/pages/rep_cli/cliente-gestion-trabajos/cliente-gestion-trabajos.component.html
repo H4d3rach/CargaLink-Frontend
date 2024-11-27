@@ -243,27 +243,27 @@
                                     <tr>
                                         <th scope="col">Empresa</th>
                                         <th scope="col">Representante</th>
-                                        <th scope="col">Transportista</th>
-                                        <th scope="col">Vehiculo</th>
-                                        <th scope="col">Semirremolque</th>
+                                        <th scope="col">Descripcion</th>
                                         <th scope="col">Finalización</th>
+                                        <th scope="col">Precio</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @for (postulacion of finalizadosList; track $index) {
                                     <tr>
-                                        <th scope="row">Grupo Castores</th>
-                                        <td>Alan Alejandre</td>
-                                        <td>Joan Manuel</td>
-                                        <td>PDG103</td>
-                                        <td>RE678</td>
-                                        <td>10 de Enero 2025</td>
+                                        <th scope="row">{{postulacion.representanteTransporte.empresaTransporte.nombreComercial}}</th>
+                                        <td>{{postulacion.representanteTransporte.nombre}} {{postulacion.representanteTransporte.primerApellido}} {{postulacion.representanteTransporte.segundoApellido}}</td>
+                                        <td>{{postulacion.oferta.descripcion}}</td>
+                                        <td>{{postulacion.oferta.fechaFin}}</td>
+                                        <td>{{postulacion.oferta.precio}}</td>
                                         <td>
                                             <div class="div-table">
-                                            <button class="btn btn-warning btn-table">Detalles</button>
+                                            <button class="btn btn-warning btn-table" (click)="detalles(postulacion.oferta.idOferta||0)">Detalles</button>
                                         </div>
                                         </td>
                                     </tr>
+                                }
                                 </tbody>
                             </table>
                         </div>

@@ -49,7 +49,7 @@ export class ClienteOfertaDetallesComponent implements OnInit{
     });
     this._oferta.seeOfertaDetails(this.idOferta).subscribe((ofertaData)=>{
       this.oferta = ofertaData;
-      if(ofertaData.estatus == 'CONFIGURADO' || this.oferta.estatus=='FINALIZADO'){
+      if(ofertaData.estatus == 'CONFIGURADO' || this.oferta.estatus=='FINALIZADO' || this.oferta.estatus=='PAGADO'){
         this._postulacion.getResourcesByOferta(ofertaData.idOferta).subscribe((listaRecursos)=>{
           this.recursos = listaRecursos;
         })

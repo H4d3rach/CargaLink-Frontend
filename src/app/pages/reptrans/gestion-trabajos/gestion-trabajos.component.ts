@@ -44,8 +44,7 @@ export class GestionTrabajosComponent implements OnInit{
       this.postulacionList = postulacionData.filter(postulacion => postulacion.oferta.estatus === 'OFERTA');
       this.viajesActualesList = postulacionData.filter(postulacion => postulacion.oferta.estatus != 'OFERTA' && postulacion.oferta.estatus != 'PAGADO');
       this.despliegueViajesActuales();
-      //this.viajesFinalizadosList = postulacionData.filter(postulacion => postulacion.oferta.estatus === 'PAGADO');
-      //console.log(this.postulacionList)
+      this.viajesFinalizadosList = postulacionData.filter(postulacion => postulacion.oferta.estatus === 'PAGADO');
     })
   }
   despliegueViajesActuales(){
@@ -57,13 +56,21 @@ export class GestionTrabajosComponent implements OnInit{
     });
     Promise.all(promesa).then(()=>{
       this.viajesActualesList.forEach(element => {
-        console.log(element.oferta.recursos);
       });
       const estadoOrden = ['CONFIGURANDO','FINALIZADO','CONFIGURADO']; 
       this.viajesActualesList.sort((a, b) => { 
         return estadoOrden.indexOf(a.oferta.estatus??'') - estadoOrden.indexOf(b.oferta.estatus??'  '); 
       });
     });
+  }
+  despliegueViajesTerminados(){
+    const promesa = this.viajesFinalizadosList.map(postulacion => {
+      const ofertaId = postulacion.oferta.idOferta;
+      return this._postulacion.getResourcesByOferta(ofertaId).toPromise().then(recursos =>{
+        postulacion.oferta.recursos = recursos;
+      });
+    });
+    Promise.all(promesa);
   }
  eliminar(id:number){
   this._postulacion.deletePostulacion(id).subscribe({

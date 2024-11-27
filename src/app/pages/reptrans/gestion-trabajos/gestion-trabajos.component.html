@@ -332,28 +332,28 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th scope="col">Cliente</th>
-                                        <th scope="col">Transportista</th>
-                                        <th scope="col">Vehiculo</th>
-                                        <th scope="col">Semirremolque</th>
+                                        <th scope="col">Representante</th>
+                                        <th scope="col">Descripción</th>
                                         <th scope="col">Finalización</th>
-                                        <th scope="col">Califiación general</th>
+                                        <th scope="col">Precio</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @for (viaje of viajesFinalizadosList; track $index) {
                                     <tr>
-                                        <th scope="row">Magna Decoplas</th>
-                                        <td>Alan Alejandre</td>
-                                        <td>PDG103</td>
-                                        <td>RE678</td>
-                                        <td>10 de Enero 2025</td>
-                                        <td>9.8</td>
+                                        <th scope="row">{{viaje.oferta.representanteCliente?.empresaCliente?.nombreComercial}}</th>
+                                        <td>{{viaje.oferta.representanteCliente?.nombre}} {{viaje.oferta.representanteCliente?.primerApellido}} {{viaje.oferta.representanteCliente?.segundoApellido}}</td>
+                                        <td>{{viaje.oferta.descripcion}}</td>
+                                        <td>{{viaje.oferta.fechaFin}}</td>
+                                        <td>{{viaje.oferta.precio}}</td>
                                         <td>
                                             <div class="div-table">
-                                            <button class="btn btn-warning btn-table">Detalles</button>
+                                            <button class="btn btn-warning btn-table" (click)="detailsViaje(viaje.oferta.idOferta||0)">Detalles</button>
                                         </div>
                                         </td>
                                     </tr>
+                                }
                                 </tbody>
                             </table>
                         </div>
