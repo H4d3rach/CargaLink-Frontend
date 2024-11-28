@@ -66,19 +66,19 @@ export class ClienteTransporteDetallesComponent implements OnInit{
     let totalAtencion = 0;
     let totalPromedio = 0;
     for (let calificacion of calificaciones){
-      this.comentarios.concat(calificacion.comentario);
+      this.comentarios.push(calificacion.comentario);
+      console.log(this.comentarios);
       totalPuntualidad += calificacion.puntualidad;
       totalEstadoCarga += calificacion.estadoCarga;
       totalPrecio += calificacion.precio;
       totalAtencion += calificacion.atencion;
-      totalPromedio += calificacion.promedio;
     }
     const cantidadCalificaciones = calificaciones.length;
     this.puntualidad = totalPuntualidad / cantidadCalificaciones;
     this.estadoCarga = totalEstadoCarga / cantidadCalificaciones;
     this.precio = totalPrecio / cantidadCalificaciones;
     this.atencion = totalAtencion / cantidadCalificaciones;
-    this.promedio = totalPromedio / cantidadCalificaciones;
+    this.promedio = (this.puntualidad + this.estadoCarga + this.precio + this.atencion )/ 4;
   }
   regresar(){
     this.location.back();

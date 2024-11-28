@@ -5,7 +5,6 @@ import { modeloMensaje } from './modeloMensaje';
 import { modeloChat } from './modeloChat';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
-import { mensajeDTO } from './mensajeDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -42,11 +41,6 @@ export class ChatService {
       }
     })
   }
- /* mandarMensaje(mensaje: modeloMensaje): Observable<any>{
-    return this._http.post<any>('http://localhost:8082/api/chats', mensaje).pipe(
-      catchError(this.manejadorErrores)
-    )
-  }*/
   initConectionSocket(){ //Conexion para el socket
     const url = '//localhost:8082/socket';
     const socket = new SockJS(url);
@@ -61,7 +55,8 @@ export class ChatService {
         currentMessage.push(messageContent);
         this.messageSubject.next(currentMessage);
       });
-    });
+    }
+  );
     this.loadMessages(idChat)
   }
   enviarMensaje(idChat: number, mensaje: string, userId: string){

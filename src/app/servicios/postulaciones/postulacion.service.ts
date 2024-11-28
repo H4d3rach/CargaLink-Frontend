@@ -89,10 +89,10 @@ export class PostulacionService {
   }
   manejadorErrores(error:HttpErrorResponse){ //Metodo que ayuda a manejar los errores
     if(error.status === 0){
-      console.error('No se ha enviado el codigo del error', error.error);
+      console.error('No se ha enviado el codigo del error', error);
     }
     else{
-      console.error('Código de estado', error.status, error.error);
+      console.error('Código de estado', error.status, error);
     }
     return throwError(()=> new Error('El registro es incorrecto'));
   }
