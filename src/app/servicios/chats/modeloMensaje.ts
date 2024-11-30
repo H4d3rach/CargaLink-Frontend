@@ -28,3 +28,19 @@ export interface empresaModelo{
     direccion: string;
     logo: string;
 }
+export interface updRepresentante{
+    nombre?: string; 
+    primerApellido?: string; 
+    segundoApellido?: string; 
+    correo?: string; 
+    telefono?: string; 
+    password?: string;
+    newpass?: string;
+}
+export interface updEmpresa{
+    nombreComercial?: string;
+    rfc?: string;
+    direccion?: string;
+    descripcion?: string;
+    password?: string;
+}

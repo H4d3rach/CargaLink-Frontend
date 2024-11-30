@@ -39,7 +39,7 @@ export class TransportistaService {
   }
   changeEstatus(status: string): Observable<any>{
     const body = {
-      EstatusTransportista: status
+      estatusTransportista: status
     }
     return this._http.put<any>('http://localhost:8082/transportista/editar',body).pipe(
       catchError(this.manejadorErrores)

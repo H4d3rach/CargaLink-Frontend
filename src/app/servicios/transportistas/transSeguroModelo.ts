@@ -14,3 +14,9 @@ export interface sede{
     idSede?: number
     nombre?: string
 }
+export interface modeloUpdateTrans{
+    password?: string;
+    verifyPass: string;
+    telefono?: string;
+    estatusTransportista?: string;
+}
