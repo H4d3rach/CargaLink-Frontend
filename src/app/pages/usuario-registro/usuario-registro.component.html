@@ -119,9 +119,21 @@
                     <label for="contra" class="form-label form-texto text-registro-form">Contraseña</label>
                     <input formControlName="password" type="password" class="form-control" id="contra" placeholder="************">
                     @if (password.invalid && (password.dirty || password.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
-                        <div class="text-danger">
+                        <div class="text-danger" style="display: flex; flex-direction: column;">
                             @if (password.errors?.['required']) {
                                 <div>Debe ingresar contraseña</div>
+                            }
+                            @if(password.errors?.['sinMayuscula']){
+                                <div>{{password.getError('sinMayuscula')}}</div>
+                            }
+                            @if(password.errors?.['sinMinuscula']){
+                                <div>{{password.getError('sinMinuscula')}}</div>
+                            }
+                            @if(password.errors?.['sinNumero']){
+                                <div>{{password.getError('sinNumero')}}</div>
+                            }
+                            @if(password.errors?.['longitud']){
+                               <div>{{password.getError('longitud')}}</div>
                             }
                         </div>
                     }

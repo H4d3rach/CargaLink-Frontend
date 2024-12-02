@@ -44,7 +44,7 @@ export class RegTransportistaComponent implements OnInit {
     categoria: ['',[Validators.required]],
     estatusTransportista:['',[Validators.required]],
     sede:['',[Validators.required]]
-  },{ validators: this.passwordMatch('password', 'confirmPassword')})
+  },{ validators: [this.passwordMatch('password', 'confirmPassword'), this.passwordComplex('password')]})
   passwordMatch(password: string, confirmPassword: string) { //Detalle del validador para confirmar contraseñas
     return(formGroup: FormGroup)=>{
       const control = formGroup.controls[password]; //Contraseña original
@@ -54,6 +54,31 @@ export class RegTransportistaComponent implements OnInit {
       }else{
         validControl.setErrors(null); //En caso contrario no se agrega ningún error
       }
+    }
+  }
+  passwordComplex(password: string){
+    return(formGroup: FormGroup)=>{
+      const control = formGroup.controls[password];
+      const value = control.value || '';
+      const errors: any = {};
+      if (!/[A-Z]/.test(value)) {
+        errors.sinMayuscula = 'Debe incluir al menos una letra mayúscula.';
+    }
+    if (!/[a-z]/.test(value)) {
+        errors.sinMinuscula = 'Debe incluir al menos una letra minúscula.';
+    }
+    if (!/\d/.test(value)) {
+        errors.sinNumero = 'Debe incluir al menos un número.';
+    }
+    if (value.length < 8) {
+        errors.longitud = 'Debe tener al menos 8 caracteres.';
+    }
+    if(Object.keys(errors).length > 0){
+      control.setErrors(errors);
+    }
+    else{
+      control.setErrors(null);
+    }
     }
   }
   ngOnInit(): void {

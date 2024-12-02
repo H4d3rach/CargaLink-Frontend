@@ -27,6 +27,8 @@ export class ConfiguracionCuentaReptransComponent implements OnInit{
   myInfo?: modeloUsuario;
   ok: boolean = false;
   error: boolean = false;
+  okEmpresa: boolean = false;
+  errorEmpresa: boolean = false;
   formEmpresa = this.formBuilder.group({
     nombreComercial: ['', [Validators.required]],
     rfc: ['', [Validators.required]],
@@ -150,13 +152,12 @@ export class ConfiguracionCuentaReptransComponent implements OnInit{
       }
       this._gestion.updEmpTrans(body as updEmpresa).subscribe({
         next: ()=>{
-          this.ok = true;
-          this.error = false;
-          this.formEmpresa.reset()
+          this.okEmpresa = true;
+          this.errorEmpresa = false;
         },
         error: ()=>{
-          this.ok = false;
-          this.error = true;
+          this.okEmpresa = false;
+          this.errorEmpresa = true;
         }
       })
     }else{
@@ -195,18 +196,24 @@ export class ConfiguracionCuentaReptransComponent implements OnInit{
     this.cambiarPassword = false;
     this.ok = false;
     this.error = false;
+    this.okEmpresa = false;
+    this.errorEmpresa = false;
   }
   togglePassword(){
     this.cambiarPassword = !this.cambiarPassword;
     this.transferirCuenta = false;
     this.ok = false;
     this.error = false;
+    this.okEmpresa = false;
+    this.errorEmpresa = false;
   }
   togglePrincipal(){
     this.cambiarPassword = false;
     this.transferirCuenta = false;
     this.ok = false;
     this.error = false;
+    this.okEmpresa = false;
+    this.errorEmpresa = false;
   }
   logout(){
     this._login.logout();

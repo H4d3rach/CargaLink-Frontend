@@ -36,7 +36,7 @@ export class UsuarioRegistroComponent implements OnInit{
     password: ['', [Validators.required]],
     confirmPassword: ['',[Validators.required]],
     telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10}')]],
-  },{ validators: this.passwordMatch('password', 'confirmPassword')}); //Validador creado para que coincidan las contraseñas
+  },{ validators: [this.passwordMatch('password', 'confirmPassword'), this.passwordComplex('password')]}); //Validador creado para que coincidan las contraseñas
 
   passwordMatch(password: string, confirmPassword: string) { //Detalle del validador para confirmar contraseñas
     return(formGroup: FormGroup)=>{
@@ -50,6 +50,31 @@ export class UsuarioRegistroComponent implements OnInit{
     }
   }
 
+  passwordComplex(password: string){
+    return(formGroup: FormGroup)=>{
+      const control = formGroup.controls[password];
+      const value = control.value || '';
+      const errors: any = {};
+      if (!/[A-Z]/.test(value)) {
+        errors.sinMayuscula = 'Debe incluir al menos una letra mayúscula.';
+    }
+    if (!/[a-z]/.test(value)) {
+        errors.sinMinuscula = 'Debe incluir al menos una letra minúscula.';
+    }
+    if (!/\d/.test(value)) {
+        errors.sinNumero = 'Debe incluir al menos un número.';
+    }
+    if (value.length < 8) {
+        errors.longitud = 'Debe tener al menos 8 caracteres.';
+    }
+    if(Object.keys(errors).length > 0){
+      control.setErrors(errors);
+    }
+    else{
+      control.setErrors(null);
+    }
+    }
+  }
   
   registrar(){ //Función para registrar toda la información
     if(this.userForm.valid){ //Verifica que toda la información del formulario

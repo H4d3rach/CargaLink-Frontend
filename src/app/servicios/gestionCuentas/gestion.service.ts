@@ -40,6 +40,16 @@ export class GestionService {
       catchError(this.manejadorErrores)
     )
   }
+  updRepCli(body: updRepresentante):Observable<any>{
+    return this._http.put<any>('http://localhost:8082/representante/cliente/modificar',body).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  updEmpCli(body: updEmpresa):Observable<any>{
+    return this._http.put<any>('http://localhost:8082/representante/cliente/modificar/empresa',body).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
   manejadorErrores(error:HttpErrorResponse){ //Metodo que ayuda a manejar los errores
     if(error.status === 0){
       console.error('No se ha enviado el codigo del error', error.error);
