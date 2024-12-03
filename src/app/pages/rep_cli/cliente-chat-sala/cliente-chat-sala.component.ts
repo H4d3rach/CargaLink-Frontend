@@ -5,12 +5,13 @@ import { ChatService } from '../../../servicios/chats/chat.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { modeloChat } from '../../../servicios/chats/modeloChat';
 import { modeloMensaje, modeloUsuario } from '../../../servicios/chats/modeloMensaje';
-import { FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, FormGroup, FormsModule } from '@angular/forms';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
 
 @Component({
   selector: 'app-cliente-chat-sala',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, FormsModule],
   templateUrl: './cliente-chat-sala.component.html',
   styleUrl: './cliente-chat-sala.component.css'
 })
@@ -32,6 +33,9 @@ export class ClienteChatSalaComponent implements OnInit {
   chatOpen: boolean = false;
   isUserLogged: boolean = false;
   userInfo?:string | null;
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   constructor(private formBuilder: FormBuilder){
     this._chat.initConectionSocket(); 
     this.idTrans = String(this.route.snapshot.paramMap.get('idTrans')); 
@@ -72,7 +76,23 @@ export class ClienteChatSalaComponent implements OnInit {
       this._chat.getMessageSubject().subscribe(messages =>{
         this.messagesList = messages
       });
+    });
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
+  }
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
+  }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
     })
+    this.preguntaChat=""
   }
   sendMessage(){
     const mensaje = this.messageForm.get('mensaje')?.value;
@@ -91,8 +111,12 @@ export class ClienteChatSalaComponent implements OnInit {
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   logout(){ //Funcion que nos ayuda a cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

@@ -2,14 +2,15 @@ import { Component, inject, OnInit } from '@angular/core';
 import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { Router, RouterLink } from '@angular/router';
 import { GestionService } from '../../../servicios/gestionCuentas/gestion.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { modeloUsuario, updEmpresa, updRepresentante } from '../../../servicios/chats/modeloMensaje';
 import { CommonModule } from '@angular/common';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
 
 @Component({
   selector: 'app-configuracion-cuenta-reptrans',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, FormsModule],
   templateUrl: './configuracion-cuenta-reptrans.component.html',
   styleUrl: './configuracion-cuenta-reptrans.component.css'
 })
@@ -29,6 +30,9 @@ export class ConfiguracionCuentaReptransComponent implements OnInit{
   error: boolean = false;
   okEmpresa: boolean = false;
   errorEmpresa: boolean = false;
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   formEmpresa = this.formBuilder.group({
     nombreComercial: ['', [Validators.required]],
     rfc: ['', [Validators.required]],
@@ -116,6 +120,14 @@ export class ConfiguracionCuentaReptransComponent implements OnInit{
         correo: userData.correo
       })
     })
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
+  }
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
   }
   modificarUsuario(){
     if(this.formUsuario.valid){
@@ -185,11 +197,20 @@ export class ConfiguracionCuentaReptransComponent implements OnInit{
       this.formChangePassword.markAllAsTouched()
     }
   }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
+  }
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   toggleCuenta(){
     this.transferirCuenta = !this.transferirCuenta;
@@ -216,6 +237,9 @@ export class ConfiguracionCuentaReptransComponent implements OnInit{
     this.errorEmpresa = false;
   }
   logout(){
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

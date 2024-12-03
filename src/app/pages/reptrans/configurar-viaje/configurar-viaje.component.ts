@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators, FormGroup, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { modeloOferta } from '../../../servicios/ofertas/modeloOferta';
@@ -13,11 +13,12 @@ import { modeloSemirremolque } from '../../../servicios/semirremolques/modeloSem
 import { modeloRecursos } from '../../../servicios/ofertas/modeloRecursos';
 import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
 import { OfertaService } from '../../../servicios/ofertas/oferta.service';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
 type resource = transSeguroModelo | modeloVehiculo | modeloSemirremolque;
 @Component({
   selector: 'app-configurar-viaje',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, FormsModule],
   templateUrl: './configurar-viaje.component.html',
   styleUrl: './configurar-viaje.component.css'
 })
@@ -55,6 +56,9 @@ export class ConfigurarViajeComponent implements OnInit{
   pesoCarga: number | undefined = 0;
   pesoActual: number = 0;
   pesoSoportado: number = 0;
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   constructor(private formBuilder: FormBuilder){
     this.idOferta = Number(this.route.snapshot.paramMap.get('idTrabajo'));
   }
@@ -94,6 +98,14 @@ export class ConfigurarViajeComponent implements OnInit{
     this._oferta.seeOfertaDetailsRepTrans(this.idOferta).subscribe((oferta)=>{
       this.pesoCarga = oferta.pesoTotal;
     })
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
+  }
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
   }
   onChange(event: any) { //Metodo que ayuda a obtener el valor del select tipo de carga y ayuda a desplegar el formulario para cada tipo
     const selectedValue = event.target.value;
@@ -420,13 +432,25 @@ export class ConfigurarViajeComponent implements OnInit{
       this.isTransTurn = false;
     }
   }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
+  }
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   logout(){ //Metodo que nos ayuda a cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

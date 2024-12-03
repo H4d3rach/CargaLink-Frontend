@@ -3,13 +3,14 @@ import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SedeService } from '../../../servicios/sedes/sede.service';
-import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators, FormGroup, FormsModule } from '@angular/forms';
 import { modeloSede } from '../../../servicios/sedes/modeloSede';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
 
 @Component({
   selector: 'app-upd-sede',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, FormsModule],
   templateUrl: './upd-sede.component.html',
   styleUrl: './upd-sede.component.css'
 })
@@ -25,7 +26,9 @@ export class UpdSedeComponent implements OnInit{
   errorBool: boolean = false;
   idSede: number = 0; //Variable que guarda la id de la sede obtenida de la url
   sede?: modeloSede; //varaibale que guardará la información de la sede
-
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   sedeForm = this.formBuilder.group({ //Creación del formulario de las sedes
     nombre: ['',[Validators.required]],
     direccion: ['',[Validators.required]]
@@ -57,8 +60,23 @@ export class UpdSedeComponent implements OnInit{
         console.log(errorData);
       }
     });
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
   }
-
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
+  }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
+  }
   updateSede(){ //Metodo para actualizar la información de la sede una vez que la información del formulario sea actualizada
     if(this.sedeForm.valid){
     const sede_body = { //Se crea un objeto con la estructura que necesita el BACKEND, no lo obtenemos directamente del form.value
@@ -89,9 +107,13 @@ export class UpdSedeComponent implements OnInit{
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   
   logout(){ //Metodo que nos permite cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

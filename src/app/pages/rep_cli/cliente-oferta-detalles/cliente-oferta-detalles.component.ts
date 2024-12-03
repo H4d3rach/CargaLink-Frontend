@@ -9,11 +9,13 @@ import { modeloVehiculo } from '../../../servicios/vehiculos/modeloVehiculo';
 import { transSeguroModelo } from '../../../servicios/transportistas/transSeguroModelo';
 import { modeloSemirremolque } from '../../../servicios/semirremolques/modeloSemirremolque';
 import { modeloRecursos } from '../../../servicios/ofertas/modeloRecursos';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cliente-oferta-detalles',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './cliente-oferta-detalles.component.html',
   styleUrl: './cliente-oferta-detalles.component.css'
 })
@@ -30,6 +32,9 @@ export class ClienteOfertaDetallesComponent implements OnInit{
   idOferta: number = 0;
   oferta?: modeloOferta;
   recursos: modeloRecursos[]=[];
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   constructor(){
     this.idOferta = Number(this.route.snapshot.paramMap.get('idTrabajo'));
   }
@@ -55,6 +60,22 @@ export class ClienteOfertaDetallesComponent implements OnInit{
         })
       }
     })
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
+  }
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
+  }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
   }
   downloadContrato(nombre: string){
     this._oferta.getPdf(nombre).subscribe({
@@ -81,8 +102,12 @@ export class ClienteOfertaDetallesComponent implements OnInit{
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   logout(){ //Metodo que ayuda a cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

@@ -4,14 +4,15 @@ import { SedeService } from '../../../servicios/sedes/sede.service';
 import { VehiculoService } from '../../../servicios/vehiculos/vehiculo.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { modeloSede } from '../../../servicios/sedes/modeloSede';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { modeloVehiculo } from '../../../servicios/vehiculos/modeloVehiculo';
 import { CommonModule } from '@angular/common';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
 
 @Component({
   selector: 'app-upd-vehiculo',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, FormsModule],
   templateUrl: './upd-vehiculo.component.html',
   styleUrl: './upd-vehiculo.component.css'
 })
@@ -30,6 +31,9 @@ export class UpdVehiculoComponent implements OnInit{
   errorBool: boolean = false;
   idVehiculo: string = ""; 
   sedeList: modeloSede[] = [];
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   constructor(private formBuilder: FormBuilder){ //Inyeccion del formBuilder
     this.idVehiculo = String(this.route.snapshot.paramMap.get('placa')); //Obtencion de la placa del vehiculo por medio de la url
   }
@@ -86,6 +90,14 @@ export class UpdVehiculoComponent implements OnInit{
         console.log(errorData);
       }
     });
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
+  }
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
   }
   actualizarVehiculo(){ //Metodo que nos ayudará a actualizar la info del vehiculo, usa el metodo declarado en el servicio del vehiculo
     if(this.vehiculoForm.valid){ //Se comunica con el backend solo cuando los datos del formulario son válidos
@@ -141,6 +153,14 @@ export class UpdVehiculoComponent implements OnInit{
       this.vehiculoForm.markAllAsTouched(); //Nos muestra las alertas o fallos de cada input del formulario
     }
   }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
+  }
   onChange(event: any) { //Obtiene los valores seleccionados en un select del html
     const selectedValue = event.target.value;
     this.isCUSelected = selectedValue === 'CAMION_UNITARIO';
@@ -150,11 +170,15 @@ export class UpdVehiculoComponent implements OnInit{
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   seleccionCU(){ //Si se selecciona un camión unitario
     this.isCUSelected = !this.isCUSelected;
   }
   logout(){ //Funcion para cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

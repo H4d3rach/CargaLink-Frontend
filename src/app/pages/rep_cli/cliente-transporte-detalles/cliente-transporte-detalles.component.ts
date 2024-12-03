@@ -5,12 +5,14 @@ import { EstrellasComponent } from "../estrellas/estrellas.component";
 import { modeloRegTrans } from '../../../servicios/registro/modeloRegTrans';
 import { Calificaciones, modeloRepTrans } from '../../../servicios/postulaciones/modeloRepTrans';
 import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
 
 @Component({
   selector: 'app-cliente-transporte-detalles',
   standalone: true,
-  imports: [EstrellasComponent, RouterLink],
+  imports: [EstrellasComponent, RouterLink, CommonModule, FormsModule ],
   templateUrl: './cliente-transporte-detalles.component.html',
   styleUrl: './cliente-transporte-detalles.component.css'
 })
@@ -32,6 +34,9 @@ export class ClienteTransporteDetallesComponent implements OnInit{
     precio: number = 0;
     atencion: number = 0;
     promedio: number = 0;
+    private _chatbot = inject(ChatBService);
+    preguntaChat: string = '';
+    historialMensajesChatbot: {clase: string, msj: string}[] = [];
   constructor(){
     this.idRepresentante = String(this.route.snapshot.paramMap.get('idRepresentante'));
   }
@@ -57,8 +62,23 @@ export class ClienteTransporteDetallesComponent implements OnInit{
         this.calcularPromedios(this.representante.calificaciones)
       }
     })
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
   }
-
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
+  }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
+  }
   calcularPromedios(calificaciones: Calificaciones[]): void{
     let totalPuntualidad = 0;
     let totalEstadoCarga = 0;
@@ -88,11 +108,15 @@ export class ClienteTransporteDetallesComponent implements OnInit{
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   chat(id:string | undefined){
     this.router.navigate(['/cliente/chat/',id]);
   }
   logout(){ //Metodo que ayuda a cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

@@ -382,37 +382,44 @@
                 </button>
             </div>
             @if (chatOpen) {
-            <div class="chat-window">
-                <div class="chat-header">
-                    <h5>Chatbot</h5>
-                    <a (click)="funcionChat()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                            class="bi bi-x-lg" viewBox="0 0 16 16">
-                            <path
-                                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                <div class="chat-window">
+                    <div class="chat-header">
+                      <h5>Chatbot</h5>
+                      <a (click)="funcionChat()" style="cursor: pointer;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-lg"
+                          viewBox="0 0 16 16">
+                          <path
+                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
                         </svg>
-                    </a>
-                </div>
-                <div class="chat-body">
-                    <div class="message chabot-message">
+                      </a>
+                    </div>
+                    <div class="chat-body">
+                      <div class="message chabot-message">
                         <img src="assets/icono_chatbot.png" class="chatbot-avatar">
                         <div class="message-content">
-                            <p>Hola, ¿Cómo puedo ayudarte hoy?</p>
+                          <p>Hola, ¿Cómo puedo ayudarte hoy?</p>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="message user-message">
+                      </div>
+                      <hr>
+                      @for (msj of historialMensajesChatbot; track $index) {
+                      <div class="message user-message"
+                        [ngClass]="{'user-message':msj.clase=== 'usuario', 'chabot-message':msj.clase==='bot'}">
+                        @if (msj.clase === 'usuario') {
                         <img src="assets/user_chatbot.png" class="user-avatar">
+                        }@else {
+                        <img src="assets/icono_chatbot.png" class="user-avatar">
+                        }
                         <div class="message-content">
-                            <p>Ayudame con esto por favor</p>
+                          <p>{{msj.msj}}</p>
                         </div>
+                      </div>
+                      }
                     </div>
-                </div>
-                <div class="chat-footer">
-                    <input type="text" placeholder="Escribe tu mensaje..." class="form-control">
-                    <button class="btn btn-dark">Enviar</button>
-                </div>
-            </div>
+                    <div class="chat-footer">
+                      <input type="text" placeholder="Escribe tu mensaje..." class="form-control" [(ngModel)]="preguntaChat">
+                      <button class="btn btn-dark" (click)="preguntarChat()">Enviar</button>
+                    </div>
+                  </div>
             }
         </div>
     </div>

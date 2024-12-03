@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { TransportistaService } from '../../../servicios/transportistas/transportista.service';
 import { modeloRecursos } from '../../../servicios/ofertas/modeloRecursos';
 import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
 
 @Component({
   selector: 'app-trans-home',
@@ -25,7 +26,7 @@ export class TransHomeComponent implements OnInit{
   isSidebarCollapsed: boolean = false;
   chatOpen: boolean = false;
   isCardOpen: boolean = false;
-  isInTravel: boolean = false; //CHECAR!!!!!!!!!!!!!!
+  isInTravel: boolean = false; 
   isInProblem: boolean = false;
   isUserLogged: boolean = false;
   oferta?: modeloOferta;
@@ -38,6 +39,9 @@ export class TransHomeComponent implements OnInit{
     'EMBARCANDO': 'EN_CAMINO',
     'EN_CAMINO': 'ENTREGADO'
   }
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   constructor(){
     const userInfo =sessionStorage.getItem('UserInfo');
     if(userInfo){
@@ -75,7 +79,23 @@ export class TransHomeComponent implements OnInit{
           this.estatusActual = dataUser.estatusTransportista;
         });
       }
+    });
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
+  }
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
+  }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
     })
+    this.preguntaChat=""
   }
   isEmb(carga: Carga): carga is Embalaje{
     return carga.tipo==="EMBALAJE";
@@ -91,6 +111,8 @@ export class TransHomeComponent implements OnInit{
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
+
   }
   actualizarEstatus(){
     if (this.estatusSeleccionado) {
@@ -166,6 +188,9 @@ export class TransHomeComponent implements OnInit{
   }
 
   logout(){
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

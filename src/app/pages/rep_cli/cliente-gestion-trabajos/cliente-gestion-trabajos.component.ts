@@ -6,11 +6,13 @@ import { OfertaService } from '../../../servicios/ofertas/oferta.service';
 import { modeloOferta } from '../../../servicios/ofertas/modeloOferta';
 import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
 import { modeloPostulcion } from '../../../servicios/postulaciones/modeloPostulacion';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cliente-gestion-trabajos',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './cliente-gestion-trabajos.component.html',
   styleUrl: './cliente-gestion-trabajos.component.css'
 })
@@ -28,6 +30,9 @@ export class ClienteGestionTrabajosComponent implements OnInit {
   viajesFinalizados: modeloOferta[]=[];
   postulacionList: modeloPostulcion[] = [];
   finalizadosList: modeloPostulcion[] = [];
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   ngOnInit(): void {
     this._login.ifisUserLogged.subscribe({ //Conexion al servicio del login para determinar si el usuario está loggeado
       next:(isUserLogged)=>{
@@ -78,6 +83,14 @@ export class ClienteGestionTrabajosComponent implements OnInit {
       });
     }
     )
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
+  }
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
   }
   
   verPostulaciones(id: number){
@@ -97,6 +110,14 @@ export class ClienteGestionTrabajosComponent implements OnInit {
       }
     })
   }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
+  }
   detalles(id: number | undefined){
     this.router.navigate(['/cliente/gestion/trabajo/detalles/',id])
   }
@@ -105,11 +126,15 @@ export class ClienteGestionTrabajosComponent implements OnInit {
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   chat(id:string | undefined){
     this.router.navigate(['/cliente/chat/',id]);
   }
   logout(){ //Metodo que ayuda a cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

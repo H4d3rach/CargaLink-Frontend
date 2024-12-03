@@ -5,14 +5,15 @@ import { Router, RouterLink } from '@angular/router';
 import { TransportistaService } from '../../../servicios/transportistas/transportista.service';
 import { SedeService } from '../../../servicios/sedes/sede.service';
 import { modeloSede } from '../../../servicios/sedes/modeloSede';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { transportistaModelo } from '../../../servicios/transportistas/transportistaModelo';
 import { ChatService } from '../../../servicios/chats/chat.service';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
 
 @Component({
   selector: 'app-reg-transportista',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, FormsModule],
   templateUrl: './reg-transportista.component.html',
   styleUrl: './reg-transportista.component.css'
 })
@@ -30,6 +31,9 @@ export class RegTransportistaComponent implements OnInit {
   errorBool: boolean = false;
   errorTrans: string = "";
   sedeList: modeloSede[] = [];
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   constructor(private formBuilder: FormBuilder){}
   transForm = this.formBuilder.group({ //Creacioon del formulario
     idUsuario: ['',[Validators.required, Validators.pattern('^[A-ZÑ]{4}\\d{6}[A-Z0-9]{3}$')]],
@@ -103,6 +107,14 @@ export class RegTransportistaComponent implements OnInit {
         this.isSedeRegister = true;
     }
     })
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
+  }
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
   }
 
   registrarTrans(){
@@ -143,13 +155,25 @@ export class RegTransportistaComponent implements OnInit {
       this.transForm.markAllAsTouched(); //Marca todo el formulario como tocado en caso de tener valores incorrectos
     }
   }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
+  }
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   logout(){ //Funcion para cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

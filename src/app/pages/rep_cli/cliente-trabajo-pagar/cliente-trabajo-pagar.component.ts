@@ -2,14 +2,16 @@ import { Component, inject, OnInit } from '@angular/core';
 import { OfertaService } from '../../../servicios/ofertas/oferta.service';
 import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EstrellasCalificacionComponent } from "../estrellas-calificacion/estrellas-calificacion.component";
 import { modeloCalificacion, modeloOferta } from '../../../servicios/ofertas/modeloOferta';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cliente-trabajo-pagar',
   standalone: true,
-  imports: [EstrellasCalificacionComponent, ReactiveFormsModule, RouterLink],
+  imports: [EstrellasCalificacionComponent, ReactiveFormsModule, RouterLink, FormsModule, CommonModule],
   templateUrl: './cliente-trabajo-pagar.component.html',
   styleUrl: './cliente-trabajo-pagar.component.css'
 })
@@ -30,6 +32,9 @@ export class ClienteTrabajoPagarComponent implements OnInit{
   calificacion?:modeloCalificacion;
   isPaying: boolean = false;
   oferta?: modeloOferta;
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   constructor(private formBuilder: FormBuilder){
     this.idTrabajo = Number(this.route.snapshot.paramMap.get('idTrabajo'));
   }
@@ -59,14 +64,33 @@ export class ClienteTrabajoPagarComponent implements OnInit{
     this._oferta.seeOfertaDetails(this.idTrabajo).subscribe((ofertaData)=>{
       this.oferta = ofertaData;
     })
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
   }
-  
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
+  }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
+  }
   logout(){ //Metodo que nos ayuda a cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;

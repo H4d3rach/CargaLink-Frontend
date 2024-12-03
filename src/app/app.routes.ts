@@ -30,7 +30,6 @@ import { ClienteGestionTrabajosComponent } from './pages/rep_cli/cliente-gestion
 import { ClienteConfiguracionComponent } from './pages/rep_cli/cliente-configuracion/cliente-configuracion.component';
 import { ClienteOfertaDetallesComponent } from './pages/rep_cli/cliente-oferta-detalles/cliente-oferta-detalles.component';
 import { ClienteOfertaPostulacionesComponent } from './pages/rep_cli/cliente-oferta-postulaciones/cliente-oferta-postulaciones.component';
-import { ClientePostulacionesDetallesComponent } from './pages/rep_cli/cliente-postulaciones-detalles/cliente-postulaciones-detalles.component';
 import { ClienteTrabajoDetallesComponent } from './pages/rep_cli/cliente-trabajo-detalles/cliente-trabajo-detalles.component';
 import { ClienteTrabajoPagarComponent } from './pages/rep_cli/cliente-trabajo-pagar/cliente-trabajo-pagar.component';
 import { AdminHomeComponent } from './pages/admin/admin-home/admin-home.component';
@@ -84,7 +83,6 @@ export const routes: Routes = [
     {path: 'cliente/gestion/trabajo/detalles/:idTrabajo', component: ClienteOfertaDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/gestion/oferta/postulante/:idRepresentante', component: ClienteTransporteDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/gestion/oferta/postulaciones/:idOferta', component: ClienteOfertaPostulacionesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
-    {path: 'cliente/gestion/oferta/postulaciones/detalles/:idPostulacion', component: ClientePostulacionesDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/gestion/oferta/detalles/:idOferta', component: ClienteTrabajoDetallesComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/gestion/trabajo/pagar/:idTrabajo', component: ClienteTrabajoPagarComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},
     {path: 'cliente/configuracion', component: ClienteConfiguracionComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_CLIENTE'}},

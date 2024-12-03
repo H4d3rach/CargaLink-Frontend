@@ -4,14 +4,15 @@ import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { SedeService } from '../../../servicios/sedes/sede.service';
 import { SemirremolqueService } from '../../../servicios/semirremolques/semirremolque.service';
 import { Router, RouterLink } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { modeloSede } from '../../../servicios/sedes/modeloSede';
 import { modeloSemirremolque } from '../../../servicios/semirremolques/modeloSemirremolque';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
 
 @Component({
   selector: 'app-reg-semirremolque',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,RouterLink],
+  imports: [CommonModule, ReactiveFormsModule,RouterLink, FormsModule],
   templateUrl: './reg-semirremolque.component.html',
   styleUrl: './reg-semirremolque.component.css'
 })
@@ -28,6 +29,9 @@ export class RegSemirremolqueComponent implements OnInit{
   errorBool: boolean = false;
   errorSemi: string = ""; 
   sedeList: modeloSede[] = [];
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   constructor(private formBuilder: FormBuilder){
 
   }
@@ -65,8 +69,23 @@ export class RegSemirremolqueComponent implements OnInit{
         this.isSedeRegister = true;
     }
     })
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
   }
-
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
+  }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
+  }
   registrarSemi(){
     if(this.semiForm.valid){ //Se comunica con el backend solo cuando los datos del formulario son válidos
       let body = { //Construccion del body request con el objeto de semirremolque
@@ -109,8 +128,13 @@ export class RegSemirremolqueComponent implements OnInit{
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
+
   }
   logout(){ //Funcion para cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

@@ -4,11 +4,13 @@ import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { Router, RouterLink } from '@angular/router';
 import { modeloVehiculo } from '../../../servicios/vehiculos/modeloVehiculo';
 import { VehiculoService } from '../../../servicios/vehiculos/vehiculo.service';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-gestion-vehiculo',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './gestion-vehiculo.component.html',
   styleUrl: './gestion-vehiculo.component.css'
 })
@@ -22,6 +24,9 @@ export class GestionVehiculoComponent implements OnInit {
   isCardOpen: boolean = false;
   isUserLogged: boolean = false;
   vehiculosList: modeloVehiculo[] = [];
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   ngOnInit(): void {
     this._login.ifisUserLogged.subscribe({ //Esta suscripción a el servicio login nos ayudará a detectar que el usuario esté logueado
       next:(isUserLogged)=>{              //Si no es así se dirige a la ventana de login
@@ -39,6 +44,14 @@ export class GestionVehiculoComponent implements OnInit {
     this._vehiculo.getAllVehiculos().subscribe((vehiculoData)=>{ //Obtencion de una lista de todos los vehiculos registrados
       this.vehiculosList = vehiculoData;
     })
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
+  }
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
   }
   formatText(text: string): string { //Metodo que ayuda a  darle formato a respuestas que lo requieran
     return text
@@ -57,6 +70,14 @@ export class GestionVehiculoComponent implements OnInit {
       }
     })
   }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
+  }
   editarVehiculo(placa: string){ //Metodo que redirige al componente para editar el vehiculo
     this.router.navigate(['/rep_trans/vehiculos',placa]);
   }
@@ -65,8 +86,12 @@ export class GestionVehiculoComponent implements OnInit {
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   logout(){ //Funcion para cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

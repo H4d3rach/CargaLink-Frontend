@@ -4,15 +4,16 @@ import { TransportistaService } from '../../../servicios/transportistas/transpor
 import { SedeService } from '../../../servicios/sedes/sede.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { modeloSede } from '../../../servicios/sedes/modeloSede';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { transportistaModelo } from '../../../servicios/transportistas/transportistaModelo';
 import { CommonModule } from '@angular/common';
 import { updTransRepModelo } from '../../../servicios/transportistas/updTransRepModelo';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
 
 @Component({
   selector: 'app-upd-transportista',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, FormsModule],
   templateUrl: './upd-transportista.component.html',
   styleUrl: './upd-transportista.component.css'
 })
@@ -30,6 +31,9 @@ export class UpdTransportistaComponent implements OnInit {
   errorTrans: string = "";
   sedeList: modeloSede[] = [];
   idTrans: string | null = "";
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   constructor(private formBuilder: FormBuilder){
     this.idTrans = this.route.snapshot.paramMap.get('id'); //Obtencion del id por medio de la url
   }
@@ -77,8 +81,23 @@ export class UpdTransportistaComponent implements OnInit {
         })
       }
     })
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
   }
-
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
+  }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
+  }
   updTrans(){
     if(this.transForm.valid){
       let body = { //Creacion del body request para actualizar
@@ -114,8 +133,12 @@ export class UpdTransportistaComponent implements OnInit {
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   logout(){ //Funcion para cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

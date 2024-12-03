@@ -6,11 +6,13 @@ import { modeloOferta } from '../../../servicios/ofertas/modeloOferta';
 import { OfertaService } from '../../../servicios/ofertas/oferta.service';
 import { PostulacionService } from '../../../servicios/postulaciones/postulacion.service';
 import { modeloMensaje } from '../../../servicios/chats/modeloMensaje';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-principal',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './principal.component.html',
   styleUrl: './principal.component.css'
 })
@@ -28,6 +30,9 @@ export class PrincipalComponent implements OnInit {
   private _oferta = inject(OfertaService); //Inyeccion del servicio de oferta
   private _postulacion = inject(PostulacionService);
   private router = inject(Router); //Inyeccion del router
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   constructor(){
   }
   ngOnInit(): void {
@@ -56,9 +61,24 @@ export class PrincipalComponent implements OnInit {
     error: (error) =>{
         this.isUserValid = false;
     }
-  })
+  });
+  const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
   }
-
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
+  }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
+  }
   verDetalles(id: number){
     this.router.navigate(['/rep_trans/detalles_trabajo', id]);
   }
@@ -70,6 +90,7 @@ export class PrincipalComponent implements OnInit {
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   toggleCard(){
     this.isCardOpen = !this.isCardOpen;
@@ -78,6 +99,9 @@ export class PrincipalComponent implements OnInit {
     this.router.navigate(['/rep_trans/chat/',id]);
   }
   logout(){ //Metodo que nos ayuda a cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

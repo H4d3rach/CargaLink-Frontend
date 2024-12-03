@@ -4,11 +4,13 @@ import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { ChatService } from '../../../servicios/chats/chat.service';
 import { Router, RouterLink } from '@angular/router';
 import { modeloUsuario } from '../../../servicios/chats/modeloMensaje';
+import { FormsModule } from '@angular/forms';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
 
 @Component({
   selector: 'app-trans-chat',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './trans-chat.component.html',
   styleUrl: './trans-chat.component.css'
 })
@@ -22,6 +24,9 @@ export class TransChatComponent implements OnInit{
   isUserLogged: boolean = false;
   usuariosChat: modeloUsuario[] = [];
   idUser: string = "";
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   constructor(){
     const userInfo =sessionStorage.getItem('UserInfo');
     if(userInfo){
@@ -48,18 +53,38 @@ export class TransChatComponent implements OnInit{
                             .flatMap(chat => [chat.usuario1, chat.usuario2])
                             .filter(usuario => usuario.idUsuario != this.idUser);
         console.log(this.usuariosChat);
+    });
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
+  }
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
+  }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
     })
+    this.preguntaChat=""
   }
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   chat(id: string){
     this.router.navigate(['/transportista/chat/',id]);
   }
   logout(){ //Funcion que nos ayuda a cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }

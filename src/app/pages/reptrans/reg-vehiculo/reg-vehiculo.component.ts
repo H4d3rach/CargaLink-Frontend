@@ -4,14 +4,15 @@ import { LoginService } from '../../../servicios/autenticacion/login.service';
 import { Router, RouterLink } from '@angular/router';
 import { modeloSede } from '../../../servicios/sedes/modeloSede';
 import { SedeService } from '../../../servicios/sedes/sede.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VehiculoService } from '../../../servicios/vehiculos/vehiculo.service';
 import { modeloVehiculo } from '../../../servicios/vehiculos/modeloVehiculo';
+import { ChatBService } from '../../../servicios/chatbot/chat-b.service';
 
 @Component({
   selector: 'app-reg-vehiculo',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,RouterLink],
+  imports: [CommonModule,ReactiveFormsModule,RouterLink, FormsModule],
   templateUrl: './reg-vehiculo.component.html',
   styleUrl: './reg-vehiculo.component.css'
 })
@@ -29,6 +30,9 @@ export class RegVehiculoComponent implements OnInit{
   errorVehiculo: string = ""; //Variables para obtener errores y mostrar alertas en el html
   errorBool: boolean = false;
   sedeList: modeloSede[] = [];
+  private _chatbot = inject(ChatBService);
+  preguntaChat: string = '';
+  historialMensajesChatbot: {clase: string, msj: string}[] = [];
   constructor(private formBuilder: FormBuilder){ //Inyeccion del formBuilder
 
   }
@@ -69,8 +73,23 @@ export class RegVehiculoComponent implements OnInit{
         this.isSedeRegister = true;
     }
     })
+    const historial = localStorage.getItem('chatMensajes');
+  if(historial){
+    this.historialMensajesChatbot = JSON.parse(historial);
   }
-
+  const chatOpenGuardado = localStorage.getItem('chatOpen'); 
+  if(chatOpenGuardado){
+    this.chatOpen = chatOpenGuardado === 'true';
+  }
+  }
+  preguntarChat(){
+    this.historialMensajesChatbot.push({clase: 'usuario', msj: this.preguntaChat});
+    this._chatbot.usarChatbot(this.preguntaChat).subscribe((respuesta)=>{
+      this.historialMensajesChatbot.push({clase: 'bot', msj: respuesta.respuesta});
+      localStorage.setItem('chatMensajes', JSON.stringify(this.historialMensajesChatbot));
+    })
+    this.preguntaChat=""
+  }
   registrarVehiculo(){ //Metodo que nos ayuda a registrar el vehiculo, utiliza el servicio de vehiculo
     if(this.vehiculoForm.valid){ //Se comunica con el backend solo cuando los datos del formulario son válidos
       let body = {} //Construccion del body request para el caso de camion unitario o tracto dependiendo de lo ingresado en el formulario
@@ -134,11 +153,15 @@ export class RegVehiculoComponent implements OnInit{
   }
   funcionChat(){
     this.chatOpen = !this.chatOpen;
+    localStorage.setItem('chatOpen', this.chatOpen ? 'true' : 'false');
   }
   seleccionCU(){
     this.isCUSelected = !this.isCUSelected;
   }
   logout(){ //Funcion para cerrar sesión
+    localStorage.removeItem("chatMensajes");
+    localStorage.removeItem("chatOpen");
+    localStorage.removeItem("TipoEmpresa");
     this._login.logout();
     this.router.navigateByUrl('');
   }
