@@ -1,0 +1,43 @@
+.text-cargalink_1-67 {
+    color: #000000;
+    font-size: 24px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0%;
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .nav-link-custom{
+    color: black;
+    text-decoration: none;
+  }
+  .nav-link-custom:hover {
+    color: #333; 
+  }
+  .nav-link-custom.active {
+    color: #333;
+    font-weight: bold; 
+  }
+  .text_footer_titulos{
+    color:#000000;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0%;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .text_footer_items{
+    color: #9f9f9f;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .txt_header_emptrans{
+    color: #000000;
+    font-size: 32px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0px;
+    text-decoration: none;
+    font-weight: 700;
+  }

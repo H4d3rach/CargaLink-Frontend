@@ -43,6 +43,8 @@ import { ClienteTransporteDetallesComponent } from './pages/rep_cli/cliente-tran
 import { SeeViajeDetailsComponent } from './pages/reptrans/see-viaje-details/see-viaje-details.component';
 import { ConfigurarViajeComponent } from './pages/reptrans/configurar-viaje/configurar-viaje.component';
 import { UpdRecursosComponent } from './pages/reptrans/upd-recursos/upd-recursos.component';
+import { TermsComponent } from './pages/terms/terms.component';
+import { UsComponent } from './pages/us/us.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent },
@@ -50,6 +52,8 @@ export const routes: Routes = [
     {path: 'etransporte_registro', component: ETransporteRegistroComponent},
     {path: 'ecliente_registro', component: EClienteRegistroComponent},
     {path: 'usuario_registro', component: UsuarioRegistroComponent},
+    {path: 'terms', component: TermsComponent},
+    {path: 'us', component: UsComponent},
     {path: 'rep_trans', component: PrincipalComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/detalles_trabajo/:idTrabajo', component: SeeWorkDetailsComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/detallesViaje/:idTrabajo', component: SeeViajeDetailsComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
