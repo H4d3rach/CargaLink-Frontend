@@ -18,11 +18,16 @@ export class LoginComponent implements OnInit{
   tokenDecoded?: any;
   errorLogin: string = "";
   errorBool: boolean = false;
+  forgetPassword: boolean = false;
+  resetPassTrue: boolean = false;
+  resetPassFalse: boolean = false;
   loginForm = this.formBuilder.group({ //Se crea el formulario de login, así se maneja en Angular con un formBuilder
     correo: ['', [Validators.required, Validators.email]],  //Nos ayuda a que el input del correo se le ingresen datos válidos
     password: ['', [Validators.required]], //Se requiere si o si el password
   })
-  
+  resetForm = this.formBuilder.group({
+    correo: ['',[Validators.required]]
+  })
   constructor(private formBuilder: FormBuilder){ //Forma de inyectar el formBuilder de acuerdo a la documentación
 
   }
@@ -38,6 +43,27 @@ export class LoginComponent implements OnInit{
           }else if(this.tokenDecoded?.rol=='ADMINISTRADOR'){
             this.router.navigateByUrl('admin');
           }}
+  }
+  solicitarCambioContra(){
+    this.forgetPassword = true;
+  }
+  restaurarPass(){
+    if(this.resetForm.valid){
+      const email = this.resetForm.get('correo')?.value || '';
+      this._login.reestablecerPassMail(email).subscribe({
+        next: ()=>{
+          this.resetPassTrue = true;
+          this.resetPassFalse = false;
+        },
+        error: (error)=>{
+          console.log(error)
+          this.resetPassFalse = true;
+          this.resetPassTrue = false;
+        }
+      })
+    }else{
+      this.resetForm.markAllAsTouched()
+    }
   }
   iniciarSesion(){
     if(this.loginForm.valid){ //Se comunica con el backend solo cuando los datos del formulario son válidos
@@ -79,7 +105,9 @@ export class LoginComponent implements OnInit{
   get password(){ //Nos ayuda a obtener el control del input del password para Llamarlo desde el html
     return this.loginForm.controls.password;
   }
-
+  get resetCorreo(){
+    return this.resetForm.controls.correo;
+  }
   
 
   

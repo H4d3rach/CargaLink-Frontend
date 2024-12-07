@@ -45,6 +45,7 @@ import { ConfigurarViajeComponent } from './pages/reptrans/configurar-viaje/conf
 import { UpdRecursosComponent } from './pages/reptrans/upd-recursos/upd-recursos.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { UsComponent } from './pages/us/us.component';
+import { ResetComponent } from './pages/reset/reset.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent },
@@ -54,6 +55,7 @@ export const routes: Routes = [
     {path: 'usuario_registro', component: UsuarioRegistroComponent},
     {path: 'terms', component: TermsComponent},
     {path: 'us', component: UsComponent},
+    {path: 'reset-password', component: ResetComponent},
     {path: 'rep_trans', component: PrincipalComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/detalles_trabajo/:idTrabajo', component: SeeWorkDetailsComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},
     {path: 'rep_trans/detallesViaje/:idTrabajo', component: SeeViajeDetailsComponent, canActivate: [rutasGuard], data: {rol: 'REPRESENTANTE_TRANSPORTE'}},

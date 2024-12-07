@@ -29,6 +29,9 @@ export class EClienteRegistroComponent {
       }
     }    )
   }
+  gotoTerms(){
+    this.router.navigateByUrl('terms');
+  }
   registroParcial(){ //Función para guardar la información de la empresa y nos dirige a la vista del registro del usuario
     if(this.ecliForm.valid){ //Confirmación de que el formulario tenga la información válida
       const formData = new FormData(); //Variable que guardará la información obtenida en el formulario

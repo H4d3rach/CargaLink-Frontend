@@ -12,7 +12,7 @@
             <li><a routerLink="/" class="nav-link-custom px-2">Principal</a></li>
             <li><a routerLink="/etransporte_registro" class="nav-link-custom px-2">Empresa Transportista</a></li>
             <li><a routerLink="/ecliente_registro" class="nav-link-custom px-2">Empresa cliente</a></li>
-            <li><a routerLink="/nosotros" class="nav-link-custom px-2">Nosotros</a></li>
+            <li><a routerLink="/us" class="nav-link-custom px-2">Nosotros</a></li>
         </ul>
 
         <div class="col-md-3 text-end">
@@ -34,6 +34,36 @@
 <div class="container">
     <div class="login-form">
         <div class="login-form2">
+            @if (resetPassTrue) {
+                <div class="alert alert-primary" role="alert">
+                    Enviamos la confirmación a tu correo electrónico
+                  </div>
+            }
+            @if (resetPassFalse) {
+                <div class="alert alert-secondary" role="alert">
+                    Error, inténtalo de nuevo
+                  </div>
+            }
+            @if (forgetPassword) {
+                <form [formGroup]="resetForm"> <!--Se crea el formulario que trabajamos desde el TypeScript-->
+                    <h2 class="mt-3 mb-3">Restauración de contraseña</h2>
+                    <div class="mb-5">
+                        <input formControlName="correo" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Ingresar correo electronico">
+                            @if (resetCorreo.invalid && (resetCorreo.dirty || resetCorreo.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                                <div class="text-danger">
+                                    @if (resetCorreo.errors?.['required']) {
+                                        <div>Debe ingresar email</div>
+                                    }
+                                </div>
+                            }
+                    </div>
+                    <div class="div-btn-login">
+                        
+                    <button type="submit" class="btn btn-login" (click)="restaurarPass()">Cambiar contraseña</button>
+                </div>
+                </form>
+            }@else {
             <form [formGroup]="loginForm"> <!--Se crea el formulario que trabajamos desde el TypeScript-->
                 @if(errorBool){ <!--Si se obtiene un error en el formulario, se mostrará una alerta-->
                 <div class="alert alert-danger" role="alert">
@@ -66,10 +96,13 @@
                         </div>
                     }
                 </div>
+                <a class="text-question" (click)="solicitarCambioContra()" style="cursor: pointer;">¿Olvidaste tu contraseña?</a>
                 <div class="div-btn-login">
+                    
                 <button type="submit" class="btn btn-login" (click)="iniciarSesion()">Iniciar Sesión</button>
             </div>
             </form>
+        }
         </div>
     </div>
 </div>

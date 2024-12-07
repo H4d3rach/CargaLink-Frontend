@@ -12,7 +12,7 @@
             <li><a routerLink="/" class="nav-link-custom px-2">Principal</a></li>
             <li><a routerLink="/etransporte_registro" class="nav-link-custom px-2">Empresa Transportista</a></li>
             <li><a routerLink="/ecliente_registro" class="nav-link-custom px-2 active">Empresa cliente</a></li>
-            <li><a routerLink="/nosotros" class="nav-link-custom px-2">Nosotros</a></li>
+            <li><a routerLink="/us" class="nav-link-custom px-2">Nosotros</a></li>
         </ul>
 
         <div class="col-md-3 text-end">
@@ -110,6 +110,7 @@
                 </div>
                 <div class="mb-5">
                 <p class="text-question">*Todos los campos son obligatorios</p>
+                <p (click)="gotoTerms()" style="cursor: pointer; text-decoration: underline;">Términos y condiciones</p>
             </div>
                 <div class="div-btn-login"> <!--Botón para registrar empresa que llama la función registroParcial en el ts-->
                     <button (click)="registroParcial()" class="btn btn-custumed">Siguiente</button>

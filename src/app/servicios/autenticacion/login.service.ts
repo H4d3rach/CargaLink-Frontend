@@ -32,7 +32,23 @@ export class LoginService {
       catchError(this.manejadorErrores)
     )
   }
-
+  reestablecerPassMail(email: string): Observable<any>{
+    let body = {
+      email: email
+    }
+    return this._http.post<any>('http://localhost:8082/auth/reset-password-mail',body).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
+  resetPass(token: string, pass: string): Observable<any>{
+    let reset = {
+      token: token,
+      password: pass
+    }
+    return this._http.post<any>('http://localhost:8082/auth/reset-password',reset).pipe(
+      catchError(this.manejadorErrores)
+    )
+  }
   getUserInfo(){ //Metodo que nos devuelve la información decodificada del token que se guardó previamente en el session storage
     const userinfo = sessionStorage.getItem("UserInfo");
     return userinfo ? JSON.parse(userinfo) : null;

@@ -1,0 +1,125 @@
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+        <div class="col-md-3 mb-2 mb-md-0">
+            <a href="/"
+                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <img src="assets/iconoprincipal.png" alt="Logo" width="auto" height="35" class="me-2">
+                <span class="fs-4">CargaLink</span>
+            </a>
+        </div>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a routerLink="/" class="nav-link-custom px-2">Principal</a></li>
+            <li><a routerLink="/etransporte_registro" class="nav-link-custom px-2">Empresa Transportista</a></li>
+            <li><a routerLink="/ecliente_registro" class="nav-link-custom px-2">Empresa cliente</a></li>
+            <li><a routerLink="/us" class="nav-link-custom px-2">Nosotros</a></li>
+        </ul>
+
+        <div class="col-md-3 text-end">
+            <button routerLink="/login" type="button" class="btn btn-outline-dark me-2">Iniciar Sesión</button>
+        </div>
+    </header>
+</div>
+
+<div class="container">
+    <div class="login-form">
+        <div class="login-form2">
+            <h2>Reestablecer Contraseña</h2>
+            <form [formGroup]="resetForm"> <!--Se crea el formulario que trabajamos desde el TypeScript-->
+                <div class="mb-5">
+                    <label for="exampleInputPassword1" class="form-label form-texto">Nueva Contraseña</label>
+                    <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="*************">
+                    @if (password.invalid && (password.dirty || password.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                        <div class="text-danger" style="display: flex; flex-direction: column;">
+                            @if (password.errors?.['required']) {
+                                <div>Debe ingresar contraseña</div>
+                            }
+                            @if(password.errors?.['sinMayuscula']){
+                                <div>{{password.getError('sinMayuscula')}}</div>
+                            }
+                            @if(password.errors?.['sinMinuscula']){
+                                <div>{{password.getError('sinMinuscula')}}</div>
+                            }
+                            @if(password.errors?.['sinNumero']){
+                                <div>{{password.getError('sinNumero')}}</div>
+                            }
+                            @if(password.errors?.['longitud']){
+                               <div>{{password.getError('longitud')}}</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="mb-5">
+                    <label for="exampleInputPassword2" class="form-label form-texto">Confirmar Contraseña</label>
+                    <input formControlName="confirmPassword" type="password" class="form-control" id="exampleInputPassword2" placeholder="*************">
+                    @if (confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)) { <!--Control del correo, es requerido y debe tener formato valido-->
+                        <div class="text-danger">
+                            @if (confirmPassword.errors?.['required']) {
+                                <div>Debe ingresar contraseña validacion</div>
+                            }
+                            @if (confirmPassword.errors?.['passwordMatch']) {
+                                <div>Las contraseñas no coinciden</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="div-btn-login">
+                <button type="submit" class="btn btn-login" (click)="resetPass()">Confirmar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer class="py-5 my-5 border-top">
+    <div class="container">
+        <div class="row row row-cols-1 row-cols-sm-2 row-cols-md-5">
+            <div class="col mb-3">
+                <a href="/"
+                    class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none text-cargalink_1-67">CargaLink
+                    CDMX</a>
+                <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                    <img src="assets/iconoprincipal.png" alt="Logo" width="auto" height="35" class="me-2">
+                </a>
+                <p class="text-body-secondary text_footer_items">cargalinkcdmx&#64;gmail.com</p>
+            </div>
+
+            <div class="col col-md-4 mb-3">
+
+            </div>
+
+            <div class="col mb-3">
+                <h5 class="text_footer_titulos">Enlaces</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a routerLink="/" class="nav-link p-0 text_footer_items">Principal</a>
+                    </li>
+                    <li class="nav-item mb-2"><a routerLink="/etransporte_registro"
+                            class="nav-link p-0 text_footer_items">Empresas
+                            transportistas</a></li>
+                    <li class="nav-item mb-2"><a routerLink="/ecliente_registro"
+                            class="nav-link p-0 text_footer_items">Empresas
+                            cliente</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col mb-3">
+                <h5 class="text_footer_titulos">Ayuda</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a routerLink="/login" class="nav-link p-0 text_footer_items">Iniciar
+                            sesión</a>
+                    </li>
+                    <li class="nav-item mb-2"><a routerLink="/terms" class="nav-link p-0 text_footer_items">Terminos y
+                            condiciones</a></li>
+                    <li class="nav-item mb-2"><a routerLink="/us" class="nav-link p-0 text_footer_items">Nosotros</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            </ul>
+            <p class="text-center text-body-secondary">© 2024 CargaLink CDMX. Todos los derechos reservados</p>
+        </div>
+    </div>
+</footer>

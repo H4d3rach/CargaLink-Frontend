@@ -1,1 +1,160 @@
-<p>us works!</p>
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+        <div class="col-md-3 mb-2 mb-md-0">
+            <a href="/"
+                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <img src="assets/iconoprincipal.png" alt="Logo" width="auto" height="35" class="me-2">
+                <span class="fs-4">CargaLink</span>
+            </a>
+        </div>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a routerLink="/" class="nav-link-custom px-2">Principal</a></li>
+            <li><a routerLink="/etransporte_registro" class="nav-link-custom px-2">Empresa Transportista</a></li>
+            <li><a routerLink="/ecliente_registro" class="nav-link-custom px-2">Empresa cliente</a></li>
+            <li><a routerLink="/us" class="nav-link-custom px-2 active">Nosotros</a></li>
+        </ul>
+
+        <div class="col-md-3 text-end">
+            <button routerLink="/login" type="button" class="btn btn-outline-dark me-2">Iniciar Sesión</button>
+        </div>
+    </header>
+</div>
+<div class="position-relative"> <!--Imagen de header-->
+    <img src="assets/us.png" width="100%" alt="Header registro de clientes" class="img-fluid">
+</div>
+
+<div class="container">
+    <div class="footer-container">
+        <p class="txt_header_emptrans">Nuestra misión</p>
+        <p class="text-lbservicioscliente_1-253">En CargaLink CDMX, la misión es revolucionar el sector del
+            autotransporte de carga en la Ciudad de México, conectando de manera eficiente a empresas de transporte
+            medianas y pequeñas con clientes que necesitan sus servicios.</p>
+
+    </div>
+</div>
+<div class="row  cliente-container">
+    <div class="container">
+        <div class="footer-container">
+            
+            <p class="txt_header_emptrans">Soluciones</p>
+            <p class="text-lbservicioscliente_1-253">CargaLink CDMX ofrece:</p>
+        </div>
+    </div>
+
+    <div class="col-md-4 text-center">
+        <div class="row">
+            <img src="assets/us1.png" class="img-fluid" alt="Almacen">
+        </div>
+        <div class="row">
+            <p class="txt_header_emptrans">Publicación de cargas</p>
+        </div>
+        <div class="row">
+            <p class="text-lbservicioscliente_1-253">
+                Las empresas pueden publicar sus necesidades de transporte directamente en nuestra plataforma.
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4 text-center mb-5">
+        <div class="row">
+            <img src="assets/us2.png" class="img-fluid" alt="Almacen">
+        </div>
+        <div class="row">
+            <p class="txt_header_emptrans">Postulación directa</p>
+        </div>
+        <div class="row">
+            <p class="text-lbservicioscliente_1-253">
+                Las empresas de autotransporte pueden postularse a las cargas disponibles sin intermediarios.
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4 text-center">
+        <div class="row">
+            <img src="assets/us3.png" class="img-fluid" alt="Almacen">
+        </div>
+        <div class="row">
+            <p class="txt_header_emptrans">Sistema de recomendaciones</p>
+        </div>
+        <div class="row">
+            <p class="text-lbservicioscliente_1-253">
+                Los clientes pueden encontrar al transportista ideal según sus necesidades específicas.
+            </p>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="footer-container">
+        <p class="text-lbservicioscliente_1-253">Por qué elegir</p>
+        <p class="txt_header_emptrans">CargaLink CDMX</p>
+    </div>
+</div>
+<div class="position-relative">
+<img src="assets/home_footer.png" class="img-fluid full-width-img bd-placeholder-img" alt="Almacen">
+
+    <div class="position-absolute top-50 start-50 translate-middle text-white"
+        style="background-color: rgba(0, 0, 0, 0.5); padding: 0.5rem; width: 50%;">
+        
+        <ul class="txt_foter">
+            <li>Interfaz Intuitiva: Diseñada pensando en la facilidad de uso, incluso para aquellos menos familiarizados con la tecnología.</li>
+            <li>Apoyo Continuo: Contamos con un chatbot para resolver dudas de manera inmediata.</li>
+            <li>Se busca reducir la necesidad de intermediarios.</li>
+            <li>Facilitando la búsqueda de cargas en zonas de difícil acceso</li>
+            <li>Promoviendo la transparencia y la construcción de reputación directa</li>
+            <li>Adaptándonos a las necesidades específicas de cada cliente y transportista</li>
+            <li (click)="gotoTerms()" style="cursor: pointer; text-decoration: underline;">Términos y condiciones</li>
+        </ul>
+    </div>
+</div>
+
+<footer class="py-5 my-5 border-top">
+    <div class="container">
+        <div class="row row row-cols-1 row-cols-sm-2 row-cols-md-5">
+            <div class="col mb-3">
+                <a href="/"
+                    class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none text-cargalink_1-67">CargaLink
+                    CDMX</a>
+                <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                    <img src="assets/iconoprincipal.png" alt="Logo" width="auto" height="35" class="me-2">
+                </a>
+                <p class="text-body-secondary text_footer_items">cargalinkcdmx&#64;gmail.com</p>
+            </div>
+
+            <div class="col col-md-4 mb-3">
+
+            </div>
+
+            <div class="col mb-3">
+                <h5 class="text_footer_titulos">Enlaces</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a routerLink="/" class="nav-link p-0 text_footer_items">Principal</a>
+                    </li>
+                    <li class="nav-item mb-2"><a routerLink="/etransporte_registro"
+                            class="nav-link p-0 text_footer_items">Empresas
+                            transportistas</a></li>
+                    <li class="nav-item mb-2"><a routerLink="/ecliente_registro"
+                            class="nav-link p-0 text_footer_items">Empresas
+                            cliente</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col mb-3">
+                <h5 class="text_footer_titulos">Ayuda</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a routerLink="/login" class="nav-link p-0 text_footer_items">Iniciar
+                            sesión</a>
+                    </li>
+                    <li class="nav-item mb-2"><a routerLink="/terms" class="nav-link p-0 text_footer_items">Terminos y
+                            condiciones</a></li>
+                    <li class="nav-item mb-2"><a routerLink="/us" class="nav-link p-0 text_footer_items">Nosotros</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            </ul>
+            <p class="text-center text-body-secondary">© 2024 CargaLink CDMX. Todos los derechos reservados</p>
+        </div>
+    </div>
+</footer>
