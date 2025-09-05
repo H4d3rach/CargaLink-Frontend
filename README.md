@@ -1,6 +1,6 @@
 # CargaLink CDMX Frontend
 Frontend of **CargaLink CDMX**, a web application developed as part of a **Bachelor’s Thesis at ESCOM (IPN)**.  
-The system connects small and medium-sized freight transport companies with businesses requiring cargo services in Mexico City.  
+The system connects SME freight transport companies with businesses requiring cargo services in Mexico City.  
 
 This repository contains the **Angular-based frontend** that provides a responsive and user-friendly interface for interacting with the backend APIs. It includes modules for authentication, cargo management, trip handling, AI-powered recommendations, chatbot support, and real-time chat.
 
