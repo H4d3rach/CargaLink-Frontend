@@ -11,10 +11,12 @@ This repository contains the **Angular-based frontend** that provides a responsi
 
 CargaLink CDMX streamlines the process of finding and hiring freight transport services.  
 It reduces the dependence on intermediaries, promotes transparency, and fosters fair competition among transport companies.  
+
 It is built with **Angular** and styled with **Bootstrap**, ensuring cross-device compatibility and scalability for future mobile and desktop implementations.
+
 You can find the backend repository [here](https://github.com/Shutman-ZTAY/CargaLink-BackEnd/)
 You can find the ai repository [here]()
----
+
 
 ## User Roles
 
