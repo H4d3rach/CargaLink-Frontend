@@ -15,7 +15,7 @@ It reduces the dependence on intermediaries, promotes transparency, and fosters 
 It is built with **Angular** and styled with **Bootstrap**, ensuring cross-device compatibility and scalability for future mobile and desktop implementations.
 
 You can find the backend repository [here](https://github.com/Shutman-ZTAY/CargaLink-BackEnd/)
-You can find the ai repository [here]()
+You can find the ai repository [here](https://github.com/H4d3rach/cargalink-ai/)
 
 
 ## User Roles
